@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Violations from "./pages/Violations";
 import NotFound from "./pages/Error/NotFound";
-import Violation from "./pages/Violations/show";
+import Violation from "./pages/Violation/Page";
 import Dashboard from "./pages/Dashboard";
 import PublicLayout from "./layouts/PublicLayout";
 import LandingPage from "./pages/PublicAccess";

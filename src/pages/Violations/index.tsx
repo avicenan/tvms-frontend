@@ -45,7 +45,7 @@ export default function Violations() {
   }
 
   return (
-    <div className="max-w-[1000px] mx-[24px] w-full">
+    <div className="">
       <div className="">
         <DataTable columns={columns} data={data} />
       </div>

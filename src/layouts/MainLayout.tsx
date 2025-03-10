@@ -67,8 +67,10 @@ export default function Layout() {
           </div>
         </header>
         <main>
-          <div className="flex items-center gap-2 justify-center">
-            <Outlet />
+          <div className="flex items-center gap-2 justify-center ">
+            <div className="max-w-[1000px] mx-[24px] w-full">
+              <Outlet />
+            </div>
           </div>
         </main>
       </SidebarInset>
