@@ -45,7 +45,7 @@ export default function Violation() {
         <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl">Detail Pelanggaran {violationId}</div>
         <div className=" flex gap-x-2 items-center text-end justify-end">
           <div className=" text-sm font-normal text-zinc-500">Selesaikan proses validasi sebelum</div>
-          <TimerUI time={13} onLast10Sec={handleLast10Sec} onTimeout={handleTimeout} />
+          <TimerUI time={600} onLast10Sec={handleLast10Sec} onTimeout={handleTimeout} />
         </div>
       </div>
       <div className="flex flex-col gap-2 border border-dashed border-zinc-400 rounded-xl p-4">

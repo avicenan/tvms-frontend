@@ -19,10 +19,6 @@ export default function EnterDialog({ open, onOpenChange }: EnterDialogProps) {
         <DialogHeader>
           <DialogTitle>Selesaikan proses sebelum waktu habis</DialogTitle>
           <DialogDescription>Proses validasi dibatasi oleh waktu, segera selesaikan proses sebelum waktu habis.</DialogDescription>
-          {/* <div className="flex text-lg font-bold items-center">
-            <Timer />
-            00:10:00
-          </div> */}
           <TimerUI time={600} />
         </DialogHeader>
         <DialogFooter>

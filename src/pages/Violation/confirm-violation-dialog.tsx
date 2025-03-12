@@ -21,7 +21,7 @@ export default function ConfirmViolationDialog() {
           <span>Sepeda Motor - Yamaha NMax - Merah</span>
           <span>Tidak Menggunakan Helm</span>
           <span className="mb-4">Jl. Telekomunikasi - Rabu, 24 Agustus 2023 13:30</span>
-          <span className="font-semibold">Petugas: Wahyudi - 2387293</span>
+          <span className="font-semibold">Penyidik: Wahyudi - 2387293</span>
         </div>
         <DialogFooter>
           <Button type="submit">Konfirmasi</Button>

@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
   type: z.enum(["bukan_pelanggaran", "identitas_salah", "lainnya"], {
@@ -44,7 +43,7 @@ export function CancelViolationForm() {
                     <FormControl>
                       <RadioGroupItem value="bukan_pelanggaran" />
                     </FormControl>
-                    <FormLabel className="font-normal">Bukan pelanggaran</FormLabel>
+                    <FormLabel className="font-normal">Tidak melakukan pelanggaran</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>

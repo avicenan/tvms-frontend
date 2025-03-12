@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AudioWaveform, BarChartBig, Camera, Command, GalleryVerticalEnd, Ticket, TrafficCone, Users } from "lucide-react";
+import { AudioWaveform, BarChartBig, Camera, Command, Ticket, TrafficCone, Users } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
@@ -16,9 +16,9 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "TVMS",
+      logo: TrafficCone,
+      plan: "Korlantas Polri",
     },
     {
       name: "Acme Corp.",
@@ -33,7 +33,7 @@ const data = {
   ],
   navMain: [
     {
-      name: "Dashboard",
+      name: "Dasbor",
       url: "/d/dashboard",
       icon: BarChartBig,
     },

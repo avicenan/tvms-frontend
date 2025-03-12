@@ -3,7 +3,7 @@ import { Input } from "../../../components/ui/input";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "./filterData";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, X } from "lucide-react";
+import { X } from "lucide-react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

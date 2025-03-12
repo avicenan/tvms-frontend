@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import Violations from "./pages/Violations";
+import Violations from "./pages/Violations/Page";
 import NotFound from "./pages/Error/NotFound";
 import Violation from "./pages/Violation/Page";
 import Dashboard from "./pages/Dashboard";
