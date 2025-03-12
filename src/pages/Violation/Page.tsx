@@ -1,11 +1,43 @@
 import { useNavigate, useParams } from "react-router-dom";
 import ConfirmViolationDialog from "./confirm-violation-dialog";
 import CancelViolationDialog from "./cancel-violation-dialog";
-import ValidationTimer from "./validation-timer";
+import { useState } from "react";
+import TimeoutDialog from "./timeout-dialog";
+import { toast } from "sonner";
+import EnterDialog from "./enter-dialog";
+import TimerUI from "@/components/ui/timer";
 
 export default function Violation() {
+  // console.log("rendering page..");
   const { violationId } = useParams();
+  const [isEnterDialogOpen, setIsEnterDialogOpen] = useState(true);
+  const [isTimeoutDialogOpen, setIsTimeoutDialogOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleTimeout = () => {
+    toast("Timeout", {
+      description: "Waktu validasi telah habis",
+    });
+    // console.log("render..");
+    navigate("/d/violations");
+  };
+
+  const handleExit = () => {
+    navigate("/d/violations");
+  };
+
+  const handleLast10Sec = () => {
+    setIsTimeoutDialogOpen(true);
+  };
+
+  const handleRefreshSession = () => {
+    // send  request refresh session
+    navigate(0);
+  };
+
+  // useEffect(() => {
+  //   setIsEnterDialogOpen(true);
+  // }, [isEnterDialogOpen]);
 
   return (
     <div className="flex flex-col gap-4 border-amber-200 pb-4">
@@ -13,7 +45,7 @@ export default function Violation() {
         <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl">Detail Pelanggaran {violationId}</div>
         <div className=" flex gap-x-2 items-center text-end justify-end">
           <div className=" text-sm font-normal text-zinc-500">Selesaikan proses validasi sebelum</div>
-          <ValidationTimer time={600} timeoutNavigate={navigate} />
+          <TimerUI time={13} onLast10Sec={handleLast10Sec} onTimeout={handleTimeout} />
         </div>
       </div>
       <div className="flex flex-col gap-2 border border-dashed border-zinc-400 rounded-xl p-4">
@@ -42,7 +74,7 @@ export default function Violation() {
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Nomor Kendaran</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">B-3244-KHK</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Jenis Kendaraan</span>
@@ -75,6 +107,8 @@ export default function Violation() {
           <CancelViolationDialog />
         </div>
       </div>
+      <EnterDialog open={isEnterDialogOpen} onOpenChange={() => setIsEnterDialogOpen(false)} />
+      <TimeoutDialog open={isTimeoutDialogOpen} onExit={handleExit} onRefreshSession={handleRefreshSession} />
     </div>
   );
 }

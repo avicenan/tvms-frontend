@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { columns, Violation } from "./DataTable/columns";
 import { DataTable } from "./DataTable/data-table";
+import { Loader } from "lucide-react";
 
 async function getData(): Promise<Violation[]> {
   // Fetch data from your API here.
@@ -41,7 +42,11 @@ export default function Violations() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center gap-2 text-zinc-600">
+        <Loader className="animate-spin" /> Memuat...
+      </div>
+    );
   }
 
   return (

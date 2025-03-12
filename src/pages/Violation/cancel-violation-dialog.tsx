@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { CircleX } from "lucide-react";
+import { CancelViolationForm } from "./cancel-violation-form";
 
 export default function CancelViolationDialog() {
   return (
@@ -24,7 +25,7 @@ export default function CancelViolationDialog() {
           <span className="font-semibold">Petugas: Wahyudi - 2387293</span>
         </div>
         <div className="">
-          <span className="font-semibold">Bukan pelanggaran</span> karena:
+          <CancelViolationForm />
         </div>
       </DialogContent>
     </Dialog>
