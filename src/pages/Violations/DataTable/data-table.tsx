@@ -18,8 +18,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   const table = useReactTable({
     data,
     columns,
-    state: {
+    initialState: {
       columnFilters,
+      pagination: {
+        pageIndex: 0,
+        pageSize: 9,
+      },
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -56,7 +60,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Tidak ada hasil.
                 </TableCell>
               </TableRow>
             )}

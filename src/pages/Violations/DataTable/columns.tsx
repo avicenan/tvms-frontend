@@ -90,10 +90,13 @@ export const columns: ColumnDef<Violation>[] = [
         }
       };
       return (
-        <Badge variant={"outline"} className={`${colorTheme()}`}>
-          <span className={`w-2 h-2 me-1 text-xs font-semibold rounded-full bg-zinc-400`} />
-          {status}
-        </Badge>
+        <div className="flex flex-col gap-2">
+          <Badge variant={"outline"} className={`${colorTheme()}`}>
+            <span className={`w-2 h-2 me-1 text-xs font-semibold rounded-full bg-zinc-400`} />
+            {status}
+          </Badge>
+          {/* <span className="text-xs text-zinc-500">01/03/2023 13:30 </span> */}
+        </div>
       );
     },
   },
@@ -112,13 +115,11 @@ export const columns: ColumnDef<Violation>[] = [
           );
         case "tilang":
           return (
-            <div className="flex gap-2">
-              <Button asChild>
-                <Link to={`/d/tickets/${violation.ticket_no}`}>
-                  <Ticket /> Surat Tilang
-                </Link>
-              </Button>
-            </div>
+            <Button variant={"outline"} asChild>
+              <Link to={`/d/tickets/${violation.unique_id}`}>
+                <Ticket /> Surat Tilang
+              </Link>
+            </Button>
           );
         case "batal":
           return (

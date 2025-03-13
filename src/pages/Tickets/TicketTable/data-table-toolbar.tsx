@@ -4,6 +4,8 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "./filterData";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useNavigate } from "react-router-dom";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -11,9 +13,23 @@ interface DataTableToolbarProps<TData> {
 
 export default function DataTableToolBar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const navigate = useNavigate();
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
+        <Tabs defaultValue="nurman">
+          <TabsList>
+            <TabsTrigger value="all" onClick={() => navigate("")}>
+              Semua
+            </TabsTrigger>
+            <TabsTrigger value="nurman" onClick={() => navigate(`?user=nurman`)}>
+              Kasus Saya
+            </TabsTrigger>
+          </TabsList>
+          {/* <TabsContent value="account">Make changes to your account here.</TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent> */}
+        </Tabs>
         <Input
           placeholder="Cari no kendaraan..."
           value={(table.getColumn("vehicle_no")?.getFilterValue() as string) ?? ""}

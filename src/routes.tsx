@@ -6,8 +6,9 @@ import Violation from "./pages/Violation/Page";
 import Dashboard from "./pages/Dashboard";
 import PublicLayout from "./layouts/PublicLayout";
 import LandingPage from "./pages/PublicAccess";
-import Tickets from "./pages/Tickets";
 import ReportViolation from "./pages/ReportViolation";
+import TicketPage from "./pages/Ticket/Page";
+import TicketsPage from "./pages/Tickets/Page";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
       { path: "violations", element: <Violations /> },
       { path: "violations/:violationId", element: <Violation /> },
       { path: "report-violation", element: <ReportViolation /> },
-      { path: "tickets", element: <Tickets /> },
+      { path: "tickets", element: <TicketsPage /> },
+      { path: "tickets/:ticketId", element: <TicketPage /> },
       { path: "users", element: <div>users</div> },
     ],
   },

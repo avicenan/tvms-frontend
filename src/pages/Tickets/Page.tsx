@@ -41,7 +41,7 @@ async function getData(): Promise<Ticket[]> {
     },
   ];
 }
-export default function Tickets() {
+export default function TicketsPage() {
   const [data, setData] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
 
