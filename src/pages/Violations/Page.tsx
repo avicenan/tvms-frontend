@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { columns, Violation } from "./DataTable/columns";
 import { DataTable } from "./DataTable/data-table";
-import { Loader, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Loader, TrafficCone } from "lucide-react";
 
 async function getData(): Promise<Violation[]> {
   // Fetch data from your API here.
@@ -119,7 +118,7 @@ async function getData(): Promise<Violation[]> {
   ];
 }
 
-export default function Violations() {
+export default function ViolationsPage() {
   const [data, setData] = useState<Violation[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -142,7 +141,9 @@ export default function Violations() {
 
   return (
     <div className="px-4 lg:px-0">
-      <h1 className="text-lg font-bold mb-4">Pelanggaran Terdeteksi</h1>
+      <h1 className="flex items-center gap-2 text-lg font-bold mb-4">
+        <TrafficCone /> Pelanggaran Terdeteksi
+      </h1>
       {/* <Button variant={"outline"} className="absolute right-10">
         <RefreshCw />
       </Button> */}

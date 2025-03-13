@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { DataTable } from "./TicketTable/data-table";
-import { Loader } from "lucide-react";
-import { AllTicketTable } from "./AllTicketTable/data-table";
-import { allTicketColumns, Ticket } from "./AllTicketTable/columns";
-import { ticketColumns } from "./TicketTable/columns";
+import { DataTable } from "./DataTable/data-table";
+import { Loader, Ticket } from "lucide-react";
+import { ticketColumns, TicketType } from "./DataTable/columns";
 
-async function getData(): Promise<Ticket[]> {
+async function getData(): Promise<TicketType[]> {
   // Fetch data from your API here.
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return [
@@ -14,17 +12,7 @@ async function getData(): Promise<Ticket[]> {
       unique_id: "212xer",
       vehicle_no: "B2938KKK",
       type: "Helm",
-      datetime: "2023-01-01 10:00:00",
-      officer: "Nurman",
-      location: "Jl. Telekomunikasi, Jakarta",
-      status: "Terdeteksi",
-    },
-    {
-      id: 2,
-      unique_id: "212xer",
-      vehicle_no: "B7765KOK",
-      type: "Helm",
-      datetime: "2023-01-01 10:00:00",
+      datetime: "01/01/2023 10:00:00 PM",
       officer: "Nurman",
       location: "Jl. Telekomunikasi, Jakarta",
       status: "Tilang",
@@ -34,15 +22,45 @@ async function getData(): Promise<Ticket[]> {
       unique_id: "212xer",
       vehicle_no: "B7765KOK",
       type: "Helm",
-      datetime: "2023-01-01 10:00:00",
+      datetime: "01/01/2023 10:00:00 PM",
       officer: "Nurman",
       location: "Jl. Telekomunikasi, Jakarta",
-      status: "Selesai",
+      status: "Himbauan",
+    },
+    {
+      id: 2,
+      unique_id: "212xer",
+      vehicle_no: "B7765KOK",
+      type: "Helm",
+      datetime: "01/01/2023 10:00:00 PM",
+      officer: "Nurman",
+      location: "Jl. Telekomunikasi, Jakarta",
+      status: "Persidangan",
+    },
+    {
+      id: 2,
+      unique_id: "212xer",
+      vehicle_no: "B7765KOK",
+      type: "Helm",
+      datetime: "01/01/2023 10:00:00 PM",
+      officer: "Nurman",
+      location: "Jl. Telekomunikasi, Jakarta",
+      status: "Sudah Bayar",
+    },
+    {
+      id: 2,
+      unique_id: "212xer",
+      vehicle_no: "B7765KOK",
+      type: "Helm",
+      datetime: "01/01/2023 10:00:00 PM",
+      officer: "Nurman",
+      location: "Jl. Telekomunikasi, Jakarta",
+      status: "Lewat Tenggat",
     },
   ];
 }
 export default function TicketsPage() {
-  const [data, setData] = useState<Ticket[]>([]);
+  const [data, setData] = useState<TicketType[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,10 +82,10 @@ export default function TicketsPage() {
 
   return (
     <div>
-      <h2 className="text-lg font-bold mb-4">Kasus Sedang Ditangani</h2>
+      <h2 className="text-lg font-bold mb-4 flex gap-2 items-center">
+        <Ticket /> Surat Tilang
+      </h2>
       <DataTable columns={ticketColumns} data={data} />
-      <h2 className="text-lg font-bold mb-4">Semua Kasus</h2>
-      <AllTicketTable columns={allTicketColumns} data={data} />
     </div>
   );
 }

@@ -1,20 +1,21 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@radix-ui/react-separator";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 export default function Layout() {
   const { pathname } = useLocation();
   const pathArray = pathname.split("/").slice(2);
+
   return (
-    <SidebarProvider>
+    <SidebarProvider className="">
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
+        <header className="flex shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 mb-4">
+          <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Separator orientation="vertical" className=" mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
                 {/* <BreadcrumbItem className="hidden md:block">
@@ -66,13 +67,11 @@ export default function Layout() {
             </Breadcrumb>
           </div>
         </header>
-        <main>
-          <div className="flex items-center gap-2 justify-center ">
-            <div className="max-w-[1000px] mx-[24px] w-full">
-              <Outlet />
-            </div>
+        <div className="flex items-center gap-2 justify-center ">
+          <div className="max-w-[1000px] w-full">
+            <Outlet />
           </div>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

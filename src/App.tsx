@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Toaster } from "./components/ui/sonner";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import PublicLayout from "./layouts/PublicLayout";
+import MainLayout from "./layouts/MainLayout";
+import LandingPage from "./pages/PublicAccess";
+import Dashboard from "./pages/Dashboard";
+import ViolationsPage from "./pages/Violations/Page";
+import Violation from "./pages/Violation/Page";
+import TicketPage from "./pages/Ticket/Page";
+import TicketsPage from "./pages/Tickets/Page";
+import NotFound from "./pages/Error/NotFound";
+import { useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname == "/d" || pathname == "/d/") {
+      navigate("/d/dashboard");
+    }
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <main className="text-start">
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<PublicLayout />}>
+          <Route index element={<LandingPage />} />
+        </Route>
+        <Route path="/d" element={<MainLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="violations" element={<ViolationsPage />} />
+          <Route path="violations/:violationId" element={<Violation />} />
+          <Route path="tickets" element={<TicketsPage />} />
+          <Route path="tickets/:ticketId" element={<TicketPage />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </main>
+  );
 }
-
-export default App
+export default App;
