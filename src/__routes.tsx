@@ -3,7 +3,7 @@ import MainLayout from "./layouts/MainLayout";
 import Violations from "./pages/Violations/Page";
 import NotFound from "./pages/Error/NotFound";
 import Violation from "./pages/Violation/Page";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Page";
 import PublicLayout from "./layouts/PublicLayout";
 import LandingPage from "./pages/PublicAccess";
 import ReportViolation from "./pages/ReportViolation";

@@ -3,8 +3,8 @@ import { Toaster } from "./components/ui/sonner";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
 import MainLayout from "./layouts/MainLayout";
+import DashboardPage from "./pages/Dashboard/Page";
 import LandingPage from "./pages/PublicAccess";
-import Dashboard from "./pages/Dashboard";
 import ViolationsPage from "./pages/Violations/Page";
 import Violation from "./pages/Violation/Page";
 import TicketPage from "./pages/Ticket/Page";
@@ -30,7 +30,7 @@ function App() {
           <Route index element={<LandingPage />} />
         </Route>
         <Route path="/d" element={<MainLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<DashboardPage />} />
           <Route path="violations" element={<ViolationsPage />} />
           <Route path="violations/:violationId" element={<Violation />} />
           <Route path="tickets" element={<TicketsPage />} />
