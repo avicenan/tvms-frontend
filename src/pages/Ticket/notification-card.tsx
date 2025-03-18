@@ -26,8 +26,10 @@ export default function NotificationCard() {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-between items-baseline gap-2">
-          <span className=" text-sm font-normal text-zinc-500">Kirim himbauan sebelum Jumat, 27-12-2025</span>
+        <div className="flex flex-wrap justify-between items-center gap-2">
+          <span className="flex-1 text-sm font-normal text-zinc-500">
+            Kirim pemberitahuan sebelum <br /> Jumat, 27-12-2025
+          </span>
           <SendNotificationDialog />
         </div>
       </div>

@@ -10,7 +10,7 @@ export function SendNotificationDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="cursor-pointer">
           <Send /> Kirim Himbauan
         </Button>
       </DialogTrigger>

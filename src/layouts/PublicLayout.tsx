@@ -1,3 +1,13 @@
+import Footer from "@/pages/PublicAccess/Home/footer";
+import { Outlet } from "react-router-dom";
+
 export default function PublicLayout() {
-  return <div>This is public</div>;
+  return (
+    <div>
+      <div className="min-h-screen">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  );
 }

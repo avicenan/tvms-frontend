@@ -86,7 +86,7 @@ button:focus-visible {
 
   --popover-foreground: oklch(0.141 0.005 285.823);
 
-  --primary: oklch(0.21 0.006 285.885);
+  --primary: #003366;
 
   --primary-foreground: oklch(0.985 0 0);
 

@@ -4,13 +4,14 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
 import MainLayout from "./layouts/MainLayout";
 import DashboardPage from "./pages/Dashboard/Page";
-import LandingPage from "./pages/PublicAccess";
+import LandingPage from "./pages/PublicAccess/Home";
 import ViolationsPage from "./pages/Violations/Page";
 import Violation from "./pages/Violation/Page";
 import TicketPage from "./pages/Ticket/Page";
 import TicketsPage from "./pages/Tickets/Page";
 import NotFound from "./pages/Error/NotFound";
 import { useEffect } from "react";
+import MyTicket from "./pages/PublicAccess/Ticket";
 
 function App() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<LandingPage />} />
+          <Route path="tickets" element={<MyTicket />} />
         </Route>
         <Route path="/d" element={<MainLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />

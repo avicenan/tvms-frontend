@@ -6,6 +6,7 @@ import FineCard from "./fine-card";
 import EvidenceCard from "./evidence-card";
 import ActivityCard from "./activity-card";
 import NotificationCard from "./notification-card";
+import AppealCard from "./appeal-card";
 
 export default function TicketPage() {
   const { ticketId } = useParams();
@@ -22,6 +23,7 @@ export default function TicketPage() {
           </div>
           <div className="grid grid-flow-row auto-rows-max gap-4">
             <EvidenceCard />
+            <AppealCard />
             <NotificationCard />
             <ActivityCard />
           </div>
