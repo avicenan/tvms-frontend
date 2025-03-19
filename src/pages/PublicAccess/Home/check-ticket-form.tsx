@@ -5,7 +5,7 @@ import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "react-router-dom";
 
 const checkTicket = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ success: true, data: { message: "Tiket ditemukan" } });
     }, 1500);
@@ -23,7 +23,7 @@ export default function CheckTicketForm() {
     onSubmit: async ({ value }) => {
       const res = await checkTicket();
       console.log(res);
-      navigate(`/tickets?vehicle_no=${value.vehicle_no}&ticket_no=${value.ticket_no}`);
+      navigate(`/tickets?vno=${value.vehicle_no}&tno=${value.ticket_no}`);
     },
   });
   return (
@@ -41,7 +41,7 @@ export default function CheckTicketForm() {
             <>
               <div className="flex flex-col gap-2 justify-center text-center">
                 <div className="text-sm font-semibold">Nomor Tilang</div>
-                <Input type="ticket_no" id="ticket_no" placeholder="hh5s-323n-43u7" className="" onChange={(e) => field.handleChange(e.target.value)} />
+                <Input type="ticket_no" id="ticket_no" placeholder="hh5s-323n-43u7" className="" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} />
                 <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
               </div>
             </>
@@ -53,7 +53,7 @@ export default function CheckTicketForm() {
             <>
               <div className="flex flex-col gap-2 justify-center text-center">
                 <div className="text-sm font-semibold">Nomor Kendaraan</div>
-                <Input type="vehicle_no" id="vehicle_no" placeholder="B5623KKK" onChange={(e) => field.handleChange(e.target.value)} />
+                <Input type="vehicle_no" id="vehicle_no" placeholder="B5623KKK" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} />
                 <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
               </div>
             </>

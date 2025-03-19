@@ -1,4 +1,4 @@
-import NavMenu from "@/pages/PublicAccess/Home/nav-menu";
+import NavMenu from "@/pages/PublicAccess/nav-menu";
 import Footer from "@/pages/PublicAccess/Home/footer";
 import { Outlet } from "react-router-dom";
 

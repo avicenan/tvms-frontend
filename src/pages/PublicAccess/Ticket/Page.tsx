@@ -3,9 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function ViolationDetailPage() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  console.log(searchParams);
+
+  useEffect(() => {
+    if (!searchParams.has("vno") || !searchParams.has("tno")) {
+      // if the data is unavailable
+      navigate("/");
+    }
+  }, [searchParams, navigate]);
+
   const violationId = 21324234;
 
   // In a real application, you would fetch the violation data based on the ID
@@ -30,7 +42,7 @@ export default function ViolationDetailPage() {
             <div>
               <Link to="/" className="inline-flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mb-2">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to search
+                Kembali ke halaman utama
               </Link>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Surat Tilang #{violationId}</h1>
               <div className="flex items-center mt-2">
@@ -73,7 +85,7 @@ export default function ViolationDetailPage() {
                     </div>
                     <div className="flex items-center">
                       <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
-                      <span>Fine: {violationData.fine}</span>
+                      <span>Denda: {violationData.fine}</span>
                     </div>
                   </div>
                 </div>
@@ -168,7 +180,7 @@ export default function ViolationDetailPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Bukti Foto</CardTitle>
-                  <CardDescription>Photographic evidence of the violation</CardDescription>
+                  <CardDescription>Bukti fotografis pelanggaran</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-6 sm:grid-cols-2">
@@ -182,7 +194,7 @@ export default function ViolationDetailPage() {
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Vehicle captured at the intersection</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Kendaraan terdeteksi melalui kamera</p>
                     </div>
 
                     <div className="space-y-3">
@@ -195,7 +207,7 @@ export default function ViolationDetailPage() {
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Close-up of vehicle license plate</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Tampak dekat plat nomor kendaraan</p>
                     </div>
                   </div>
                 </CardContent>
@@ -220,11 +232,11 @@ export default function ViolationDetailPage() {
                       </CardTitle>
                       <CardDescription>Pay your fine quickly and securely</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="h-full">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Pay your fine of {violationData.fine} using credit card, debit card, or bank transfer.</p>
                     </CardContent>
                     <CardFooter>
-                      <Button className="w-full">Pay Now</Button>
+                      <Button className="w-full">Bayar Sekarang</Button>
                     </CardFooter>
                   </Card>
 
@@ -236,12 +248,12 @@ export default function ViolationDetailPage() {
                       </CardTitle>
                       <CardDescription>Provide additional evidence</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="h-full">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Upload photos, videos, or documents that may help your case.</p>
                     </CardContent>
                     <CardFooter>
                       <Button variant="outline" className="w-full">
-                        Upload Files
+                        Unggah Bukti
                       </Button>
                     </CardFooter>
                   </Card>
@@ -254,12 +266,12 @@ export default function ViolationDetailPage() {
                       </CardTitle>
                       <CardDescription>Dispute the violation</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="h-full">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Schedule a court hearing to contest this violation.</p>
                     </CardContent>
                     <CardFooter>
                       <Button variant="outline" className="w-full">
-                        Contest Violation
+                        Gugat Pelanggaran
                       </Button>
                     </CardFooter>
                   </Card>

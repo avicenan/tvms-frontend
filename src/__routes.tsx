@@ -6,7 +6,7 @@ import Violation from "./pages/Violation/Page";
 import Dashboard from "./pages/Dashboard/Page";
 import PublicLayout from "./layouts/PublicLayout";
 import LandingPage from "./pages/PublicAccess";
-import ReportViolation from "./pages/ReportViolation";
+import ReportViolation from "./pages/ReportViolation/Page";
 import TicketPage from "./pages/Ticket/Page";
 import TicketsPage from "./pages/Tickets/Page";
 

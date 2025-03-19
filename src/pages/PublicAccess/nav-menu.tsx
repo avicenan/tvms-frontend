@@ -31,7 +31,7 @@ export default function NavMenu() {
         </nav>
         <div className=" flex md:hidden">
           <Sheet>
-            <SheetTrigger>
+            <SheetTrigger asChild>
               <Button variant={"outline"}>
                 <Menu />
               </Button>

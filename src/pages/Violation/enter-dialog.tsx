@@ -19,7 +19,7 @@ export default function EnterDialog({ open, onOpenChange }: EnterDialogProps) {
         <DialogHeader>
           <DialogTitle>Selesaikan proses sebelum waktu habis</DialogTitle>
           <DialogDescription>Proses validasi dibatasi oleh waktu, segera selesaikan proses sebelum waktu habis.</DialogDescription>
-          <TimerUI time={600} />
+          <TimerUI time={600} className="md:justify-start justify-center" />
         </DialogHeader>
         <DialogFooter>
           <Button onClick={() => onOpenChange()}>Mengerti</Button>
