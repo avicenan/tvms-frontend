@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ export default function CheckTicketForm() {
     },
   });
   return (
-    <div className="bg-white lg:p-8 p-4 rounded-xl w-full lg:w-200">
+    <Card className="bg-white lg:p-8 p-4 rounded-xl w-full lg:w-200">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -67,6 +68,6 @@ export default function CheckTicketForm() {
           )}
         />
       </form>
-    </div>
+    </Card>
   );
 }

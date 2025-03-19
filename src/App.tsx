@@ -4,14 +4,14 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
 import MainLayout from "./layouts/MainLayout";
 import DashboardPage from "./pages/Dashboard/Page";
-import LandingPage from "./pages/PublicAccess/Home";
+import LandingPage from "./pages/PublicAccess/Home/Page";
 import ViolationsPage from "./pages/Violations/Page";
 import Violation from "./pages/Violation/Page";
 import TicketPage from "./pages/Ticket/Page";
 import TicketsPage from "./pages/Tickets/Page";
 import NotFound from "./pages/Error/NotFound";
 import { useEffect } from "react";
-import MyTicket from "./pages/PublicAccess/Ticket";
+import MyTicket from "./pages/PublicAccess/Ticket/Page";
 
 function App() {
   const navigate = useNavigate();
