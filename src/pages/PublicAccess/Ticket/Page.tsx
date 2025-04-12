@@ -186,7 +186,7 @@ export default function ViolationDetailPage() {
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-3">
                       <div className="relative aspect-video overflow-hidden rounded-lg border bg-muted">
-                        <img src="https://placehold.co/600x400" alt="Traffic violation photo 1" width={600} height={400} className="object-cover max-w-50" />
+                        <img src="https://c8.alamy.com/comp/HXRW5G/vietnamese-families-heading-to-lunar-new-year-celebrations-in-hanoi-HXRW5G.jpg" alt="Traffic violation photo 1" width={600} height={400} className="object-cover" />
                         <div className="absolute bottom-2 right-2">
                           <Badge className="bg-black/70 hover:bg-black/70">
                             <Camera className="h-3 w-3 mr-1" />
@@ -199,7 +199,13 @@ export default function ViolationDetailPage() {
 
                     <div className="space-y-3">
                       <div className="relative aspect-video overflow-hidden rounded-lg border bg-muted">
-                        <img src="/placeholder.svg?height=400&width=600" alt="Traffic violation photo 2" width={600} height={400} className="object-cover" />
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg"
+                          alt="Traffic violation photo 2"
+                          width={600}
+                          height={400}
+                          className="object-cover"
+                        />
                         <div className="absolute bottom-2 right-2">
                           <Badge className="bg-black/70 hover:bg-black/70">
                             <Camera className="h-3 w-3 mr-1" />

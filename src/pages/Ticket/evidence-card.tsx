@@ -7,10 +7,10 @@ export default function EvidenceCard() {
         </div>
         <div className="">
           <div className="flex flex-wrap gap-2">
-            <img className="flex-1 max-h-96 object-contain bg-zinc-100" src="https://placehold.co/1000x600" alt="" />
+            <img className="flex-1 max-h-96 object-contain bg-zinc-100" src="https://c8.alamy.com/comp/HXRW5G/vietnamese-families-heading-to-lunar-new-year-celebrations-in-hanoi-HXRW5G.jpg" alt="" />
             <div className="flex-1 flex flex-col md:flex-row flex-nowrap gap-2 items-start">
               <div className="flex-1">
-                <img src="https://placehold.co/600x400" alt="" className="" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="" />
               </div>
               <div className="flex-1">
                 <img src="https://placehold.co/600x400" alt="" className="" />

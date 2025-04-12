@@ -3,7 +3,10 @@
 import { Bar, BarChart } from "recharts";
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { LucideFileWarning } from "lucide-react";
+import { ViolationTypeChart } from "./violation-types";
+import { ViolationTrendsChart } from "./violation-trends";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -35,17 +38,67 @@ export default function DashboardPage() {
     // </ChartContainer>
     <>
       <div className="flex flex-1 flex-col gap-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3 *:bg-zinc-200 *:min-h-36 *:h-full">
-          <div>01</div>
-          <div>02</div>
-          <div>03</div>
-          <div>04</div>
-          <div className="md:col-span-2">05</div>
+        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
+          <Card className="gap-2">
+            <CardHeader>
+              <CardTitle className="flex justify-between items-center">
+                <div className="">Total Pelanggaran</div>
+                <LucideFileWarning size={16} className="text-zinc-600" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-sm text-zinc-500">+15% from previous month</div>
+            </CardContent>
+          </Card>
+          <Card className="gap-2">
+            <CardHeader>
+              <CardTitle className="flex justify-between items-center">
+                <div className="">Total Penilangan</div>
+                <LucideFileWarning size={16} className="text-zinc-600" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-sm text-zinc-500">+15% from previous month</div>
+            </CardContent>
+          </Card>
+          <Card className="gap-2">
+            <CardHeader>
+              <CardTitle className="flex justify-between items-center">
+                <div className="">Total Denda</div>
+                <LucideFileWarning size={16} className="text-zinc-600" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold mb-1">Rp. 12,223</div>
+              <div className="text-sm text-zinc-500">+15% from previous month</div>
+            </CardContent>
+          </Card>
+          <Card className="gap-2">
+            <CardHeader>
+              <CardTitle className="flex justify-between items-center">
+                <div className="">Total Kendaraan Tilang</div>
+                <LucideFileWarning size={16} className="text-zinc-600" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-sm text-zinc-500">+15% from previous month</div>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+          <div className="col-span-2">
+            <ViolationTypeChart />
+          </div>
+          <ViolationTrendsChart />
+          {/* <div className="md:col-span-2">05</div>
           <div>06</div>
           <div className="md:row-span-2">07</div>
           <div>08</div>
           <div>09</div>
-          <div>10</div>
+          <div>10</div> */}
         </div>
       </div>
     </>

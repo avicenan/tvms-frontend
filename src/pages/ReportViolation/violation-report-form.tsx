@@ -134,7 +134,7 @@ export function ViolationReportForm() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <div className="grid gap-2">
+              {/* <div className="grid gap-2">
                 <Label htmlFor="reporter-name">Your Name</Label>
                 <Input id="reporter-name" placeholder="Enter your full name" required />
               </div>
@@ -147,7 +147,7 @@ export function ViolationReportForm() {
               <div className="grid gap-2">
                 <Label htmlFor="reporter-phone">Your Phone Number</Label>
                 <Input id="reporter-phone" type="tel" placeholder="Enter your phone number" />
-              </div>
+              </div> */}
 
               <div className="grid gap-2">
                 <Label htmlFor="additional-notes">Additional Notes</Label>
