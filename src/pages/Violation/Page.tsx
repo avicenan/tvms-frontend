@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import EnterDialog from "./enter-dialog";
 import TimerUI from "@/components/ui/timer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// import object_detect from "src/assets/object_detect.jpeg";
 
 export default function Violation() {
   // console.log("rendering page..");
@@ -55,10 +56,10 @@ export default function Violation() {
           <CardDescription>Rabu, 24-05-2025 13:30 - Jl. Telekomunikasi - CCTV hiwe78j</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2 items-start flex-wrap">
-          <img className="flex-1 max-h-96 object-contain bg-zinc-50" src="https://c8.alamy.com/comp/HXRW5G/vietnamese-families-heading-to-lunar-new-year-celebrations-in-hanoi-HXRW5G.jpg" alt="" />
+          <img className="flex-1 max-h-96 object-contain bg-zinc-50" src={"/src/assets/object_detect.jpeg"} alt="" />
           <div className="flex-initial flex xl:flex-col flex-nowrap overflow-x-scroll xl:overflow-x-hidden gap-2 items-start">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className=" max-h-32" />
-            <img src="https://placehold.co/600x400" alt="" className="max-h-32" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="max-h-32" />
             <div className="">
               <div className="">Jl. Telekomunikasi</div>
               <div className="">Rabu, 24-05-2025 13:30</div>
