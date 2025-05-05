@@ -29,7 +29,7 @@ export function ViolationTrendsChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Tren Pelanggaran</CardTitle>
+        <CardTitle>Violation Trends</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>

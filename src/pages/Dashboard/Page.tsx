@@ -42,7 +42,7 @@ export default function DashboardPage() {
           <Card className="gap-2">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
-                <div className="">Total Pelanggaran</div>
+                <div className="">Total Violations</div>
                 <LucideFileWarning size={16} className="text-zinc-600" />
               </CardTitle>
             </CardHeader>
@@ -54,7 +54,7 @@ export default function DashboardPage() {
           <Card className="gap-2">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
-                <div className="">Total Penilangan</div>
+                <div className="">Total Tickets</div>
                 <LucideFileWarning size={16} className="text-zinc-600" />
               </CardTitle>
             </CardHeader>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
           <Card className="gap-2">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
-                <div className="">Total Denda</div>
+                <div className="">Total Fines Amount</div>
                 <LucideFileWarning size={16} className="text-zinc-600" />
               </CardTitle>
             </CardHeader>
@@ -78,7 +78,7 @@ export default function DashboardPage() {
           <Card className="gap-2">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
-                <div className="">Total Kendaraan Tilang</div>
+                <div className="">Total Vehicles Ticketed</div>
                 <LucideFileWarning size={16} className="text-zinc-600" />
               </CardTitle>
             </CardHeader>

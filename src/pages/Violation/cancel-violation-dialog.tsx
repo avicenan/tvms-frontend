@@ -9,7 +9,7 @@ export default function CancelViolationDialog() {
       <DialogTrigger asChild>
         <Button variant={"outline"} className="flex-1 text-xl cursor-pointer">
           <CircleX />
-          Batalkan
+          Cancel
         </Button>
       </DialogTrigger>
       <DialogContent>

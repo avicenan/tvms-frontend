@@ -28,7 +28,7 @@ export default function ViolationDetailPage() {
     time: "10:32 AM",
     location: "Jl. Telekomunikasi 1, Bandung",
     vehicle: "Toyota Camry (ABC-123)",
-    description: "Penumpang/Pengendara tidak mengenakan helm atau tidak mengenakan helm sesuai standar",
+    description: "Passenger/Driver not wearing a helmet or not wearing a helmet according to standards",
     fine: "Rp. 150.000",
     status: "Pending",
     dueDate: "April 15, 2023",
@@ -42,9 +42,9 @@ export default function ViolationDetailPage() {
             <div>
               <Link to="/" className="inline-flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mb-2">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Kembali ke halaman utama
+                Back to main page
               </Link>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Surat Tilang #{violationId}</h1>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Ticket #{violationId}</h1>
               <div className="flex items-center mt-2">
                 <Badge variant={violationData.status === "Pending" ? "outline" : "secondary"}>{violationData.status}</Badge>
                 <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">Issued on {violationData.date}</span>
@@ -68,7 +68,7 @@ export default function ViolationDetailPage() {
               <div className="flex items-start">
                 <AlertTriangle className="h-6 w-6 text-amber-500 mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-xl font-semibold mb-2">Ringkasan Pelanggaran</h2>
+                  <h2 className="text-xl font-semibold mb-2">Summary of Violation</h2>
                   <p className="text-gray-700 dark:text-gray-300">{violationData.description}</p>
                   <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
                     <div className="flex items-center">
@@ -96,8 +96,8 @@ export default function ViolationDetailPage() {
           <Tabs defaultValue="details" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="details">Detail</TabsTrigger>
-              <TabsTrigger value="evidence">Bukti Foto</TabsTrigger>
-              <TabsTrigger value="next-steps">Respon</TabsTrigger>
+              <TabsTrigger value="evidence">Evidence</TabsTrigger>
+              <TabsTrigger value="next-steps">Respond</TabsTrigger>
             </TabsList>
 
             <TabsContent value="details" className="mt-6">
@@ -179,8 +179,8 @@ export default function ViolationDetailPage() {
             <TabsContent value="evidence" className="mt-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Bukti Foto</CardTitle>
-                  <CardDescription>Bukti fotografis pelanggaran</CardDescription>
+                  <CardTitle>Evidence Photo</CardTitle>
+                  <CardDescription>Photographic evidence of violation</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-6 sm:grid-cols-2">
@@ -194,7 +194,7 @@ export default function ViolationDetailPage() {
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Kendaraan terdeteksi melalui kamera</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Vehicle detected via camera</p>
                     </div>
 
                     <div className="space-y-3">
@@ -213,7 +213,7 @@ export default function ViolationDetailPage() {
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Tampak dekat plat nomor kendaraan</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Close up of vehicle license plate</p>
                     </div>
                   </div>
                 </CardContent>
@@ -225,7 +225,7 @@ export default function ViolationDetailPage() {
                 <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
                   <div className="flex items-center">
                     <Calendar className="h-5 w-5 text-amber-600 dark:text-amber-400 mr-3" />
-                    <div className="font-medium">Respon diperlukan sebelum {violationData.dueDate}</div>
+                    <div className="font-medium">Response required before {violationData.dueDate}</div>
                   </div>
                 </div>
 
@@ -234,7 +234,7 @@ export default function ViolationDetailPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center">
                         <DollarSign className="h-5 w-5 mr-2 text-green-600" />
-                        Bayar Denda Online
+                        Pay Maximum Fines
                       </CardTitle>
                       <CardDescription>Pay your fine quickly and securely</CardDescription>
                     </CardHeader>
@@ -242,7 +242,7 @@ export default function ViolationDetailPage() {
                       <p className="text-sm text-gray-500 dark:text-gray-400">Pay your fine of {violationData.fine} using credit card, debit card, or bank transfer.</p>
                     </CardContent>
                     <CardFooter>
-                      <Button className="w-full">Bayar Sekarang</Button>
+                      <Button className="w-full">Pay Now</Button>
                     </CardFooter>
                   </Card>
 
@@ -250,16 +250,16 @@ export default function ViolationDetailPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center">
                         <Upload className="h-5 w-5 mr-2 text-blue-600" />
-                        Buat Bantahan
+                        File an Appeal
                       </CardTitle>
-                      <CardDescription>Provide additional evidence</CardDescription>
+                      <CardDescription>Provide additional proof</CardDescription>
                     </CardHeader>
                     <CardContent className="h-full">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Upload photos, videos, or documents that may help your case.</p>
                     </CardContent>
                     <CardFooter>
                       <Button variant="outline" className="w-full">
-                        Unggah Bukti
+                        Upload Proof
                       </Button>
                     </CardFooter>
                   </Card>
@@ -268,7 +268,7 @@ export default function ViolationDetailPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center">
                         <Scale className="h-5 w-5 mr-2 text-purple-600" />
-                        Hadiri Sidang
+                        Attend Court Hearing
                       </CardTitle>
                       <CardDescription>Dispute the violation</CardDescription>
                     </CardHeader>
@@ -277,7 +277,7 @@ export default function ViolationDetailPage() {
                     </CardContent>
                     <CardFooter>
                       <Button variant="outline" className="w-full">
-                        Gugat Pelanggaran
+                        See Schedule
                       </Button>
                     </CardFooter>
                   </Card>

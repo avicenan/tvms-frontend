@@ -3,7 +3,7 @@ export default function EvidenceCard() {
     <>
       <div className="flex flex-col p-4 border border-zinc-200 rounded-xl gap-2">
         <div className="flex flex-col flex-wrap justify-between items-baseline mb-2">
-          <div className="flex items-center gap-2 font-semibold text-lg">Bukti Pelanggaran</div>
+          <div className="flex items-center gap-2 font-semibold text-lg">Evidence</div>
         </div>
         <div className="">
           <div className="flex flex-wrap gap-2">

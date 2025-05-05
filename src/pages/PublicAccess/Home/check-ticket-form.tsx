@@ -40,7 +40,7 @@ export default function CheckTicketForm() {
           children={(field) => (
             <>
               <div className="flex flex-col gap-2 justify-center text-center">
-                <div className="text-sm font-semibold">Nomor Tilang</div>
+                <div className="text-sm font-semibold">Ticker Number</div>
                 <Input type="ticket_no" id="ticket_no" placeholder="hh5s-323n-43u7" className="" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} />
                 <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
               </div>
@@ -52,7 +52,7 @@ export default function CheckTicketForm() {
           children={(field) => (
             <>
               <div className="flex flex-col gap-2 justify-center text-center">
-                <div className="text-sm font-semibold">Nomor Kendaraan</div>
+                <div className="text-sm font-semibold">Vehicle Number</div>
                 <Input type="vehicle_no" id="vehicle_no" placeholder="B5623KKK" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} />
                 <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
               </div>
@@ -63,7 +63,7 @@ export default function CheckTicketForm() {
           selector={(state) => [state.canSubmit, state.isSubmitting]}
           children={([canSubmit, isSubmitting]) => (
             <Button onClick={form.handleSubmit} type="submit" disabled={!canSubmit} className="w-full mt-8">
-              {isSubmitting ? "..." : "Cek Tilang"}
+              {isSubmitting ? "..." : "Check"}
             </Button>
           )}
         />

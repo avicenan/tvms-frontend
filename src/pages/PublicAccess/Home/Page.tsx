@@ -8,10 +8,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-200 justify-center ">
           <div className="items-center text-center space-y-6 mb-14">
             <h1 className="text-6xl font-bold text-primary">
-              <FlipWords words={["Cek", "Konfirmasi", "Bayar"]} duration={1000} className="text-primary" />
-              <span className=" -ms-2">Tilang</span>
+              <FlipWords words={["Check", "Confirm", "Pay"]} duration={1000} className="text-primary" />
+              <span className=" -ms-1">Violation Ticket</span>
             </h1>
-            <p className="text-primary">Cek status tilang Anda dengan mudah dan cepat! Masukkan nomor tilang dan nomor kendaraan untuk melihat detail pelanggaran, melakukan pembayaran denda secara online.</p>
+            <p className="text-primary">Check your ticket status easily and quickly! Enter the ticket number and vehicle number to see the violation details, make fine payments online.</p>
           </div>
           <CheckTicketForm />
         </div>

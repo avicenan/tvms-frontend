@@ -8,7 +8,7 @@ export default function ConfirmViolationDialog() {
       <DialogTrigger asChild>
         <Button className="flex-1 text-xl cursor-pointer">
           <Ticket />
-          Tilang
+          Ticket
         </Button>
       </DialogTrigger>
       <DialogContent>

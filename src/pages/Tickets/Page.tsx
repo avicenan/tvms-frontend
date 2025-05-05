@@ -83,7 +83,7 @@ export default function TicketsPage() {
   return (
     <div>
       <h2 className="text-lg font-bold mb-4 flex gap-2 items-center">
-        <Ticket /> Surat Tilang
+        <Ticket /> Ticket
       </h2>
       <DataTable columns={ticketColumns} data={data} />
     </div>

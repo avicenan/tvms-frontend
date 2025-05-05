@@ -18,7 +18,7 @@ const data = {
     {
       name: "TVMS",
       logo: TrafficCone,
-      plan: "Korlantas Polri",
+      plan: "Traffic Violation Management System",
     },
     {
       name: "Acme Corp.",
@@ -33,29 +33,29 @@ const data = {
   ],
   navMain: [
     {
-      name: "Dasbor",
+      name: "Dashboard",
       url: "/d/dashboard",
       icon: BarChartBig,
     },
     {
-      name: "Pelanggaran",
+      name: "Violations",
       url: "/d/violations",
       icon: TrafficCone,
     },
     {
-      name: "Surat Tilang",
+      name: "Tickets",
       url: "/d/tickets",
       icon: Ticket,
     },
     {
-      name: "Lapor Pelanggaran",
+      name: "Report Violation",
       url: "/d/report-violation",
       icon: Camera,
     },
   ],
   navAdmin: [
     {
-      name: "Manajemen Akun Polisi",
+      name: "Police Accounts",
       url: "/d/users",
       icon: Users,
     },

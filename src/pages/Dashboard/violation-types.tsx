@@ -25,7 +25,7 @@ export function ViolationTypeChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Jenis Pelanggaran</CardTitle>
+        <CardTitle>Violation Types</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>

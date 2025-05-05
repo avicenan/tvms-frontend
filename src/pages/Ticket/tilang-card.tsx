@@ -7,7 +7,7 @@ export default function TilangCard() {
       <Card className="">
         <CardHeader className="flex flex-col flex-wrap justify-between items-baseline mb-2">
           <span className="flex items-center gap-2 font-semibold text-lg">
-            <Ticket /> Informasi Tilang
+            <Ticket /> Ticket Information
           </span>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -16,28 +16,28 @@ export default function TilangCard() {
             <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Waktu Deteksi</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Rabu, 25/12/2025 14:30</span>
+            <span className="font-normal flex-1 text-zinc-500">Detection Time</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Wednesday, 25/12/2025 14:30</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Lokasi</span>
+            <span className="font-normal flex-1 text-zinc-500">Location</span>
             <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Jl. Telekomunikasi, Kota Bandung</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Pelanggaran</span>
+            <span className="font-normal flex-1 text-zinc-500">Violation</span>
             <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Helm</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Status</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Persidangan</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Court</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Penyidik</span>
+            <span className="font-normal flex-1 text-zinc-500">Officer</span>
             <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Nurman</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Waktu Terbit Surat Tilang</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Kamis, 26/12/2025 1:30</span>
+            <span className="font-normal flex-1 text-zinc-500">Issued Date</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Thursday, 26/12/2025 1:30</span>
           </div>
         </CardContent>
       </Card>

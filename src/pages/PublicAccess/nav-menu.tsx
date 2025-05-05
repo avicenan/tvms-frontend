@@ -10,17 +10,17 @@ export default function NavMenu() {
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center gap-2">
           <TrafficCone />
-          <span className=" font-bold">Korlantas Polri</span>
+          <span className=" font-bold">Traffic Violation Management System</span>
         </Link>
         <nav className="hidden space-x-8 md:flex">
           <Link to="/" className={`text-sm hover:text-zinc-950 ${pathname == "/" ? "font-semibold" : ""}`}>
-            Beranda
+            Home
           </Link>
           <Link to="/help" className="text-sm hover:text-zinc-950 ">
-            Bantuan
+            Help
           </Link>
           <Link to="/about" className="text-sm hover:text-zinc-950">
-            Tentang
+            About
           </Link>
           <Link to="/faqs" className="text-sm hover:text-zinc-950 ">
             FAQs

@@ -13,7 +13,7 @@ export default function TicketPage() {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl mb-4">Surat Tilang #{ticketId}</div>
+        <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl mb-4">Ticket #{ticketId}</div>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="grid grid-flow-row auto-rows-max gap-4 ">
             <TilangCard />

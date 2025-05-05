@@ -44,16 +44,16 @@ export default function Violation() {
   return (
     <div className="flex flex-col gap-4 pb-8">
       <div className="flex flex-wrap justify-between gap-x-2">
-        <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl">Detail Pelanggaran #{violationId}</div>
+        <div className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl">Violation Details #{violationId}</div>
         <div className=" flex gap-x-2 items-center text-end justify-end">
-          <div className=" text-sm font-normal text-zinc-500">Selesaikan proses validasi sebelum</div>
+          <div className=" text-sm font-normal text-zinc-500">Complete the validation process before</div>
           <TimerUI time={600} onLast10Sec={handleLast10Sec} onTimeout={handleTimeout} />
         </div>
       </div>
       <Card className="">
         <CardHeader>
-          <CardTitle>Bukti pelanggaran</CardTitle>
-          <CardDescription>Rabu, 24-05-2025 13:30 - Jl. Telekomunikasi - CCTV hiwe78j</CardDescription>
+          <CardTitle>Evidence of violation</CardTitle>
+          <CardDescription>Wednesday, 05-24-2025 13:30 - Jl. Telekomunikasi - CCTV hiwe78j</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2 items-start flex-wrap">
           <img className="flex-1 max-h-96 object-contain bg-zinc-50" src={"/src/assets/object_detect.jpeg"} alt="" />
@@ -62,7 +62,7 @@ export default function Violation() {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="max-h-32" />
             <div className="">
               <div className="">Jl. Telekomunikasi</div>
-              <div className="">Rabu, 24-05-2025 13:30</div>
+              <div className="">Wednesday, 24-05-2025 13:30</div>
               <div className="">CCTV hiwe78j</div>
             </div>
           </div>
@@ -71,8 +71,8 @@ export default function Violation() {
       <div className="flex flex-col lg:flex-row gap-4">
         <Card className="flex-1 gap-2 rounded-xl">
           <CardHeader>
-            <CardTitle>Informasi Deteksi</CardTitle>
-            <CardDescription>Tekan dua kali untuk melakukan perubahan</CardDescription>
+            <CardTitle>Information</CardTitle>
+            <CardDescription>Double press to make changes</CardDescription>
           </CardHeader>
           {/* <div className="flex flex-col flex-wrap justify-between items-baseline mb-4">
             <span className="font-semibold text-lg">Informasi Deteksi</span>
@@ -80,27 +80,27 @@ export default function Violation() {
           </div> */}
           <CardContent>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Nomor Kendaran</span>
+              <span className="font-normal flex-1 text-zinc-500">Vehicle Number</span>
               <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Jenis Kendaraan</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Sepeda Motor</span>
+              <span className="font-normal flex-1 text-zinc-500">Vehicle Category</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Motorcycle</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Merek Kendaraan</span>
+              <span className="font-normal flex-1 text-zinc-500">Vehicle Brand</span>
               <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Yamaha</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Tipe Kendaraan</span>
+              <span className="font-normal flex-1 text-zinc-500">Vehicle Type</span>
               <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">NMax</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Warna Kendaraan</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Merah</span>
+              <span className="font-normal flex-1 text-zinc-500">Vehicle Color</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Red</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
-              <span className="font-normal flex-1 text-zinc-500">Jenis Pelanggaran</span>
+              <span className="font-normal flex-1 text-zinc-500">Violation</span>
               <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Helm</span>
             </div>
           </CardContent>
