@@ -1,25 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "@tanstack/react-form";
-import { CheckCircle2Icon, MailCheckIcon, Send } from "lucide-react";
+// import { useForm } from "@tanstack/react-form";
+import { MailCheckIcon } from "lucide-react";
 
 export default function SMSForm() {
-  const form = useForm({
-    defaultValues: {
-      to: "085176229987",
-      body: `Kendaraan B3281KKK terdeteksi melanggar lalu lintas.
+  //   const form = useForm({
+  //     defaultValues: {
+  //       to: "085176229987",
+  //       body: `Kendaraan B3281KKK terdeteksi melanggar lalu lintas.
 
-Nomor Tilang: hew7-323n-43u7     
-Cek detail & instruksi di:
-https://www.tilangelektronik.net?no=hew7-323n-43u7&vid=B3281KKK
+  // Nomor Tilang: hew7-323n-43u7
+  // Cek detail & instruksi di:
+  // https://www.tilangelektronik.net?no=hew7-323n-43u7&vid=B3281KKK
 
-Segera tindaklanjuti.
-Korlantas Polri`,
-    },
-    onSubmit: (values) => console.log(values),
-  });
+  // Segera tindaklanjuti.
+  // Korlantas Polri`,
+  //     },
+  //     onSubmit: (values) => console.log(values),
+  //   });
   return (
     <div className="px-2">
       <div className="mb-2">

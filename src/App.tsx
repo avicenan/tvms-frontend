@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import MyTicket from "./pages/PublicAccess/Ticket/Page";
 import ReportViolation from "./pages/ReportViolation/Page";
 import PublicNotFoundPage from "./pages/PublicAccess/Error/NotFound";
+import LoginPage from "./pages/Auth/Login";
 
 function App() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function App() {
           <Route path="tickets/:ticketId" element={<TicketPage />} />
           <Route path="report-violation" element={<ReportViolation />} />
         </Route>
+        <Route path="login" element={<LoginPage />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>

@@ -5,7 +5,7 @@ import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
@@ -42,7 +42,7 @@ export function ViolationReportForm() {
 
     try {
       // In a real application, this would call an API to process the image
-      const result = await processViolationImage(image);
+      const result = await processViolationImage();
       setDetectedInfo(result);
     } catch (error) {
       console.error("Error processing image:", error);

@@ -4,7 +4,7 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "./filterData";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { DatePickerWithRange } from "../../../components/ui/date-picker-range";
+// import { DatePickerWithRange } from "../../../components/ui/date-picker-range";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -23,7 +23,7 @@ export default function DataTableToolBar<TData>({ table }: DataTableToolbarProps
         />
         {table.getColumn("status") && <DataTableFacetedFilter column={table.getColumn("status")} title="Status" options={statuses} />}
         {/* {table.getColumn("status") && <DataTableFacetedFilter column={table.getColumn("officer")} title="Penyidik" options={statuses} />} */}
-        {table.getColumn("datetime") && <DatePickerWithRange column={table.getColumn("datetime")} />}
+        {/* {table.getColumn("datetime") && <DatePickerWithRange column={table.getColumn("datetime")} />} */}
         {isFiltered && (
           <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset

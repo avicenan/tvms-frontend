@@ -3,7 +3,7 @@
 import { DetectedViolationInfo } from "./violation-report-form";
 
 // In a real application, this would call an API or use a machine learning model
-export async function processViolationImage(imageDataUrl: string): Promise<DetectedViolationInfo> {
+export async function processViolationImage(): Promise<DetectedViolationInfo> {
   // Simulate processing delay
   await new Promise((resolve) => setTimeout(resolve, 2000));
 

@@ -1,44 +1,38 @@
 "use client";
 
-import { Bar, BarChart } from "recharts";
+// import { Bar, BarChart } from "recharts";
 
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+// import { ChartConfig } from "@/components/ui/chart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LucideFileWarning } from "lucide-react";
 import { ViolationTypeChart } from "./violation-types";
 import { ViolationTrendsChart } from "./violation-trends";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+// const chartData = [
+//   { month: "January", desktop: 186, mobile: 80 },
+//   { month: "February", desktop: 305, mobile: 200 },
+//   { month: "March", desktop: 237, mobile: 120 },
+//   { month: "April", desktop: 73, mobile: 190 },
+//   { month: "May", desktop: 209, mobile: 130 },
+//   { month: "June", desktop: 214, mobile: 140 },
+// ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-} satisfies ChartConfig;
+// const chartConfig = {
+//   desktop: {
+//     label: "Desktop",
+//     color: "#2563eb",
+//   },
+//   mobile: {
+//     label: "Mobile",
+//     color: "#60a5fa",
+//   },
+// } satisfies ChartConfig;
 
 export default function DashboardPage() {
   return (
-    // <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-    //   <BarChart accessibilityLayer data={chartData}>
-    //     <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-    //     <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-    //   </BarChart>
-    // </ChartContainer>
     <>
-      <div className="flex flex-1 flex-col gap-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
+      <div className="flex flex-1 flex-col gap-2 pt-0">
+        <div className="grid auto-rows-min gap-2 md:grid-cols-4">
           <Card className="gap-2">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
@@ -88,7 +82,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+        <div className="grid auto-rows-min gap-2 md:grid-cols-3">
           <div className="col-span-2">
             <ViolationTypeChart />
           </div>

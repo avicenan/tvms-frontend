@@ -18,40 +18,16 @@ export default function Layout() {
             <Separator orientation="vertical" className=" mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                {/* <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{pathname.split("/").slice(1).length}</BreadcrumbPage>
-                </BreadcrumbItem> */}
-                {/* {pathname
-                  .split("/")
-                  .slice(1)
-                  .map((segment, index) => (
-                    <BreadcrumbItem key={index} className="hidden md:block">
-                      <Link to={`/${segment}`}>
-                        <BreadcrumbLink>{segment}</BreadcrumbLink>
-                      </Link>
-                    </BreadcrumbItem>
-                  ))} */}
-                {/* {pathname.split("/").slice(1).length <= 2 ? (
-                  <BreadcrumbItem>
-                    <Link to={`/${pathname.split("/").slice(1).join("/")}`}>
-                      <BreadcrumbLink className="hidden md:block">{pathname.split("/").slice(1)}</BreadcrumbLink>
-                    </Link>
-                  </BreadcrumbItem>
-                ) : null} */}
                 {pathArray.length <= 1 ? (
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbPage>{pathArray[0]}</BreadcrumbPage>
+                    <BreadcrumbPage style={{ textTransform: "capitalize" }}>{pathArray[0]}</BreadcrumbPage>
                   </BreadcrumbItem>
                 ) : (
                   pathArray.slice(0, -1).map((segment, index) => (
                     <>
                       <BreadcrumbItem className="hidden md:block" key={index}>
                         <Link to={`/d/${segment}`}>
-                          <BreadcrumbLink>{segment}</BreadcrumbLink>
+                          <BreadcrumbLink style={{ textTransform: "capitalize" }}>{segment}</BreadcrumbLink>
                         </Link>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator className="hidden md:block" />
@@ -68,7 +44,7 @@ export default function Layout() {
           </div>
         </header>
         <div className="flex items-center gap-2 justify-center ">
-          <div className="max-w-[1000px] w-full px-4">
+          <div className=" w-full px-4">
             <Outlet />
           </div>
         </div>
