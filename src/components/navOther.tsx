@@ -1,9 +1,9 @@
-import { type LucideIcon } from "lucide-react";
+import { ExternalLink, type LucideIcon } from "lucide-react";
 
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { NavLink, useLocation } from "react-router-dom";
 
-export function NavMain({
+export function NavOther({
   items,
 }: {
   items: {
@@ -15,7 +15,7 @@ export function NavMain({
   const { pathname } = useLocation();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Utama</SidebarGroupLabel>
+      <SidebarGroupLabel>Lainnya</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
@@ -27,12 +27,6 @@ export function NavMain({
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
-        {/* <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem> */}
       </SidebarMenu>
     </SidebarGroup>
   );

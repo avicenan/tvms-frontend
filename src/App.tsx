@@ -15,6 +15,10 @@ import MyTicket from "./pages/PublicAccess/Ticket/Page";
 import ReportViolation from "./pages/ReportViolation/Page";
 import PublicNotFoundPage from "./pages/PublicAccess/Error/NotFound";
 import LoginPage from "./pages/Auth/Login";
+import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ValidationProvider } from "./context/ValidationContext";
+import AppealPage from "./pages/Appeal/Page";
 
 function App() {
   const navigate = useNavigate();
@@ -24,28 +28,82 @@ function App() {
     if (pathname == "/d" || pathname == "/d/") {
       navigate("/d/dashboard");
     }
-  });
+  }, []);
 
   return (
     <main className="text-start">
       <Toaster />
-      <Routes>
-        <Route path="/" element={<PublicLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route path="tickets" element={<MyTicket />} />
-          <Route path="*" element={<PublicNotFoundPage />} />
-        </Route>
-        <Route path="/d" element={<MainLayout />}>
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="violations" element={<ViolationsPage />} />
-          <Route path="violations/:violationId" element={<Violation />} />
-          <Route path="tickets" element={<TicketsPage />} />
-          <Route path="tickets/:ticketId" element={<TicketPage />} />
-          <Route path="report-violation" element={<ReportViolation />} />
-        </Route>
-        <Route path="login" element={<LoginPage />}></Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <ValidationProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<PublicLayout />}>
+              <Route index element={<LandingPage />} />
+              <Route path="tickets" element={<MyTicket />} />
+              <Route path="*" element={<PublicNotFoundPage />} />
+            </Route>
+            <Route path="/d" element={<MainLayout />}>
+              <Route
+                path="dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="violations"
+                element={
+                  <ProtectedRoute>
+                    <ViolationsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="violations/:violationId"
+                element={
+                  <ProtectedRoute>
+                    <Violation />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="tickets"
+                element={
+                  <ProtectedRoute>
+                    <TicketsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="tickets/:ticketId"
+                element={
+                  <ProtectedRoute>
+                    <TicketPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="report-violation"
+                element={
+                  <ProtectedRoute>
+                    <ReportViolation />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="appeals"
+                element={
+                  <ProtectedRoute>
+                    <AppealPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+            <Route path="login" element={<LoginPage />}></Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
+      </ValidationProvider>
     </main>
   );
 }

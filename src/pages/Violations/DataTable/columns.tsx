@@ -9,38 +9,42 @@ import { ScanSearch, Ticket } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type Violation = {
-  id: number;
-  unique_id: string;
-  vehicle_no: string;
-  type: string;
-  datetime: string;
+  id: string;
+  number: string;
+  violation_type: string;
+  created_at: string;
+  evidence: string;
   location: string;
   status: "Tilang" | "Terdeteksi" | "Batal";
-  ticket_no?: string | null;
+  ticket_id?: string;
 };
 
 export const columns: ColumnDef<Violation>[] = [
   {
-    accessorKey: "unique_id",
+    accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => {
+      return <div className="max-w-20 truncate">{row.original.id}</div>;
+    },
   },
   {
-    accessorKey: "vehicle_no",
+    accessorKey: "number",
     header: "No. Kendaraan",
     cell: ({ row }) => {
-      const handleHover = () => {
-        console.log("fetch to server");
-      };
       return (
-        <HoverCard onOpenChange={handleHover}>
+        <HoverCard
+          onOpenChange={() => {
+            console.log("fetch to server", row.original);
+          }}
+        >
           <HoverCardTrigger className=" cursor-default">
             <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
-              {row.original.vehicle_no}
+              {row.original.number}
             </Badge>
           </HoverCardTrigger>
           <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <img src="https://placehold.co/600x400" alt="" />
+            <div className="flex justify-center">
+              <img src={`https://api.etilang.web.id/storage/${row.original.evidence}`} alt={row.original.evidence} />
             </div>
           </HoverCardContent>
         </HoverCard>
@@ -48,15 +52,31 @@ export const columns: ColumnDef<Violation>[] = [
     },
   },
   {
-    accessorKey: "type",
+    accessorKey: "violation_type.name",
     header: "Pelanggaran",
+    cell: ({ row }) => {
+      const type = row.original.violation_type;
+      return <span className="">{type}</span>;
+    },
   },
   {
-    accessorKey: "datetime",
+    accessorKey: "created_at",
     header: "Waktu",
+    cell: ({ row }) => {
+      const createdAt = row.original.created_at;
+      const formattedDate = new Date(createdAt).toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      return <span className="">{formattedDate}</span>;
+    },
   },
   {
-    accessorKey: "location",
+    accessorKey: "camera.location",
     header: "Lokasi",
     cell: ({ row }) => {
       const location = row.original.location;
@@ -108,7 +128,7 @@ export const columns: ColumnDef<Violation>[] = [
         case "terdeteksi":
           return (
             <Button asChild>
-              <Link to={`/d/violations/${violation.unique_id}`}>
+              <Link to={`/d/violations/${violation.id}`}>
                 <ScanSearch /> Proses
               </Link>
             </Button>
@@ -116,7 +136,7 @@ export const columns: ColumnDef<Violation>[] = [
         case "tilang":
           return (
             <Button variant={"outline"} asChild>
-              <Link to={`/d/tickets/${violation.unique_id}`}>
+              <Link to={`/d/tickets/${violation.ticket_id}`}>
                 <Ticket /> Surat Tilang
               </Link>
             </Button>

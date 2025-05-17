@@ -21,34 +21,34 @@ export function DetectedInfo({ detectedInfo, onInfoChange }: DetectedInfoProps) 
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div className="space-y-2">
-        <Label htmlFor="plate-number">License Plate Number</Label>
-        <Input id="plate-number" value={detectedInfo.plateNumber} onChange={(e) => handleChange("plateNumber", e.target.value)} placeholder="License plate number" />
-        <p className="text-xs text-muted-foreground">Confidence: {Math.round(detectedInfo.confidence * 100)}%</p>
+        <Label htmlFor="plate-number">Plat Nomor Kendaraan</Label>
+        <Input id="plate-number" value={detectedInfo.plateNumber} onChange={(e) => handleChange("plateNumber", e.target.value)} placeholder="Plat nomor kendaraan" />
+        <p className="text-xs text-muted-foreground">Kepercayaan: {Math.round(detectedInfo.confidence * 100)}%</p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="violation-type">Violation Type</Label>
+        <Label htmlFor="violation-type">Jenis Pelanggaran</Label>
         <Select value={detectedInfo.violationType} onValueChange={(value) => handleChange("violationType", value)}>
           <SelectTrigger id="violation-type">
-            <SelectValue placeholder="Select violation type" />
+            <SelectValue placeholder="Pilih jenis pelanggaran" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="speeding">Speeding</SelectItem>
-            <SelectItem value="parking">Illegal Parking</SelectItem>
-            <SelectItem value="red-light">Red Light Violation</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
+            <SelectItem value="speeding">Melampaui batas kecepatan</SelectItem>
+            <SelectItem value="helmet">Tidak memakai helm</SelectItem>
+            <SelectItem value="red-light">Melintasi lampu merah</SelectItem>
+            <SelectItem value="other">Lainnya</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="timestamp">Date & Time</Label>
+        <Label htmlFor="timestamp">Tanggal & Waktu</Label>
         <Input id="timestamp" type="datetime-local" value={detectedInfo.timestamp} onChange={(e) => handleChange("timestamp", e.target.value)} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="location">Location</Label>
-        <Input id="location" value={detectedInfo.location || ""} onChange={(e) => handleChange("location", e.target.value)} placeholder="Enter location" />
+        <Label htmlFor="location">Lokasi</Label>
+        <Input id="location" value={detectedInfo.location || ""} onChange={(e) => handleChange("location", e.target.value)} placeholder="Masukkan lokasi" />
       </div>
     </div>
   );

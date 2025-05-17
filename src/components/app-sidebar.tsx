@@ -1,42 +1,28 @@
 import * as React from "react";
-import { AudioWaveform, BarChartBig, Camera, Command, Ticket, TrafficCone, Users } from "lucide-react";
+import { AudioWaveform, BarChartBig, Camera, Cctv, Command, Globe, Scale, Ticket, TrafficCone, Users } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavAdmin } from "./nav-admin";
-
+import { useAuth } from "@/context/AuthContext";
+import { NavOther } from "./navOther";
 // This is sample data.
 const data = {
-  user: {
-    name: "Avicena",
-    email: "m@example.com",
-    avatar: "https://github.com/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "TVMS",
       logo: TrafficCone,
-      plan: "Korlantas Polri",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      plan: "Traffic Violation Management System",
     },
   ],
   navMain: [
-    {
-      name: "Dasbor",
-      url: "/d/dashboard",
-      icon: BarChartBig,
-    },
+    // {
+    //   name: "Dasbor",
+    //   url: "/d/dashboard",
+    //   icon: BarChartBig,
+    // },
     {
       name: "Pelanggaran",
       url: "/d/violations",
@@ -52,6 +38,16 @@ const data = {
       url: "/d/report-violation",
       icon: Camera,
     },
+    {
+      name: "Banding",
+      url: "/d/appeals",
+      icon: Scale,
+    },
+    // {
+    //   name: "CCTV",
+    //   url: "/d/cctv",
+    //   icon: Cctv,
+    // },
   ],
   navAdmin: [
     {
@@ -60,9 +56,23 @@ const data = {
       icon: Users,
     },
   ],
+  navOther: [
+    {
+      name: "Halaman Publik",
+      url: "https://etilang.web.id",
+      icon: Globe,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
+
+  const userData = {
+    name: user?.name || "",
+    email: user?.email || "",
+  };
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -70,10 +80,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavAdmin items={data.navAdmin} />
+        <NavOther items={data.navOther} />
+        {/* <NavAdmin items={data.navAdmin} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

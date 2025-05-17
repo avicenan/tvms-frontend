@@ -1,43 +1,52 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Car } from "lucide-react";
+import { TicketType } from "@/lib/types";
 
-export default function VehicleCard() {
+export default function VehicleCard({ data }: { data: TicketType }) {
   return (
-    <>
-      <div className="flex flex-col p-4 border border-zinc-200 rounded-xl gap-2">
-        <div className="flex flex-col flex-wrap justify-between items-baseline mb-2">
-          <span className="flex items-center gap-2 font-semibold text-lg">
-            <Car /> Identitas Kendaraan
-          </span>
+    <Card>
+      <CardHeader className="border-b border-zinc-200">
+        <div className="flex items-center gap-2">
+          <Car className="h-5 w-5 text-primary" />
+          <span className="font-semibold text-lg">Kendaraan</span>
         </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Nomor Kendaran</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-4">
+          <div className="grid sm:grid-cols-2 gap-x-4 gap-y-2">
+            <div>
+              <p className="text-sm font-medium text-zinc-500">Nomor Kendaraan</p>
+              <p className="text-base font-semibold">{data.violation?.vehicle_data.number}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-500">Jenis</p>
+              <p className="text-base font-semibold">{data.violation?.vehicle_data.category}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-500">Merek</p>
+              <p className="text-base font-semibold">{data.violation?.vehicle_data.brand}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-500">Tipe</p>
+              <p className="text-base font-semibold">{data.violation?.vehicle_data.type}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-500">Warna</p>
+              <p className="text-base font-semibold">{data.violation?.vehicle_data.color}</p>
+            </div>
+          </div>
+          <div className="border-t pt-4 grid sm:grid-cols-2 gap-x-4 gap-y-2">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Nomor HP Pemilik</p>
+              <p className="text-xs font-semibold">{data.violation?.vehicle_data.owner_phone}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Email Pemilik</p>
+              <p className="text-xs font-semibold">{data.violation?.vehicle_data.owner_email}</p>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Jenis</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Sepeda Motor</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Merek</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Yamaha</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Tipe</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">NMax</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Warna</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Merah</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">No. HP</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">082187362367</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Email</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">siapa@gmail.com</span>
-        </div>
-      </div>
-    </>
+      </CardContent>
+    </Card>
   );
 }

@@ -11,7 +11,7 @@ export function SendNotificationDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button className="cursor-pointer">
-          <Send /> Kirim Himbauan
+          <Send /> Kirim Pemberitahuan
         </Button>
       </DialogTrigger>
       <DialogContent>

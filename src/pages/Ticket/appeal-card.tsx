@@ -1,19 +1,37 @@
 import { Expand, MessageSquare } from "lucide-react";
 import { AppealDialog } from "./appeal-dialog";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { TicketType } from "@/lib/types";
+import { Badge } from "@/components/ui/badge";
 
-export default function AppealCard() {
+export default function AppealCard({ data }: { data: TicketType }) {
   return (
-    <>
-      <div className="flex flex-col p-4 border border-zinc-200 rounded-xl gap-2">
-        <div className="flex flex-col flex-wrap justify-between items-baseline mb-2">
-          <span className="flex items-center gap-2 font-semibold text-lg">
-            <MessageSquare /> Banding
-          </span>
-          {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
-        </div>
+    <Card className="">
+      <CardHeader className="flex flex-wrap justify-between items-center border-b border-zinc-200">
+        <span className="flex items-center gap-2 font-semibold text-lg">
+          <MessageSquare /> Banding
+        </span>
+        <Badge
+          variant={"outline"}
+          className={` ${
+            data.appeal?.status.toLowerCase() === "pending"
+              ? "bg-yellow-100 text-yellow-800"
+              : data.appeal?.status.toLowerCase() === "accepted"
+              ? "bg-green-100 text-green-800"
+              : data.appeal?.status.toLowerCase() === "rejected"
+              ? "bg-red-100 text-red-800"
+              : "bg-gray-100 text-gray-800"
+          }`}
+        >
+          <span className={`w-2 h-2 me-1 text-xs font-semibold rounded-full bg-zinc-400`} />
+          {data.appeal?.status}
+        </Badge>
+        {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
+      </CardHeader>
+      <CardContent className="space-y-2">
         <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Alasan</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">“Saya sudah memakai helm”</span>
+          <span className="font-normal flex text-zinc-500">Alasan</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">"{data.appeal?.argument}"</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Lampiran</span>
@@ -21,21 +39,20 @@ export default function AppealCard() {
             gambar.jpg <Expand size={14} className="mt-1" />
           </div>
         </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Keputusan</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">Ditolak</span>
-        </div>
-        <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Catatan</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">“Tidak terlihat mengenakan helm”</span>
-        </div>
-        <div className="flex flex-wrap justify-end items-center gap-2">
-          {/* <span className="flex-1 text-sm font-normal text-zinc-500">
-            Kirim pemberitahuan sebelum <br /> Jumat, 27-12-2025
-          </span> */}
-          <AppealDialog />
-        </div>
-      </div>
-    </>
+        {/* {data.appeal?.status.toLowerCase() !== "pending" && (
+          <div className="flex flex-wrap justify-between items-baseline">
+            <span className="font-normal flex-1 text-zinc-500">Keputusan</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">Ditolak</span>
+          </div>
+        )} */}
+        {data.appeal?.note && (
+          <div className="flex flex-wrap justify-between items-baseline">
+            <span className="font-normal flex-1 text-zinc-500">Catatan</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">“{data.appeal?.note}”</span>
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="flex justify-end">{data.appeal?.status.toLowerCase() === "pending" && <AppealDialog />}</CardFooter>
+    </Card>
   );
 }

@@ -6,27 +6,44 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useRef, useState } from "react";
+import Cookies from "js-cookie";
+import { Input } from "@/components/ui/input";
+import { validationApi } from "@/lib/validationApi";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
   type: z.enum(["bukan_pelanggaran", "identitas_salah", "lainnya"], {
     required_error: "Berikan setidaknya satu keterangan.",
   }),
+  cancel_description: z.string().optional(),
 });
 
 export function CancelViolationForm() {
+  const violationId = useRef<string>(Cookies.get("active_violation_id") || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    setIsLoading(true);
+    try {
+      const response = await validationApi.cancelViolation(violationId.current, { cancel_description: data.cancel_description ? data.cancel_description : data.type });
+      navigate("/d/violations");
+      toast.success(response.data.violation.status, {
+        description: `Pelanggaran kendaraan ${response.data.violation.number} berhasil dibatalkan`,
+      });
+    } catch (error: any) {
+      toast.error("Gagal membatalkan pelanggaran", {
+        description: error?.response?.data?.message || error.message || "Terjadi kesalahan",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -63,8 +80,24 @@ export function CancelViolationForm() {
             </FormItem>
           )}
         />
+        {form.watch("type") === "lainnya" && (
+          <FormField
+            control={form.control}
+            name="cancel_description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Keterangan</FormLabel>
+                <FormControl>
+                  <Input defaultValue={field.value} type="text" placeholder="Ketikkan keterangan" className="mt-2" />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        )}
         <div className="flex justify-end">
-          <Button type="submit">Konfirmasi</Button>
+          <Button type="submit" disabled={isLoading}>
+            Konfirmasi
+          </Button>
         </div>
       </form>
     </Form>

@@ -6,7 +6,7 @@ export default function PublicLayout() {
   return (
     <div>
       <NavMenu />
-      <div className="min-h-screen">
+      <div className="">
         <Outlet />
       </div>
       <Footer />

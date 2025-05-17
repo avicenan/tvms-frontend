@@ -1,9 +1,12 @@
+import { Camera } from "lucide-react";
 import { ViolationReportForm } from "./violation-report-form";
 
 export default function Home() {
   return (
-    <div className="">
-      <h1 className="flex-none scroll-m-20 text-lg font-bold tracking-tight lg:text-xl mb-8">Lapor Pelanggaran</h1>
+    <div className="pb-4">
+      <h1 className="text-lg font-bold mb-4 flex gap-2 items-center">
+        <Camera /> Lapor Pelanggaran
+      </h1>
       <ViolationReportForm />
     </div>
   );

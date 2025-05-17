@@ -74,7 +74,8 @@ button:focus-visible {
 } */
 
 :root {
-  --background: oklch(1 0 0);
+  /* --background: oklch(1 0 0); */
+  --background: oklch(0.98 0.0062 255.47);
 
   --foreground: oklch(0.141 0.005 285.823);
 
@@ -86,7 +87,8 @@ button:focus-visible {
 
   --popover-foreground: oklch(0.141 0.005 285.823);
 
-  --primary: #003366;
+  /* --primary: #003366; */
+  --primary: oklch(0.32 0.1025 253.89);
 
   --primary-foreground: oklch(0.985 0 0);
 
@@ -124,7 +126,8 @@ button:focus-visible {
 
   --radius: 0.625rem;
 
-  --sidebar: oklch(0.985 0 0);
+  /* --sidebar: oklch(0.985 0 0); */
+  --sidebar: oklch(1 0 0);
 
   --sidebar-foreground: oklch(0.141 0.005 285.823);
 

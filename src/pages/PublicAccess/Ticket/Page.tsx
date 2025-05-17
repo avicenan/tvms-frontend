@@ -23,19 +23,19 @@ export default function ViolationDetailPage() {
   // In a real application, you would fetch the violation data based on the ID
   const violationData = {
     id: violationId,
-    type: "Speeding",
-    date: "15 Maret 2023",
+    type: "Tidak Menggunakan Helm",
+    date: "15 Maret 2024",
     time: "10:32 AM",
     location: "Jl. Telekomunikasi 1, Bandung",
-    vehicle: "Toyota Camry (ABC-123)",
+    vehicle: "Honda Beat (B 1234 KOP)",
     description: "Penumpang/Pengendara tidak mengenakan helm atau tidak mengenakan helm sesuai standar",
     fine: "Rp. 150.000",
-    status: "Pending",
-    dueDate: "April 15, 2023",
+    status: "Menunggu Konfirmasi",
+    dueDate: "April 15, 2024",
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 border-t">
+    <div className="min-h-screen bg-background dark:bg-gray-900 border-t">
       <header className="bg-white dark:bg-gray-800 shadow">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -94,10 +94,12 @@ export default function ViolationDetailPage() {
           </Card>
 
           <Tabs defaultValue="details" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-3 shadow ">
               <TabsTrigger value="details">Detail</TabsTrigger>
-              <TabsTrigger value="evidence">Bukti Foto</TabsTrigger>
-              <TabsTrigger value="next-steps">Respon</TabsTrigger>
+              <TabsTrigger value="evidence" className="border-r">
+                Bukti Foto
+              </TabsTrigger>
+              <TabsTrigger value="response">Respon</TabsTrigger>
             </TabsList>
 
             <TabsContent value="details" className="mt-6">

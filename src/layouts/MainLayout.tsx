@@ -44,7 +44,7 @@ export default function Layout() {
           </div>
         </header>
         <div className="flex items-center gap-2 justify-center ">
-          <div className=" w-full px-4">
+          <div className=" w-full px-4 ">
             <Outlet />
           </div>
         </div>

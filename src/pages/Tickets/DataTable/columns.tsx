@@ -9,24 +9,23 @@ import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type TicketType = {
-  id: number;
-  unique_id: string;
-  vehicle_no: string;
-  type: string;
-  datetime: string;
+  id: string;
+  number: string;
+  violation_type: string;
+  created_at: string;
   location: string;
-  officer: string;
+  investigator: string;
   status: string;
-  ticket_no?: string | null;
+  number_evidence: string;
 };
 
 export const ticketColumns: ColumnDef<TicketType>[] = [
   {
-    accessorKey: "unique_id",
+    accessorKey: "id",
     header: "ID",
   },
   {
-    accessorKey: "vehicle_no",
+    accessorKey: "number",
     header: "No. Kendaraan",
     cell: ({ row }) => {
       const handleHover = () => {
@@ -36,7 +35,7 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
         <HoverCard onOpenChange={handleHover}>
           <HoverCardTrigger className=" cursor-default">
             <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
-              {row.original.vehicle_no}
+              {row.original.number}
             </Badge>
           </HoverCardTrigger>
           <HoverCardContent className="w-80">
@@ -49,15 +48,27 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
     },
   },
   {
-    accessorKey: "type",
+    accessorKey: "violation_type",
     header: "Pelanggaran",
   },
   {
-    accessorKey: "datetime",
+    accessorKey: "created_at",
     header: "Waktu",
+    cell: ({ row }) => {
+      const createdAt = row.original.created_at;
+      const formattedDate = new Date(createdAt).toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      return <span className="">{formattedDate}</span>;
+    },
   },
   {
-    accessorKey: "officer",
+    accessorKey: "investigator",
     header: "Penyidik",
   },
   {
@@ -115,7 +126,7 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
       const ticket = row.original;
       return (
         <Button className="font-normal" asChild>
-          <Link to={`/d/tickets/${ticket.unique_id}`}>
+          <Link to={`/d/tickets/${ticket.id}`}>
             Lihat <Eye />
           </Link>
         </Button>

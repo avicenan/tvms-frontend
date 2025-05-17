@@ -79,10 +79,10 @@ export function AppealDialog() {
         </div>
         <DialogFooter>
           <div className="flex gap-1 w-full">
-            <Button variant={"outline"} className="flex-1">
+            <Button variant={"destructive"} className="flex-1 font-semibold cursor-pointer">
               Tolak
             </Button>
-            <Button className="flex-1">Terima</Button>
+            <Button className="flex-1 font-semibold cursor-pointer">Terima</Button>
           </div>
         </DialogFooter>
       </DialogContent>

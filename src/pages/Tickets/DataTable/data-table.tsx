@@ -34,8 +34,10 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  console.log(data, "THI DATA");
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-white rounded-md border p-4">
       <DataTableToolBar table={table} />
       <div className="rounded-md border">
         <Table>
@@ -60,7 +62,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Tidak ada hasil.
                 </TableCell>
               </TableRow>
             )}

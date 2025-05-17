@@ -67,12 +67,12 @@ export function ImageUploader({ onImageUpload, currentImage }: ImageUploaderProp
         <div className={`border-2 border-dashed rounded-lg p-6 text-center ${isDragging ? "border-primary bg-primary/5" : "border-gray-300"}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
           <Upload className="mx-auto h-12 w-12 text-gray-400" />
           <p className="mt-2 text-sm text-gray-600">
-            Drag and drop an image, or{" "}
+            Tarik dan lepas gambar, atau{" "}
             <Button type="button" variant="link" className="p-0 h-auto text-primary" onClick={() => fileInputRef.current?.click()}>
-              browse
+              Cari
             </Button>
           </p>
-          <p className="mt-1 text-xs text-gray-500">Supported formats: JPG, PNG, GIF</p>
+          <p className="mt-1 text-xs text-gray-500">Format yang didukung: JPG, PNG, GIF</p>
           <input type="file" className="hidden" accept="image/*" ref={fileInputRef} onChange={handleFileChange} />
         </div>
       ) : (

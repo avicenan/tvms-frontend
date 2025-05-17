@@ -6,11 +6,11 @@ import { Link, useLocation } from "react-router-dom";
 export default function NavMenu() {
   const { pathname } = useLocation();
   return (
-    <header className="z-50 w-full bg-white/5 backdrop-blur-sm dark:bg-gray-950/80 shadow">
+    <header className="z-50 w-full bg-white backdrop-blur-sm dark:bg-gray-950/80 shadow">
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center gap-2">
           <TrafficCone />
-          <span className=" font-bold">Korlantas Polri</span>
+          <span className=" font-bold">Sistem Informasi Manajemen Pelanggaran Lalu Lintas</span>
         </Link>
         <nav className="hidden space-x-8 md:flex">
           <Link to="/" className={`text-sm hover:text-zinc-950 ${pathname == "/" ? "font-semibold" : ""}`}>

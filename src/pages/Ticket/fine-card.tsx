@@ -1,15 +1,18 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Receipt } from "lucide-react";
+import { TicketType } from "@/lib/types";
 
-export default function FineCard() {
+export default function FineCard({ data }: { data: TicketType }) {
+  console.log(data, "fine");
   return (
-    <>
-      <div className="flex flex-col p-4 border border-zinc-200 rounded-xl gap-2">
-        <div className="flex flex-col flex-wrap justify-between items-baseline mb-2">
-          <span className="flex items-center gap-2 font-semibold text-lg">
-            <Receipt /> Denda Tilang
-          </span>
-          {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
-        </div>
+    <Card>
+      <CardHeader>
+        <span className="flex items-center gap-2 font-semibold text-lg">
+          <Receipt /> Denda Tilang
+        </span>
+        {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
+      </CardHeader>
+      <CardContent className="">
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">No. Pembayaran</span>
           <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
@@ -30,7 +33,7 @@ export default function FineCard() {
           <span className="font-normal flex-1 text-zinc-500">Waktu Pembayaran</span>
           <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">Minggu, 29/12/2025 16:15</span>
         </div>
-      </div>
-    </>
+      </CardContent>
+    </Card>
   );
 }
