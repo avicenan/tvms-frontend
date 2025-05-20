@@ -1,15 +1,18 @@
-import { ArrowLeft, Calendar, Clock, MapPin, Car, AlertTriangle, DollarSign, FileText, Camera, Upload, Scale } from "lucide-react";
+import { ArrowLeft, FileText, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useTicket } from "@/context/CheckTicketContext";
+import TabEvidence from "./TabEvidence";
+import TabDetail from "./TabDetail";
+import TabResponse from "./TabResponse/content";
 
 export default function ViolationDetailPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  console.log(searchParams);
+  const { ticket, isLoading, getTicket } = useTicket();
 
   useEffect(() => {
     if (!searchParams.has("vno") || !searchParams.has("tno")) {
@@ -18,41 +21,64 @@ export default function ViolationDetailPage() {
     }
   }, [searchParams, navigate]);
 
-  const violationId = 21324234;
+  useEffect(() => {
+    getTicket(searchParams.get("tno")!, searchParams.get("vno")!);
+  }, [searchParams]);
 
-  // In a real application, you would fetch the violation data based on the ID
-  const violationData = {
-    id: violationId,
-    type: "Tidak Menggunakan Helm",
-    date: "15 Maret 2024",
-    time: "10:32 AM",
-    location: "Jl. Telekomunikasi 1, Bandung",
-    vehicle: "Honda Beat (B 1234 KOP)",
-    description: "Penumpang/Pengendara tidak mengenakan helm atau tidak mengenakan helm sesuai standar",
-    fine: "Rp. 150.000",
-    status: "Menunggu Konfirmasi",
-    dueDate: "April 15, 2024",
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader className="h-8 w-8 animate-spin" />
+        <span className="ml-3">Memuat data...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background dark:bg-gray-900 border-t">
-      <header className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-4 py-6">
+      <header className="bg-white dark:bg-gray-800 shadow ">
+        <div className="container mx-auto p-4 max-w-4xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <Link to="/" className="inline-flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mb-2">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Kembali ke halaman utama
               </Link>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Surat Tilang #{violationId}</h1>
+              <h1 className="text-2xl md:text-2xl font-bold text-gray-900 dark:text-white">Surat Tilang #{ticket?.id}</h1>
               <div className="flex items-center mt-2">
-                <Badge variant={violationData.status === "Pending" ? "outline" : "secondary"}>{violationData.status}</Badge>
-                <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">Issued on {violationData.date}</span>
+                <Badge
+                  variant={
+                    ticket?.status === "Tilang"
+                      ? "outline"
+                      : ticket?.status === "Himbauan"
+                      ? "secondary"
+                      : ticket?.status === "Persidangan"
+                      ? "destructive"
+                      : ticket?.status === "Sudah Bayar"
+                      ? "secondary"
+                      : ticket?.status === "Lewat Tenggat"
+                      ? "destructive"
+                      : ticket?.status === "Pengajuan Banding"
+                      ? "secondary"
+                      : ticket?.status === "Banding Diterima"
+                      ? "secondary"
+                      : "secondary"
+                  }
+                  className="border-gray-200"
+                >
+                  {ticket?.status}
+                </Badge>
+                {/* <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">
+                  Diterbitkan pada {new Date(ticket?.violation?.created_at!).toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                </span> */}
+                <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">
+                  Diterbitkan pada {new Date(ticket?.violation?.created_at!).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "numeric" })}
+                </span>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-3 mt-4 sm:mt-0">
-              <Button variant="outline" className="flex items-center">
+              <Button variant="outline" className="flex items-center cursor-pointer">
                 <FileText className="mr-2 h-4 w-4" />
                 Download PDF
               </Button>
@@ -61,257 +87,35 @@ export default function ViolationDetailPage() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-2">
         <div className="max-w-4xl mx-auto">
-          <Card className="border-l-4 border-l-amber-500 mb-6">
-            <CardContent className="">
-              <div className="flex items-start">
-                <AlertTriangle className="h-6 w-6 text-amber-500 mr-4 flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-xl font-semibold mb-2">Ringkasan Pelanggaran</h2>
-                  <p className="text-gray-700 dark:text-gray-300">{violationData.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 text-gray-500 mr-2" />
-                      <span>{violationData.date}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 text-gray-500 mr-2" />
-                      <span>{violationData.time}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                      <span>{violationData.location}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
-                      <span>Denda: {violationData.fine}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Tabs defaultValue="details" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 shadow ">
-              <TabsTrigger value="details">Detail</TabsTrigger>
-              <TabsTrigger value="evidence" className="border-r">
+          <Tabs defaultValue="response" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-gray-200">
+              <TabsTrigger value="evidence" className="font-semibold cursor-pointer">
                 Bukti Foto
               </TabsTrigger>
-              <TabsTrigger value="response">Respon</TabsTrigger>
+              <TabsTrigger value="details" className="font-semibold cursor-pointer">
+                Detail
+              </TabsTrigger>
+              <TabsTrigger value="response" className="font-semibold cursor-pointer">
+                Respon
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="details" className="mt-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Informasi Pelanggaran</CardTitle>
-                    <CardDescription>Detail mengenai pelanggaran yang dilakukan</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex">
-                      <AlertTriangle className="h-5 w-5 text-red-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Tipe Pelanggaran</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.type}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <Calendar className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Tanggal</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.date}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <Clock className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Waktu</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.time}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <MapPin className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Lokasi</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.location}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <DollarSign className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Jumlah Denda</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.fine}</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Informasi Kendaraan</CardTitle>
-                    <CardDescription>Detail mengenai kendaraan yang digunakan</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex">
-                      <Car className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Kendaraan</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.vehicle}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <FileText className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
-                      <div>
-                        <div className="font-medium">Deskripsi Pelanggaran</div>
-                        <div className="text-gray-500 dark:text-gray-400">{violationData.description}</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+            <TabsContent value="evidence" className="relative">
+              <TabEvidence ticket={ticket} />
             </TabsContent>
 
-            <TabsContent value="evidence" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Bukti Foto</CardTitle>
-                  <CardDescription>Bukti fotografis pelanggaran</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-3">
-                      <div className="relative aspect-video overflow-hidden rounded-lg border bg-muted">
-                        <img src="https://c8.alamy.com/comp/HXRW5G/vietnamese-families-heading-to-lunar-new-year-celebrations-in-hanoi-HXRW5G.jpg" alt="Traffic violation photo 1" width={600} height={400} className="object-cover" />
-                        <div className="absolute bottom-2 right-2">
-                          <Badge className="bg-black/70 hover:bg-black/70">
-                            <Camera className="h-3 w-3 mr-1" />
-                            Photo 1
-                          </Badge>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Kendaraan terdeteksi melalui kamera</p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="relative aspect-video overflow-hidden rounded-lg border bg-muted">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg"
-                          alt="Traffic violation photo 2"
-                          width={600}
-                          height={400}
-                          className="object-cover"
-                        />
-                        <div className="absolute bottom-2 right-2">
-                          <Badge className="bg-black/70 hover:bg-black/70">
-                            <Camera className="h-3 w-3 mr-1" />
-                            Photo 2
-                          </Badge>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Tampak dekat plat nomor kendaraan</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <TabsContent value="details">
+              <TabDetail ticket={ticket} />
             </TabsContent>
 
-            <TabsContent value="next-steps" className="mt-6">
-              <div className="space-y-6">
-                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-                  <div className="flex items-center">
-                    <Calendar className="h-5 w-5 text-amber-600 dark:text-amber-400 mr-3" />
-                    <div className="font-medium">Respon diperlukan sebelum {violationData.dueDate}</div>
-                  </div>
-                </div>
-
-                <div className="grid gap-6 md:grid-cols-3">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center">
-                        <DollarSign className="h-5 w-5 mr-2 text-green-600" />
-                        Bayar Denda Online
-                      </CardTitle>
-                      <CardDescription>Pay your fine quickly and securely</CardDescription>
-                    </CardHeader>
-                    <CardContent className="h-full">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Pay your fine of {violationData.fine} using credit card, debit card, or bank transfer.</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full">Bayar Sekarang</Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center">
-                        <Upload className="h-5 w-5 mr-2 text-blue-600" />
-                        Buat Bantahan
-                      </CardTitle>
-                      <CardDescription>Provide additional evidence</CardDescription>
-                    </CardHeader>
-                    <CardContent className="h-full">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Upload photos, videos, or documents that may help your case.</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full">
-                        Unggah Bukti
-                      </Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center">
-                        <Scale className="h-5 w-5 mr-2 text-purple-600" />
-                        Hadiri Sidang
-                      </CardTitle>
-                      <CardDescription>Dispute the violation</CardDescription>
-                    </CardHeader>
-                    <CardContent className="h-full">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Schedule a court hearing to contest this violation.</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full">
-                        Gugat Pelanggaran
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Additional Information</CardTitle>
-                    <CardDescription>Important details about your options</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h3 className="font-medium mb-2">Payment Information</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Payment must be received by the due date to avoid additional penalties. A receipt will be emailed to you after payment is processed.</p>
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium mb-2">Contesting the Violation</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">If you choose to contest this violation, you will need to attend a court hearing. The hearing date will be scheduled after you submit your request.</p>
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium mb-2">Submitting Evidence</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">You may submit additional evidence to support your case. Acceptable formats include JPG, PNG, PDF, and MP4 files under 20MB.</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+            <TabsContent value="response" className="">
+              <TabResponse ticket={ticket} />
             </TabsContent>
           </Tabs>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

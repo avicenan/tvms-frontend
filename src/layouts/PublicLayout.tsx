@@ -1,15 +1,16 @@
 import NavMenu from "@/pages/PublicAccess/nav-menu";
 import Footer from "@/pages/PublicAccess/Home/footer";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function PublicLayout() {
+  const { pathname } = useLocation();
   return (
     <div>
-      <NavMenu />
+      {pathname !== "/tickets" && <NavMenu />}
       <div className="">
         <Outlet />
       </div>
-      <Footer />
+      {pathname !== "/tickets" && <Footer />}
     </div>
   );
 }

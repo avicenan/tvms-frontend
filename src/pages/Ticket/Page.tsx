@@ -34,6 +34,7 @@ export default function TicketPage() {
         setIsLoading(false);
       }
     };
+
     fetchTicket();
   }, [ticketId]);
 

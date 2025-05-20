@@ -4,7 +4,6 @@ import { Ticket } from "lucide-react";
 import { ViolationType } from "./Page";
 import { useAuth } from "@/context/AuthContext";
 import { validationApi } from "@/lib/validationApi";
-import { useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 interface ConfirmViolationDialogProps {
@@ -12,18 +11,16 @@ interface ConfirmViolationDialogProps {
 }
 
 export default function ConfirmViolationDialog({ violation }: ConfirmViolationDialogProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { validateViolation } = validationApi;
   const navigate = useNavigate();
   const handleSubmit = async () => {
-    setIsLoading(true);
-    const response = await validationApi.validateViolation(violation.id);
+    const response = await validateViolation(violation.id);
     if (response.status === 200) {
       navigate("/d/violations");
       toast.success("Pelanggaran berhasil ditilang");
     } else {
       toast.error("Gagal menilang pelanggaran");
     }
-    setIsLoading(false);
   };
   const { user } = useAuth();
   return (

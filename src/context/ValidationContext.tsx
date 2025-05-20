@@ -31,7 +31,7 @@ export const ValidationProvider: FC<{ children: ReactNode }> = ({ children }) =>
       console.log(response.data.message, "RESPONSENYA");
       Cookies.remove("validation_token");
       Cookies.remove("active_violation_id");
-      toast.warning("Timeout", {
+      toast.warning("Waktu habis", {
         description: "Sesi validasi pelanggaran anda telah berakhir",
       });
     } catch (error) {

@@ -3,6 +3,7 @@ import { AppealDialog } from "./appeal-dialog";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { TicketType } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+import AppealEvidenceModal from "./appeal-evidence-modal";
 
 export default function AppealCard({ data }: { data: TicketType }) {
   return (
@@ -35,16 +36,9 @@ export default function AppealCard({ data }: { data: TicketType }) {
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Lampiran</span>
-          <div className="font-medium flex-1 sm:text-right text-start text-blue-600 hover:text-blue-500 cursor-pointer dark:text-white flex justify-end gap-1 items-center">
-            gambar.jpg <Expand size={14} className="mt-1" />
-          </div>
+          {/* <div className="font-medium flex-1 sm:text-right text-start text-blue-600 hover:text-blue-500 cursor-pointer truncate dark:text-white flex justify-end gap-1 items-center">{data.appeal?.evidence.split("/").pop()}</div> */}
+          {data.appeal?.evidence && <AppealEvidenceModal evidence={data.appeal.evidence} />}
         </div>
-        {/* {data.appeal?.status.toLowerCase() !== "pending" && (
-          <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Keputusan</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">Ditolak</span>
-          </div>
-        )} */}
         {data.appeal?.note && (
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Catatan</span>
@@ -52,7 +46,7 @@ export default function AppealCard({ data }: { data: TicketType }) {
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-end">{data.appeal?.status.toLowerCase() === "pending" && <AppealDialog />}</CardFooter>
+      <CardFooter className="flex justify-end">{data.appeal?.status.toLowerCase() === "pending" && <AppealDialog {...data.appeal} />}</CardFooter>
     </Card>
   );
 }

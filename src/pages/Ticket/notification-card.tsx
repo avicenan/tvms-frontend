@@ -1,14 +1,29 @@
-import { CircleAlert, MailPlus } from "lucide-react";
-import { SendNotificationDialog } from "./send-notification-dialog";
+import { MailPlus, Send } from "lucide-react";
 import { CardContent, CardHeader } from "@/components/ui/card";
 import { Card } from "@/components/ui/card";
 import { TicketType } from "@/lib/types";
 import NotificationIcon from "./notification-icon";
 import { useState } from "react";
+import SendNotificationDialog from "./send-notification-dialog";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { notificationApi } from "@/lib/api";
 
 export default function NotificationCard({ data }: { data: TicketType }) {
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(data, "notification");
+  const [isSending, setIsSending] = useState(false);
+  const { sendAllNotification } = notificationApi;
+
+  const handleSendNotification = async () => {
+    try {
+      setIsSending(true);
+      const response = await sendAllNotification(data.id);
+      toast.success("Pemberitahuan berhasil dikirim", { description: response.data.message });
+    } catch (error) {
+      toast.error("Pemberitahuan gagal dikirim", { description: (error as any).response.data.message });
+    } finally {
+      setIsSending(false);
+    }
+  };
   return (
     <Card>
       <CardHeader className="border-b border-zinc-200">
@@ -49,7 +64,10 @@ export default function NotificationCard({ data }: { data: TicketType }) {
       </CardContent>
       <CardContent className="flex flex-wrap justify-between items-end gap-2">
         <span className="flex-1 text-xs font-normal text-zinc-500">Kirim sebelum {new Date(data.deadline_confirmation).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "numeric", year: "numeric" })}</span>
-        <SendNotificationDialog />
+        <Button className="cursor-pointer" onClick={handleSendNotification} disabled={isSending}>
+          <Send /> Kirim Pemberitahuan
+        </Button>
+        {/* <SendNotificationDialog ticketId={data.id} /> */}
       </CardContent>
     </Card>
   );
