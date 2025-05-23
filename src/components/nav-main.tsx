@@ -19,7 +19,7 @@ export function NavMain({
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild isActive={pathname.includes(item.url)} className="py-6">
+            <SidebarMenuButton asChild isActive={pathname.includes(item.url)} disabled={pathname.includes(item.url)} className={"py-6 px-4 hover:bg-primary-foreground hover:text-primary "}>
               <NavLink to={item.url}>
                 <item.icon />
                 <span>{item.name}</span>

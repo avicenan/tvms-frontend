@@ -42,10 +42,8 @@ export const columns: ColumnDef<Violation>[] = [
               {row.original.number}
             </Badge>
           </HoverCardTrigger>
-          <HoverCardContent className="w-80">
-            <div className="flex justify-center">
-              <img src={`https://api.etilang.web.id/storage/${row.original.evidence}`} alt={row.original.evidence} />
-            </div>
+          <HoverCardContent className="flex justify-center">
+            <img src={`https://api.etilang.web.id/storage/${row.original.evidence}`} alt={row.original.evidence} />
           </HoverCardContent>
         </HoverCard>
       );

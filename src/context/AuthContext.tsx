@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode, FC, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { createContext, useContext, useState, ReactNode, FC } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { authApi } from "../lib/api";
 import { toast } from "sonner";
@@ -25,15 +25,15 @@ interface Verify2FAResponse {
   is_2fa_verified: boolean;
 }
 
-interface Register2FAResponse {
-  qr_code?: ArrayBuffer | Array<number>;
-  message?: string;
-}
+// interface Register2FAResponse {
+//   qr_code?: ArrayBuffer | Array<number>;
+//   message?: string;
+// }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  register2FA: () => Promise<Register2FAResponse>;
+  register2FA: () => Promise<ArrayBuffer | Array<number>>;
   login: (email: string, password: string) => Promise<LoginResponse>;
   logout: () => void;
   verify2FA: (otp: string) => Promise<Verify2FAResponse>;
@@ -91,14 +91,16 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     try {
       setLoading(true);
       const response = await authApi.verify2FA(otp);
-      const { token, message, user } = response.data;
+      const { token, user } = response.data;
       Cookies.set("auth_token", token);
       Cookies.set("user", JSON.stringify(user));
       setUser(user);
-      toast.success(message || "2FA verification successful");
+      toast.success("Verifikasi 2FA Berhasil", {
+        description: `Selamat datang, ${user.name}.`,
+      });
       return response.data;
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "2FA verification failed");
+      toast.error(error.response?.data?.message || "Verifikasi 2FA Gagal");
       throw error;
     } finally {
       setLoading(false);
@@ -134,6 +136,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     } finally {
       setLoading(false);
       Cookies.remove("auth_token");
+      Cookies.remove("user");
+      Cookies.remove("validation_token");
       setUser(null);
     }
   };

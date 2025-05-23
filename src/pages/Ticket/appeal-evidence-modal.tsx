@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function AppealEvidenceModal({ evidence }: { evidence: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState(evidence);
+  const [data] = useState(evidence);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

@@ -77,17 +77,17 @@ export default function TicketsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center gap-2 text-zinc-600 py-10">
-        <Loader className="animate-spin" /> Memuat...
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)] gap-2">
+        <Loader className="h-8 w-8 animate-spin" /> <p className="text-sm">Memuat Data...</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2 className="text-lg font-bold mb-4 flex gap-2 items-center">
+    <div className="container pb-4">
+      <h1 className="text-lg font-bold mb-4 flex gap-2 items-center">
         <Ticket /> Surat Tilang
-      </h2>
+      </h1>
       <DataTable columns={ticketColumns} data={data} />
     </div>
   );

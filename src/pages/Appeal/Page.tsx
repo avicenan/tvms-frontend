@@ -36,14 +36,14 @@ export default function AppealPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center gap-2 text-zinc-600 py-10">
-        <Loader className="animate-spin" /> Memuat...
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)] gap-2">
+        <Loader className="h-8 w-8 animate-spin" /> <p className="text-sm">Memuat Data...</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="container pb-4">
       <h2 className="text-lg font-bold mb-4 flex gap-2 items-center">
         <Scale /> Pengajuan Banding
       </h2>

@@ -84,6 +84,7 @@ export default function UploadAppealDialog({ ticketId, open, setOpen, disabled }
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await publicApi.uploadAppeal(ticketId, data.image!, data.note);
+      console.log(response, "response");
       reFetchTicket();
       setOpen(false);
       toast.success("Bantahan berhasil dikirim", {

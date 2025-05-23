@@ -11,18 +11,22 @@ interface ConfirmViolationDialogProps {
 }
 
 export default function ConfirmViolationDialog({ violation }: ConfirmViolationDialogProps) {
-  const { validateViolation } = validationApi;
   const navigate = useNavigate();
+  const { user } = useAuth();
   const handleSubmit = async () => {
-    const response = await validateViolation(violation.id);
-    if (response.status === 200) {
-      navigate("/d/violations");
-      toast.success("Pelanggaran berhasil ditilang");
-    } else {
-      toast.error("Gagal menilang pelanggaran");
+    try {
+      const response = await validationApi.validateViolation(violation.id);
+      toast.success("Pelanggaran berhasil ditilang", {
+        description: response.data.message,
+      });
+      navigate(`/d/tickets/${response.data.ticket.id}`);
+    } catch (error: any) {
+      console.error("Error validating violation:", error);
+      toast.error("Gagal menilang pelanggaran", {
+        description: error?.response?.data?.message || error.message || "Terjadi kesalahan",
+      });
     }
   };
-  const { user } = useAuth();
   return (
     <Dialog>
       <DialogTrigger asChild>

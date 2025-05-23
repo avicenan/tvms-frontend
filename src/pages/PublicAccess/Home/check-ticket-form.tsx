@@ -2,65 +2,73 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useTicket } from "@/context/CheckTicketContext";
-import { useForm } from "@tanstack/react-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import Cookies from "js-cookie";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+const formSchema = z.object({
+  ticket_no: z.string().min(1, "Nomor tilang harus diisi"),
+  vehicle_no: z.string().min(1, "Nomor kendaraan harus diisi"),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function CheckTicketForm() {
   const { getTicket } = useTicket();
 
-  const form = useForm({
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       ticket_no: Cookies.get("ticket_no") || "",
       vehicle_no: Cookies.get("vehicle_no") || "",
     },
-    onSubmit: async ({ value }) => {
-      Cookies.set("ticket_no", value.ticket_no);
-      Cookies.set("vehicle_no", value.vehicle_no);
-      getTicket(value.ticket_no, value.vehicle_no);
-    },
   });
+
+  const onSubmit = async (data: FormValues) => {
+    Cookies.set("ticket_no", data.ticket_no);
+    Cookies.set("vehicle_no", data.vehicle_no);
+    getTicket(data.ticket_no, data.vehicle_no);
+  };
+
   return (
     <Card className="bg-white lg:p-8 p-4 rounded-xl w-full lg:w-200">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        className="space-y-4"
-      >
-        <form.Field
-          name="ticket_no"
-          children={(field) => (
-            <>
-              <div className="flex flex-col gap-2 justify-center text-center">
-                <div className="text-sm font-semibold">Nomor Tilang</div>
-                <Input type="ticket_no" id="ticket_no" placeholder="hh5s-323n-43u7" className="" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} value={field.state.value} />
-                <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
-              </div>
-            </>
-          )}
-        />
-        <form.Field
-          name="vehicle_no"
-          children={(field) => (
-            <>
-              <div className="flex flex-col gap-2 justify-center text-center">
-                <div className="text-sm font-semibold">Nomor Kendaraan</div>
-                <Input type="vehicle_no" id="vehicle_no" placeholder="B5623KKK" onChange={(e) => field.handleChange(e.target.value)} disabled={form.state.isSubmitting} value={field.state.value} />
-                <div className="text-xl text-start font-bold uppercase">{field.state.value}</div>
-              </div>
-            </>
-          )}
-        />
-        <form.Subscribe
-          selector={(state) => [state.isSubmitting]}
-          children={([isSubmitting]) => (
-            <Button onClick={form.handleSubmit} type="submit" disabled={isSubmitting} className="w-full mt-8 cursor-pointer">
-              {isSubmitting ? "..." : "Cek Tilang"}
-            </Button>
-          )}
-        />
-      </form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="ticket_no"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold">Nomor Tilang</FormLabel>
+                <FormControl>
+                  <Input placeholder="hh5s-323n-43u7" {...field} disabled={form.formState.isSubmitting} />
+                </FormControl>
+                <div className="text-xl text-start font-bold uppercase">{field.value}</div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="vehicle_no"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold">Nomor Kendaraan</FormLabel>
+                <FormControl>
+                  <Input placeholder="B5623KKK" {...field} disabled={form.formState.isSubmitting} />
+                </FormControl>
+                <div className="text-xl text-start font-bold uppercase">{field.value}</div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={form.formState.isSubmitting} className="w-full mt-8 cursor-pointer">
+            {form.formState.isSubmitting ? "..." : "Cek Tilang"}
+          </Button>
+        </form>
+      </Form>
     </Card>
   );
 }

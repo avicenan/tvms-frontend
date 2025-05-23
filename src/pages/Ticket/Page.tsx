@@ -26,6 +26,7 @@ export default function TicketPage() {
         setIsLoading(true);
         const response = await ticketApi.getTicketById(ticketId as string);
         setTicket(response.data.data);
+        console.log(response.data.data, "DATANY ");
       } catch (error) {
         console.error("Error fetching ticket:", error);
         navigate("/d/tickets");
@@ -49,8 +50,8 @@ export default function TicketPage() {
   return (
     <div className="flex flex-col pb-4">
       <div className="flex scroll-m-20 text-lg font-bold tracking-tight lg:text-xl mb-4 gap-4 items-center">
-        <Button variant={"outline"} onClick={() => navigate(-1)} className="cursor-pointer">
-          <ArrowLeft /> Kembali
+        <Button variant={"ghost"} onClick={() => navigate(-1)} className="cursor-pointer">
+          <ArrowLeft />
         </Button>
         Surat Tilang #{ticketId}
       </div>
@@ -59,12 +60,12 @@ export default function TicketPage() {
           <TilangCard data={ticket} />
           {ticket.violation?.vehicle_data && <VehicleCard data={ticket} />}
           {ticket.hearing_schedule && <CourtCard data={ticket.hearing_schedule} />}
-          {ticket.payment && <FineCard data={ticket} />}
+          {ticket.payment?.status === "settlement" && <FineCard data={ticket} />}
         </div>
         <div className="grid grid-flow-row auto-rows-max gap-4">
           {ticket.violation && <EvidenceCard data={ticket.violation} />}
           {ticket.appeal && <AppealCard data={ticket} />}
-          {ticket.notifications && <NotificationCard data={ticket} />}
+          {ticket.notifications && <NotificationCard data={ticket} setTicket={setTicket} />}
           {ticket.activities && <ActivityCard data={ticket.activities} />}
         </div>
       </div>

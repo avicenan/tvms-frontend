@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Ticket } from "lucide-react";
+import { Copy, Ticket } from "lucide-react";
 import { TicketType } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 // const colorTheme = async (status: string) => {
 //   switch (status.toLowerCase()) {
 //     case "tilang":
@@ -67,19 +69,28 @@ export default function TilangCard({ data }: { data: TicketType }) {
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
             <div>
-              <p className="text-sm font-medium text-zinc-500">Nomor Surat Tilang</p>
-              <p className="text-base font-semibold line-clamp-1">{data.id}</p>
+              <p className="text-xs font-medium text-zinc-500">Nomor Surat Tilang</p>
+              <div className="flex items-center gap-2">
+                <p className="text-base font-semibold line-clamp-1">{data.id}</p>
+                <Copy
+                  className="w-4 h-4 cursor-pointer text-zinc-500 hover:text-zinc-700"
+                  onClick={() => {
+                    navigator.clipboard.writeText(data.id);
+                    toast.success("Nomor surat tilang berhasil disalin");
+                  }}
+                />
+              </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-zinc-500">Penindak</p>
+              <p className="text-xs font-medium text-zinc-500">Penindak</p>
               <p className="text-base font-semibold">{data.investigator?.name || "-"}</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-zinc-500">Lokasi</p>
+              <p className="text-xs font-medium text-zinc-500">Lokasi</p>
               <p className="text-base font-semibold">{data.violation?.camera?.location || "-"}</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-zinc-500">Pelanggaran</p>
+              <p className="text-xs font-medium text-zinc-500">Pelanggaran</p>
               <p className="text-base font-semibold">{data.violation?.violation_type?.name || "-"}</p>
             </div>
           </div>

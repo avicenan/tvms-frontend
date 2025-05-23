@@ -19,7 +19,7 @@ export const appealColumns: ColumnDef<AppealType>[] = [
   {
     header: "No. Kendaraan",
     accessorKey: "vehicle_number",
-    cell: ({ row }) => {
+    cell: ({}) => {
       return (
         <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
           {/* {row.original.number} */}
@@ -29,7 +29,7 @@ export const appealColumns: ColumnDef<AppealType>[] = [
     },
   },
   {
-    header: "Argumen",
+    header: "Argumentasi",
     accessorKey: "argument",
     cell: ({ row }) => <div className="max-w-80 truncate">"{row.original.argument}"</div>,
   },

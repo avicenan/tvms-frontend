@@ -13,7 +13,7 @@ export default function ActivityCard({ data }: { data: ActivityType[] }) {
 
         {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4 max-h-[300px] overflow-y-auto">
         {data.map((item) => (
           <div className="flex gap-2">
             <Button variant={"secondary"} className="mt-1">

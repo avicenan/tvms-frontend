@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Camera, AlertTriangle } from "lucide-react";
+import { Camera } from "lucide-react";
 
 export default function TabEvidence({ ticket }: { ticket: any }) {
   return (
@@ -35,10 +35,10 @@ export default function TabEvidence({ ticket }: { ticket: any }) {
               </div>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">Tampak dekat plat nomor kendaraan</p>
-            <div className="flex justify-center items-start bg-red-500 rounded-lg">
+            {/* <div className="flex justify-center items-start bg-red-500 rounded-lg">
               <AlertTriangle className="h-10 w-10 text-red-500" />
               <p className="text-sm text-gray-500 dark:text-gray-400">Bukti tidak tersedia</p>
-            </div>
+            </div> */}
           </div>
         </div>
       </CardContent>

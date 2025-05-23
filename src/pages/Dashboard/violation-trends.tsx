@@ -1,65 +1,236 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+
+const DATA_3_MONTHS = [
+  {
+    bulan: "Apr",
+    "Tidak Pakai Helm": 73,
+    "Terobos Lampu Merah": 190,
+    "Muatan Berlebih": 130,
+    "Melebihi Kecepatan": 140,
+  },
+  {
+    bulan: "Mei",
+    "Tidak Pakai Helm": 209,
+    "Terobos Lampu Merah": 130,
+    "Muatan Berlebih": 140,
+    "Melebihi Kecepatan": 150,
+  },
+  {
+    bulan: "Jun",
+    "Tidak Pakai Helm": 214,
+    "Terobos Lampu Merah": 140,
+    "Muatan Berlebih": 150,
+    "Melebihi Kecepatan": 160,
+  },
 ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+const DATA_6_MONTHS = [
+  {
+    bulan: "Jan",
+    "Tidak Pakai Helm": 186,
+    "Terobos Lampu Merah": 305,
+    "Muatan Berlebih": 237,
+    "Melebihi Kecepatan": 73,
   },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
+  {
+    bulan: "Feb",
+    "Tidak Pakai Helm": 305,
+    "Terobos Lampu Merah": 200,
+    "Muatan Berlebih": 120,
+    "Melebihi Kecepatan": 190,
   },
-} satisfies ChartConfig;
+  {
+    bulan: "Mar",
+    "Tidak Pakai Helm": 237,
+    "Terobos Lampu Merah": 120,
+    "Muatan Berlebih": 190,
+    "Melebihi Kecepatan": 130,
+  },
+  {
+    bulan: "Apr",
+    "Tidak Pakai Helm": 73,
+    "Terobos Lampu Merah": 190,
+    "Muatan Berlebih": 130,
+    "Melebihi Kecepatan": 140,
+  },
+  {
+    bulan: "Mei",
+    "Tidak Pakai Helm": 209,
+    "Terobos Lampu Merah": 130,
+    "Muatan Berlebih": 140,
+    "Melebihi Kecepatan": 150,
+  },
+  {
+    bulan: "Jun",
+    "Tidak Pakai Helm": 214,
+    "Terobos Lampu Merah": 140,
+    "Muatan Berlebih": 150,
+    "Melebihi Kecepatan": 160,
+  },
+];
 
-export function ViolationTrendsChart() {
+const DATA_12_MONTHS = [
+  {
+    bulan: "Jul",
+    "Tidak Pakai Helm": 186,
+    "Terobos Lampu Merah": 305,
+    "Muatan Berlebih": 237,
+    "Melebihi Kecepatan": 73,
+  },
+  {
+    bulan: "Agu",
+    "Tidak Pakai Helm": 305,
+    "Terobos Lampu Merah": 200,
+    "Muatan Berlebih": 120,
+    "Melebihi Kecepatan": 190,
+  },
+  {
+    bulan: "Sep",
+    "Tidak Pakai Helm": 237,
+    "Terobos Lampu Merah": 120,
+    "Muatan Berlebih": 190,
+    "Melebihi Kecepatan": 130,
+  },
+  {
+    bulan: "Okt",
+    "Tidak Pakai Helm": 73,
+    "Terobos Lampu Merah": 190,
+    "Muatan Berlebih": 130,
+    "Melebihi Kecepatan": 140,
+  },
+  {
+    bulan: "Nov",
+    "Tidak Pakai Helm": 209,
+    "Terobos Lampu Merah": 130,
+    "Muatan Berlebih": 140,
+    "Melebihi Kecepatan": 150,
+  },
+  {
+    bulan: "Des",
+    "Tidak Pakai Helm": 214,
+    "Terobos Lampu Merah": 140,
+    "Muatan Berlebih": 150,
+    "Melebihi Kecepatan": 160,
+  },
+  {
+    bulan: "Jan",
+    "Tidak Pakai Helm": 186,
+    "Terobos Lampu Merah": 305,
+    "Muatan Berlebih": 237,
+    "Melebihi Kecepatan": 73,
+  },
+  {
+    bulan: "Feb",
+    "Tidak Pakai Helm": 305,
+    "Terobos Lampu Merah": 200,
+    "Muatan Berlebih": 120,
+    "Melebihi Kecepatan": 190,
+  },
+  {
+    bulan: "Mar",
+    "Tidak Pakai Helm": 237,
+    "Terobos Lampu Merah": 120,
+    "Muatan Berlebih": 190,
+    "Melebihi Kecepatan": 130,
+  },
+  {
+    bulan: "Apr",
+    "Tidak Pakai Helm": 73,
+    "Terobos Lampu Merah": 190,
+    "Muatan Berlebih": 130,
+    "Melebihi Kecepatan": 140,
+  },
+  {
+    bulan: "Mei",
+    "Tidak Pakai Helm": 209,
+    "Terobos Lampu Merah": 130,
+    "Muatan Berlebih": 140,
+    "Melebihi Kecepatan": 150,
+  },
+  {
+    bulan: "Jun",
+    "Tidak Pakai Helm": 214,
+    "Terobos Lampu Merah": 140,
+    "Muatan Berlebih": 150,
+    "Melebihi Kecepatan": 160,
+  },
+];
+
+const COLORS = {
+  "Tidak Pakai Helm": "#2563eb", // blue
+  "Terobos Lampu Merah": "#f59e42", // orange
+  "Muatan Berlebih": "#10b981", // green
+  "Melebihi Kecepatan": "#ef4444", // red
+};
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-4 border rounded-lg shadow-lg">
+        <p className="font-medium mb-2">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <p key={index} style={{ color: entry.color }} className="text-sm">
+            {entry.name}: {entry.value} kasus
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
+interface ViolationTrendsChartProps {
+  range: string;
+}
+
+export function ViolationTrendsChart({ range }: ViolationTrendsChartProps) {
+  const getData = () => {
+    switch (range) {
+      case "3":
+        return DATA_3_MONTHS;
+      case "12":
+        return DATA_12_MONTHS;
+      default:
+        return DATA_6_MONTHS;
+    }
+  };
+
+  const chartData = getData();
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Tren Pelanggaran</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>Perkembangan jumlah pelanggaran per jenis dalam {range} bulan terakhir</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line dataKey="desktop" type="monotone" stroke="var(--primary)" strokeWidth={2} dot={false} />
-            <Line dataKey="mobile" type="monotone" stroke="var(--primary)" strokeWidth={2} dot={false} />
-          </LineChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">Showing total visitors for the last 6 months</div>
-          </div>
+      <CardContent className="h-full">
+        <div className="w-full h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={chartData}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 10,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="bulan" tickLine={false} axisLine={false} tickMargin={8} />
+              <YAxis tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => `${value}`} />
+              <Tooltip content={<CustomTooltip />} />
+              {Object.keys(COLORS).map((key) => (
+                <Line key={key} type="monotone" dataKey={key} stroke={COLORS[key as keyof typeof COLORS]} strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
         </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }

@@ -1,4 +1,4 @@
-import { Expand, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { AppealDialog } from "./appeal-dialog";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { TicketType } from "@/lib/types";

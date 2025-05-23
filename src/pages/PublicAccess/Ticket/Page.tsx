@@ -1,9 +1,9 @@
-import { ArrowLeft, FileText, Loader } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTicket } from "@/context/CheckTicketContext";
 import TabEvidence from "./TabEvidence";
 import TabDetail from "./TabDetail";
@@ -11,6 +11,7 @@ import TabResponse from "./TabResponse/content";
 
 export default function ViolationDetailPage() {
   const [searchParams] = useSearchParams();
+  const [tabOpen, setTabOpen] = useState<string>("evidence");
   const navigate = useNavigate();
   const { ticket, isLoading, getTicket } = useTicket();
 
@@ -89,25 +90,35 @@ export default function ViolationDetailPage() {
 
       <div className="container mx-auto px-4 py-2">
         <div className="max-w-4xl mx-auto">
-          <Tabs defaultValue="response" className="w-full">
+          <Tabs value={tabOpen} className="w-full">
             <TabsList className="grid w-full grid-cols-3 bg-gray-200">
-              <TabsTrigger value="evidence" className="font-semibold cursor-pointer">
+              <TabsTrigger value="evidence" className="font-semibold cursor-pointer hover:bg-zinc-300" onClick={() => setTabOpen("evidence")}>
                 Bukti Foto
               </TabsTrigger>
-              <TabsTrigger value="details" className="font-semibold cursor-pointer">
+              <TabsTrigger value="details" className="font-semibold cursor-pointer hover:bg-zinc-300" onClick={() => setTabOpen("details")}>
                 Detail
               </TabsTrigger>
-              <TabsTrigger value="response" className="font-semibold cursor-pointer">
+              <TabsTrigger value="response" className="font-semibold cursor-pointer hover:bg-zinc-300" onClick={() => setTabOpen("response")}>
                 Respon
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="evidence" className="relative">
+            <TabsContent value="evidence" className="relative space-y-2">
               <TabEvidence ticket={ticket} />
+              <div className="flex justify-end">
+                <Button className="flex items-center cursor-pointer" onClick={() => setTabOpen("details")}>
+                  Detail Pelanggaran <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </TabsContent>
 
-            <TabsContent value="details">
+            <TabsContent value="details" className="relative space-y-2">
               <TabDetail ticket={ticket} />
+              <div className="flex justify-end">
+                <Button className="flex items-center cursor-pointer" onClick={() => setTabOpen("response")}>
+                  Konfirmasi dan Bayar <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </TabsContent>
 
             <TabsContent value="response" className="">

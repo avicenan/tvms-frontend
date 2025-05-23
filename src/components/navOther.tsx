@@ -1,6 +1,6 @@
-import { ExternalLink, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { NavLink, useLocation } from "react-router-dom";
 
 export function NavOther({
@@ -19,7 +19,7 @@ export function NavOther({
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild isActive={pathname.includes(item.url)} className="py-6">
+            <SidebarMenuButton asChild isActive={pathname.includes(item.url)} className="py-6 px-4 hover:bg-primary-foreground hover:text-primary">
               <NavLink to={item.url}>
                 <item.icon />
                 <span>{item.name}</span>

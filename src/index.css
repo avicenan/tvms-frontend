@@ -135,9 +135,9 @@ button:focus-visible {
 
   --sidebar-primary-foreground: oklch(0.985 0 0);
 
-  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent: oklch(0.32 0.1025 253.89);
 
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
 
   --sidebar-border: oklch(0.92 0.004 286.32);
 

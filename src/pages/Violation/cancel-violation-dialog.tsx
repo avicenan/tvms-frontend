@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { CircleX } from "lucide-react";
 import { CancelViolationForm } from "./cancel-violation-form";
 import { ViolationType } from "./Page";
@@ -18,12 +18,12 @@ export default function CancelViolationDialog({ violation }: CancelViolationDial
           Batalkan
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white">
+      <DialogContent className="max-h-[90%] overflow-y-scroll">
         <DialogHeader className="bg-red-500 p-2 rounded-lg text-white">
           <DialogTitle>Pembatalan</DialogTitle>
           <DialogDescription className="text-white">Buat keputusan pembatalan. Pastikan Anda masuk dengan akun yang sesuai.</DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col bg-zinc-100 rounded-lg p-4 space-y-3 outline-dashed outline-2">
+        <div className="flex flex-col bg-zinc-100 rounded-lg p-4 space-y-3 outline-dashed outline-2 ">
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
               <div className="text-sm font-medium text-zinc-500">Nomor Kendaraan</div>
@@ -74,9 +74,9 @@ export default function CancelViolationDialog({ violation }: CancelViolationDial
             </div>
           </div>
         </div>
-        <div className="">
+        <DialogFooter>
           <CancelViolationForm />
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

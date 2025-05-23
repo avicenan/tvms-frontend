@@ -80,9 +80,8 @@ export default function Violation() {
       Cookies.set("validation_token", response.data.token, { expires: inTenMinutes });
       Cookies.set("active_violation_id", violationId as string, { expires: inTenMinutes });
       return response.data.token;
-    } catch (error) {
-      console.error("Error starting session:", error);
-      toast.error("Failed to start validation session");
+    } catch (error: any) {
+      toast.error("Gagal memulai sesi validasi", { description: error.response.data.message });
       navigate("/d/violations");
     }
   };
@@ -199,8 +198,8 @@ export default function Violation() {
     <div className="flex flex-col gap-4 pb-8">
       <div className="flex flex-wrap justify-between gap-x-2">
         <div className="flex scroll-m-20 text-lg font-bold tracking-tight lg:text-xl gap-2 items-center">
-          <Button variant={"outline"} onClick={() => navigate(-1)} className="cursor-pointer">
-            <ArrowLeft /> Kembali
+          <Button variant={"ghost"} onClick={() => navigate(-1)} className="cursor-pointer">
+            <ArrowLeft />
           </Button>{" "}
           Detail Pelanggaran #{violationId}
         </div>

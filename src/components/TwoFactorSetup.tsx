@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export const TwoFactorSetup: React.FC = () => {
-  const { setup2FA, verify2FASetup, user } = useAuth();
+  const { register2FA, verify2FA, user } = useAuth();
   const [qrCode, setQrCode] = useState<string>("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -13,8 +13,9 @@ export const TwoFactorSetup: React.FC = () => {
   const handleSetup = async () => {
     try {
       setLoading(true);
-      const response = await setup2FA();
-      const url = URL.createObjectURL(response);
+      const response = await register2FA();
+      const blob = new Blob([response as ArrayBuffer], { type: "image/png" });
+      const url = URL.createObjectURL(blob);
       setQrCode(url);
     } catch (error) {
       console.error("Failed to setup 2FA:", error);
@@ -26,7 +27,7 @@ export const TwoFactorSetup: React.FC = () => {
   const handleVerify = async () => {
     try {
       setLoading(true);
-      await verify2FASetup(otp);
+      await verify2FA(otp);
       setOtp("");
       setQrCode("");
     } catch (error) {
@@ -36,7 +37,7 @@ export const TwoFactorSetup: React.FC = () => {
     }
   };
 
-  if (user?.two_factor_enabled) {
+  if (user?.is_2fa_enabled) {
     return (
       <Card>
         <CardHeader>

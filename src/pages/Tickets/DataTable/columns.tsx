@@ -23,6 +23,9 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => {
+      return <div className="max-w-20 truncate">{row.original.id}</div>;
+    },
   },
   {
     accessorKey: "number",
@@ -38,10 +41,8 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
               {row.original.number}
             </Badge>
           </HoverCardTrigger>
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <img src="https://placehold.co/600x400" alt="" />
-            </div>
+          <HoverCardContent className="flex justify-center">
+            <img src={`https://api.etilang.web.id/storage/${row.original.number_evidence}`} alt="" />
           </HoverCardContent>
         </HoverCard>
       );
@@ -101,11 +102,15 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
             return "bg-blue-400/20 border-blue-400";
           case "himbauan":
             return "bg-lime-400/20 border-lime-400";
+          case "pengajuan banding":
+            return "bg-orange-400/20 border-orange-400";
           case "persidangan":
             return "bg-teal-400/20 border-teal-400";
           case "sudah bayar":
             return "bg-indigo-400/20 border-indigo-400";
           case "lewat tenggat":
+            return "bg-zinc-400/20 border-zinc-400";
+          default:
             return "bg-zinc-400/20 border-zinc-400";
         }
       };

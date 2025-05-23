@@ -17,21 +17,22 @@ export const CheckTicketContext = createContext<CheckTicketContextType | undefin
 
 export const CheckTicketProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [ticket, setTicket] = useState<TicketType>({} as TicketType);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const getTicket = async (ticketId: string, vehicleNo: string) => {
     try {
-      setIsLoading(true);
       const response = await publicApi.getTicket(ticketId, vehicleNo);
       setTicket(response.data.data);
       navigate(`/tickets?vno=${vehicleNo}&tno=${ticketId}`);
       Cookies.set("ticketId", ticketId);
       Cookies.set("vehicleNo", vehicleNo);
       setIsLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       navigate("/");
-      toast.error("Surat Tilang Tidak Ditemukan");
+      toast.error("Surat Tilang Tidak Ditemukan", {
+        description: error.response.data.message,
+      });
       setTicket({} as TicketType);
     } finally {
       setIsLoading(false);

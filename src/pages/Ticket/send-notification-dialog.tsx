@@ -4,9 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send } from "lucide-react";
 import EmailForm from "./email-form";
 import SMSForm from "./sms-form";
-import { notificationApi } from "@/lib/api";
-import { toast } from "sonner";
-import { useState } from "react";
 
 export default function SendNotificationDialog() {
   return (

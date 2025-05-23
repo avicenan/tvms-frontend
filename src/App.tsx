@@ -20,6 +20,9 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ValidationProvider } from "./context/ValidationContext";
 import AppealPage from "./pages/Appeal/Page";
 import { CheckTicketProvider } from "./context/CheckTicketContext";
+import CCTVPage from "./pages/CCTV/Page";
+import UsersPage from "./pages/Users/Page";
+import GuestRoute from "./components/GuestRoute";
 function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -99,8 +102,31 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="cctvs"
+                  element={
+                    <ProtectedRoute>
+                      <CCTVPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="users"
+                  element={
+                    <ProtectedRoute>
+                      <UsersPage />
+                    </ProtectedRoute>
+                  }
+                />
               </Route>
-              <Route path="login" element={<LoginPage />}></Route>
+              <Route
+                path="login"
+                element={
+                  <GuestRoute>
+                    <LoginPage />
+                  </GuestRoute>
+                }
+              ></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CheckTicketProvider>

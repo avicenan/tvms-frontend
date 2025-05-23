@@ -47,7 +47,7 @@ export function CancelViolationForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 bg-white p-4 border border-gray-200 rounded-lg">
         <FormField
           control={form.control}
           name="type"

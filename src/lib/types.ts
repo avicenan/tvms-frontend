@@ -36,6 +36,11 @@ export type InvestigatorType = {
 
 export type PaymentType = {
   id: number;
+  payment_method: string;
+  amount: number;
+  status: string;
+  ticket_id: string;
+  type: "denda" | "sidang";
   created_at: string;
   updated_at: string;
 };
@@ -69,27 +74,20 @@ export type ViolationTypeType = {
   name: string;
   description: string;
   regulation: string;
+  max_fine: number;
+};
+
+export type NotifObject = {
+  is_sent: boolean;
+  type: string;
+  ticket_id: string;
+  updated_at: string;
 };
 
 export type NotificationType = {
-  whatsapp: {
-    is_sent: boolean;
-    type: string;
-    ticket_id: string;
-    updated_at: string;
-  };
-  sms: {
-    is_sent: boolean;
-    type: string;
-    ticket_id: string;
-    updated_at: string;
-  };
-  email: {
-    is_sent: boolean;
-    type: string;
-    ticket_id: string;
-    updated_at: string;
-  };
+  whatsapp: NotifObject[];
+  sms: NotifObject[];
+  email: NotifObject[];
 };
 
 export type HearingScheduleType = {
@@ -105,8 +103,8 @@ export type AppealType = {
   evidence: string;
   status: "pending" | "accepted" | "rejected";
   note?: string;
-  created_at: string;
-  updated_at: string;
+  created_at: string | Date;
+  updated_at: string | Date;
 };
 
 export type TicketType = {
