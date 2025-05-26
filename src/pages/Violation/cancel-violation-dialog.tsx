@@ -3,13 +3,13 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { CircleX } from "lucide-react";
 import { CancelViolationForm } from "./cancel-violation-form";
 import { ViolationType } from "./Page";
-import { useAuth } from "@/context/AuthContext";
+import Cookies from "js-cookie";
 interface CancelViolationDialogProps {
   violation: ViolationType;
 }
 
 export default function CancelViolationDialog({ violation }: CancelViolationDialogProps) {
-  const { user } = useAuth();
+  const user = JSON.parse(Cookies.get("user") || "{}");
   return (
     <Dialog>
       <DialogTrigger asChild>

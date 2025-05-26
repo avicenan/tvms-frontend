@@ -1,12 +1,12 @@
-import { MailPlus, Send } from "lucide-react";
+import { Loader2, MailPlus, Send } from "lucide-react";
 import { CardContent, CardHeader } from "@/components/ui/card";
 import { Card } from "@/components/ui/card";
 import { TicketType } from "@/lib/types";
 import NotificationIcon from "./notification-icon";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { notificationApi, ticketApi } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function NotificationCard({ data, setTicket }: { data: TicketType; setTicket: (ticket: TicketType) => void }) {
   const [isSending, setIsSending] = useState(false);
@@ -82,7 +82,15 @@ export default function NotificationCard({ data, setTicket }: { data: TicketType
       <CardContent className="flex flex-wrap justify-between items-end gap-2">
         <span className="flex-1 text-xs font-normal text-zinc-500">Kirim sebelum {new Date(data.deadline_confirmation).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "numeric", year: "numeric" })}</span>
         <Button className="cursor-pointer" onClick={handleSendNotification} disabled={isSending}>
-          <Send /> Kirim Pemberitahuan
+          {isSending ? (
+            <span className="flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" /> Mengirim Pemberitahuan
+            </span>
+          ) : (
+            <span className="flex items-center gap-2">
+              <Send /> Kirim Pemberitahuan
+            </span>
+          )}
         </Button>
         {/* <SendNotificationDialog ticketId={data.id} /> */}
       </CardContent>

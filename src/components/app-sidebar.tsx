@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BarChartBig, Camera, Cctv, Globe, Scale, Ticket, TrafficCone, Users } from "lucide-react";
+import { Camera, Globe, Scale, Ticket, TrafficCone, Users } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
@@ -18,11 +18,11 @@ const data = {
     },
   ],
   navMain: [
-    {
-      name: "Dasbor",
-      url: "/d/dashboard",
-      icon: BarChartBig,
-    },
+    // {
+    //   name: "Dasbor",
+    //   url: "/d/dashboard",
+    //   icon: BarChartBig,
+    // },
     {
       name: "Pelanggaran",
       url: "/d/violations",
@@ -43,11 +43,11 @@ const data = {
       url: "/d/appeals",
       icon: Scale,
     },
-    {
-      name: "CCTV",
-      url: "/d/cctvs",
-      icon: Cctv,
-    },
+    // {
+    //   name: "CCTV",
+    //   url: "/d/cctvs",
+    //   icon: Cctv,
+    // },
   ],
   navAdmin: [
     {
@@ -81,6 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         {userData.role === "admin" && <NavAdmin items={data.navAdmin} />}
+        {/* <NavAdmin items={data.navAdmin} /> */}
         <NavOther items={data.navOther} />
       </SidebarContent>
       <SidebarFooter>

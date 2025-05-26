@@ -4,10 +4,9 @@
 
 // import { ChartConfig } from "@/components/ui/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartArea, LucideFileWarning, Ticket, Car, DollarSign, TrendingUp, TrendingDown, MapPin, AlertTriangle, TrafficCone } from "lucide-react";
+import { ChartArea, Ticket, Car, DollarSign, TrendingUp, TrendingDown, MapPin, AlertTriangle } from "lucide-react";
 import { ViolationTypeChart } from "./violation-types";
 import { ViolationTrendsChart } from "./violation-trends";
-import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -195,7 +194,6 @@ const CONTEXTUAL_DATA = {
 };
 
 export default function DashboardPage() {
-  const { logout } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const currentRange = searchParams.get("range") || "6";
 
@@ -208,7 +206,7 @@ export default function DashboardPage() {
 
   return (
     <div className="container pb-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-start justify-between mb-4">
         <h1 className="text-lg font-bold flex gap-2 items-center">
           <ChartArea /> Dasbor
         </h1>
@@ -225,14 +223,6 @@ export default function DashboardPage() {
               ))}
             </SelectContent>
           </Select>
-          <button
-            onClick={() => {
-              logout();
-            }}
-            className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            Keluar
-          </button>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2">

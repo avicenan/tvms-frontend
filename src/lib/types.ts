@@ -40,6 +40,7 @@ export type PaymentType = {
   amount: number;
   status: string;
   ticket_id: string;
+  order_id: string;
   type: "denda" | "sidang";
   created_at: string;
   updated_at: string;
@@ -101,7 +102,7 @@ export type AppealType = {
   ticket_id: string;
   argument: string;
   evidence: string;
-  status: "pending" | "accepted" | "rejected";
+  status: "Pending" | "Accepted" | "Rejected";
   note?: string;
   created_at: string | Date;
   updated_at: string | Date;

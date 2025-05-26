@@ -35,7 +35,7 @@ const dummyCameras: CameraType[] = [
   {
     id: 4,
     location: "Jalan Rasuna Said - Simpang 4",
-    server_url: "https://www.youtube.com/embed/ByED80IKdIU",
+    server_url: "https://www.youtube.com/embed/B7LBgMD_QE0",
     status: "Active",
     stream_key: "camera4",
     created_at: "2024-03-20T00:00:00Z",

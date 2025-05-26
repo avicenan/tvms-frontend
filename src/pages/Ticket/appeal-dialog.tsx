@@ -15,7 +15,8 @@ interface DecisionType {
   note: string;
 }
 
-export function AppealDialog(appeal: AppealType) {
+export function AppealDialog({ appeal, ticketId }: { appeal: AppealType; ticketId: string }) {
+  const [open, setOpen] = useState(false);
   const { updateAppeal } = appealApi;
   const [isLoading, setIsLoading] = useState(false);
   const [decision, setDecision] = useState<DecisionType>({
@@ -26,20 +27,21 @@ export function AppealDialog(appeal: AppealType) {
   const acceptAppeal = async () => {
     try {
       setIsLoading(true);
-      const response = await updateAppeal(appeal.id, { status: "Accepted", note: decision.note });
+      const response = await updateAppeal(ticketId, { status: "Accepted", note: decision.note });
       toast.success("Berhasil memproses banding", { description: response.data.message });
     } catch (error) {
       toast.error("Gagal memproses banding", { description: (error as any).response.data.message });
       console.error("Error accepting appeal:", error);
     } finally {
       setIsLoading(false);
+      setOpen(false);
     }
   };
 
   const rejectAppeal = async () => {
     try {
       setIsLoading(true);
-      const response = await updateAppeal(appeal.id, { status: "Rejected", note: decision.note });
+      const response = await updateAppeal(ticketId, { status: "Rejected", note: decision.note });
       toast.success("Berhasil memproses banding", { description: response.data.message });
     } catch (error) {
       toast.error("Gagal memproses banding", { description: (error as any).response.data.message });
@@ -50,7 +52,7 @@ export function AppealDialog(appeal: AppealType) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="cursor-pointer">
           <MessageSquareReply />

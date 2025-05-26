@@ -79,7 +79,7 @@ export const ticketApi = {
 
 export const appealApi = {
   getAppeals: () => api.get("/appeals"),
-  updateAppeal: (id: number, data: { status: "Accepted" | "Rejected" | "Pending"; note: string }) => api.put(`/appeals/${id}`, data),
+  updateAppeal: (ticketId: string, data: { status: "Accepted" | "Rejected" | "Pending"; note: string }) => api.put(`/appeals/${ticketId}`, data),
 };
 
 export const notificationApi = {

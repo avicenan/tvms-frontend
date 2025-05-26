@@ -4,7 +4,6 @@ import { TicketType } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 // const colorTheme = async (status: string) => {
 //   switch (status.toLowerCase()) {
@@ -56,7 +55,7 @@ export default function TilangCard({ data }: { data: TicketType }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Ticket className="h-5 w-5 text-primary" />
-            <span className="font-semibold text-lg">Informasi Tilang</span>
+            <span className="font-semibold text-lg">Info Tilang</span>
           </div>
           <Badge variant={"outline"} className={badgeClass}>
             <span className="w-2 h-2 me-2 rounded-full bg-zinc-400 inline-block" />

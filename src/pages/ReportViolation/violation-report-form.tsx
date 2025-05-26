@@ -76,7 +76,7 @@ export function ViolationReportForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="">
+      <Card>
         <CardHeader>
           <CardTitle>Laporan Berhasil Dikirim</CardTitle>
         </CardHeader>

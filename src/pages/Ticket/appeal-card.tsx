@@ -46,7 +46,7 @@ export default function AppealCard({ data }: { data: TicketType }) {
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-end">{data.appeal?.status.toLowerCase() === "pending" && <AppealDialog {...data.appeal} />}</CardFooter>
+      <CardFooter className="flex justify-end">{data.appeal?.status.toLowerCase() === "pending" && <AppealDialog appeal={data.appeal} ticketId={data.id} />}</CardFooter>
     </Card>
   );
 }

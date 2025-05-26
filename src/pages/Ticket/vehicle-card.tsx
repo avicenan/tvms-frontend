@@ -8,7 +8,7 @@ export default function VehicleCard({ data }: { data: TicketType }) {
       <CardHeader className="border-b border-zinc-200">
         <div className="flex items-center gap-2">
           <Car className="h-5 w-5 text-primary" />
-          <span className="font-semibold text-lg">Kendaraan</span>
+          <span className="font-semibold text-lg">Info Kendaraan</span>
         </div>
       </CardHeader>
       <CardContent>

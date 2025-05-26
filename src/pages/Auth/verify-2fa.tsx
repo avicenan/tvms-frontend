@@ -13,7 +13,7 @@ const FormSchema = z.object({
 });
 
 export default function Verify2FA() {
-  const { user, loading, verify2FA } = useAuth();
+  const { loading, verify2FA } = useAuth();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -25,7 +25,6 @@ export default function Verify2FA() {
   return (
     <Card className="">
       <CardHeader>
-        <p>{user?.email}</p>
         <CardTitle>Autentikasi Dua Faktor</CardTitle>
         <CardDescription>Masukkan kode OTP dari aplikasi autentikator Anda</CardDescription>
       </CardHeader>

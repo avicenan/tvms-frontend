@@ -1,7 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, Calendar, MapPin, DollarSign, Car, FileText, User } from "lucide-react";
+import { AlertTriangle, Calendar, MapPin, DollarSign, Car, FileText, User, Bandage, Phone, Mail } from "lucide-react";
 
 export default function TabDetail({ ticket }: { ticket: any }) {
+  console.log(ticket);
   return (
     <div className="grid md:grid-cols-2 gap-4">
       <Card>
@@ -38,7 +39,7 @@ export default function TabDetail({ ticket }: { ticket: any }) {
             <User className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
             <div>
               <div className="text-gray-500 text-xs">Penindak</div>
-              <div className="font-medium dark:text-gray-400">{ticket?.violation?.vehicle_data?.owner_name}</div>
+              <div className="font-medium dark:text-gray-400">Police Officer</div>
             </div>
           </div>
 
@@ -72,10 +73,31 @@ export default function TabDetail({ ticket }: { ticket: any }) {
           <div className="flex">
             <Car className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
             <div>
-              <div className="text-gray-500 text-xs">Kendaraan</div>
+              <div className="text-gray-500 text-xs">Tipe</div>
               <div className="font-medium dark:text-gray-400">
-                {ticket?.violation?.vehicle_data?.category} {ticket?.violation?.vehicle_data?.brand} {ticket?.violation?.vehicle_data?.type}
+                {ticket?.violation?.vehicle_data?.category} {ticket?.violation?.vehicle_data?.brand} {ticket?.violation?.vehicle_data?.type} {ticket?.violation?.vehicle_data?.color}
               </div>
+            </div>
+          </div>
+          <div className="flex">
+            <Bandage className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
+            <div>
+              <div className="text-gray-500 text-xs">No. Kendaraaan</div>
+              <div className="font-medium dark:text-gray-400">{ticket?.violation?.vehicle_data?.number}</div>
+            </div>
+          </div>
+          <div className="flex">
+            <Phone className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
+            <div>
+              <div className="text-gray-500 text-xs">No. Telepon Pemilik</div>
+              <div className="font-medium dark:text-gray-400">{ticket?.violation?.vehicle_data?.owner_phone}</div>
+            </div>
+          </div>
+          <div className="flex">
+            <Mail className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
+            <div>
+              <div className="text-gray-500 text-xs">Email Pemilik</div>
+              <div className="font-medium dark:text-gray-400">{ticket?.violation?.vehicle_data?.owner_email}</div>
             </div>
           </div>
         </CardContent>

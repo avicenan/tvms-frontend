@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { columns, PoliceOfficer } from "./DataTable/columns";
+import { columns } from "./DataTable/columns";
 import { DataTable } from "./DataTable/data-table";
 import { Loader, Users } from "lucide-react";
 
 // Dummy data for testing
-const dummyData: PoliceOfficer[] = [
+const dummyData: any[] = [
   {
     id: "1",
     nip: "198501012010011001",
@@ -51,7 +51,7 @@ const dummyData: PoliceOfficer[] = [
 
 export default function UsersPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [officers, setOfficers] = useState<PoliceOfficer[]>([]);
+  const [officers, setOfficers] = useState<any[]>([]);
 
   useEffect(() => {
     // Simulate API call

@@ -2,17 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Ticket } from "lucide-react";
 import { ViolationType } from "./Page";
-import { useAuth } from "@/context/AuthContext";
 import { validationApi } from "@/lib/validationApi";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 interface ConfirmViolationDialogProps {
   violation: ViolationType;
 }
 
 export default function ConfirmViolationDialog({ violation }: ConfirmViolationDialogProps) {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const user = JSON.parse(Cookies.get("user") || "{}");
   const handleSubmit = async () => {
     try {
       const response = await validationApi.validateViolation(violation.id);
