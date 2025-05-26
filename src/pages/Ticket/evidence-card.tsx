@@ -7,13 +7,13 @@ export default function EvidenceCard() {
         </div>
         <div className="">
           <div className="flex flex-wrap gap-2">
-            <img className="flex-1 max-h-96 object-contain bg-zinc-100" src={"/src/assets/object_detect.jpeg"} alt="" />
+            <img className="flex-1 max-h-96 object-contain bg-zinc-100" src={"/src/assets/vehicle.jpeg"} alt="" />
             <div className="flex flex-col md:flex-row flex-nowrap gap-2 items-start">
-              <div className="flex-1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="" />
+              <div className="flex-1 w-full">
+                <img src={"/src/assets/number.jpeg"} alt="" className="" />
               </div>
-              <div className="flex-1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="" />
+              <div className="flex-1   w-full">
+                <img src={"/src/assets/number.jpeg"} alt="" className="" />
               </div>
             </div>
           </div>

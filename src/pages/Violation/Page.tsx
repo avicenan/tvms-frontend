@@ -56,10 +56,10 @@ export default function Violation() {
           <CardDescription>Wednesday, 05-24-2025 13:30 - Jl. Telekomunikasi - CCTV hiwe78j</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2 items-start flex-wrap">
-          <img className="flex-1 max-h-96 object-contain bg-zinc-50" src={"/src/assets/object_detect.jpeg"} alt="" />
+          <img className="flex-1 max-h-96 object-contain bg-zinc-50" src={"/src/assets/vehicle.jpeg"} alt="" />
           <div className="flex-initial flex xl:flex-col flex-nowrap overflow-x-scroll xl:overflow-x-hidden gap-2 items-start">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className=" max-h-32" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg/1200px-Latest_motor_vehicle_number_plate_designs_in_Indonesia.jpg" alt="" className="max-h-32" />
+            <img src={"/src/assets/number.jpeg"} alt="" className=" max-h-32" />
+            <img src={"/src/assets/number.jpeg"} alt="" className="max-h-32" />
             <div className="">
               <div className="">Jl. Telekomunikasi</div>
               <div className="">Wednesday, 24-05-2025 13:30</div>
@@ -81,7 +81,7 @@ export default function Violation() {
           <CardContent>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Vehicle Number</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">D-6652-AEU</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Vehicle Category</span>
@@ -89,19 +89,19 @@ export default function Violation() {
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Vehicle Brand</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Yamaha</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Honda</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Vehicle Type</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">NMax</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Scoopy</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Vehicle Color</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Red</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Gray</span>
             </div>
             <div className="flex flex-wrap justify-between items-baseline">
               <span className="font-normal flex-1 text-zinc-500">Violation</span>
-              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Helm</span>
+              <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Not Wearing Helmet</span>
             </div>
           </CardContent>
         </Card>

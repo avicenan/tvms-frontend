@@ -11,7 +11,7 @@ export default function VehicleCard() {
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Vehicle Number</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">D-6652-AEU</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Category</span>
@@ -19,15 +19,15 @@ export default function VehicleCard() {
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Brand</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Yamaha</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Honda</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Type</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">NMax</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Scoopy</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Color</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Red</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Gray</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Phone</span>
@@ -35,7 +35,7 @@ export default function VehicleCard() {
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Email</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">example@gmail.com</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">budiono@gmail.com</span>
         </div>
       </div>
     </>

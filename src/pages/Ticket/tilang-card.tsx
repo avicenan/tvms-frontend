@@ -13,7 +13,7 @@ export default function TilangCard() {
         <CardContent className="space-y-2">
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">ID</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">D-6652-AEU</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Detection Time</span>
@@ -25,11 +25,11 @@ export default function TilangCard() {
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Violation</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Helm</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Not Wearing Helmet</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Status</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Court</span>
+            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950">Scheduled Court</span>
           </div>
           <div className="flex flex-wrap justify-between items-baseline">
             <span className="font-normal flex-1 text-zinc-500">Officer</span>

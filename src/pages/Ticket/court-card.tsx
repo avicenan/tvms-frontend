@@ -12,7 +12,7 @@ export default function CourtCard() {
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Location</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">B-3244-KHK</span>
+          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">Pengadilan Negeri Bandung</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
           <span className="font-normal flex-1 text-zinc-500">Schedule</span>

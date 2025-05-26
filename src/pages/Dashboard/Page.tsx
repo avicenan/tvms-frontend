@@ -47,7 +47,7 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-2xl font-bold mb-1">12,223</div>
               <div className="text-sm text-zinc-500">+15% from previous month</div>
             </CardContent>
           </Card>
@@ -59,7 +59,7 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-2xl font-bold mb-1">1807</div>
               <div className="text-sm text-zinc-500">+15% from previous month</div>
             </CardContent>
           </Card>
@@ -71,7 +71,7 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">Rp. 12,223</div>
+              <div className="text-2xl font-bold mb-1 line-clamp-1 truncate">Rp. 200.000.000</div>
               <div className="text-sm text-zinc-500">+15% from previous month</div>
             </CardContent>
           </Card>
@@ -83,16 +83,18 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-1">12,223</div>
+              <div className="text-2xl font-bold mb-1">2039</div>
               <div className="text-sm text-zinc-500">+15% from previous month</div>
             </CardContent>
           </Card>
         </div>
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
           <div className="col-span-2">
             <ViolationTypeChart />
           </div>
-          <ViolationTrendsChart />
+          <div className="col-span-2">
+            <ViolationTrendsChart />
+          </div>
           {/* <div className="md:col-span-2">05</div>
           <div>06</div>
           <div className="md:row-span-2">07</div>
