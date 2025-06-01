@@ -39,7 +39,7 @@ export default function TabDetail({ ticket }: { ticket: any }) {
             <User className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
             <div>
               <div className="text-gray-500 text-xs">Penindak</div>
-              <div className="font-medium dark:text-gray-400">Police Officer</div>
+              <div className="font-medium dark:text-gray-400">{ticket?.investigator?.name}</div>
             </div>
           </div>
 

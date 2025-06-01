@@ -31,11 +31,8 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
     accessorKey: "number",
     header: "No. Kendaraan",
     cell: ({ row }) => {
-      const handleHover = () => {
-        console.log("fetch to server");
-      };
       return (
-        <HoverCard onOpenChange={handleHover}>
+        <HoverCard>
           <HoverCardTrigger className=" cursor-default">
             <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
               {row.original.number}
@@ -70,7 +67,7 @@ export const ticketColumns: ColumnDef<TicketType>[] = [
   },
   {
     accessorKey: "investigator",
-    header: "Penyidik",
+    header: "Penindak",
   },
   {
     accessorKey: "location",

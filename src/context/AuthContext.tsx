@@ -127,11 +127,15 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     try {
       setLoading(true);
       const response = await authApi.logout();
-      toast.success(response.data.message || "Berhasil keluar dari akun");
+      toast.success("Berhasil keluar dari akun", {
+        description: response.data.message,
+      });
       return response.data;
     } catch (error: any) {
       console.error("Logout failed:", error);
-      toast.error(error.response?.data?.message || "Gagal keluar dari akun");
+      toast.error("Gagal keluar dari akun", {
+        description: error.response?.data?.message,
+      });
       throw error;
     } finally {
       setLoading(false);

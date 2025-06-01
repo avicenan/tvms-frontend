@@ -10,7 +10,9 @@ export default function NavMenu() {
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center gap-2">
           <TrafficCone />
-          <span className=" font-bold">Sistem Informasi Pelanggaran Lalu Lintas</span>
+          <span className=" font-bold">
+            SIMPELANTAS <span className="hidden lg:inline">- Sistem Informasi Manajemen Pelanggaran Lalu Lintas</span>{" "}
+          </span>
         </Link>
         <nav className="hidden space-x-8 md:flex">
           <Link to="/" className={`text-sm hover:text-zinc-950 ${pathname == "/" ? "font-semibold" : ""}`}>

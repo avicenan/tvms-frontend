@@ -137,7 +137,7 @@ export default function Violation() {
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVehicleNumber(e.target.value);
+    setVehicleNumber(e.target.value.toUpperCase());
   };
 
   const handleNumberSubmit = async () => {

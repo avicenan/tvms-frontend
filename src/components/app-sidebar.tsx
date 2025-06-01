@@ -12,9 +12,9 @@ import Cookies from "js-cookie";
 const data = {
   teams: [
     {
-      name: "SIPL",
+      name: "SIMPELANTAS",
       logo: TrafficCone,
-      plan: "Sistem Informasi Pelanggaran Lalu Lintas",
+      plan: "Sistem Informasi Manajemen Pelanggaran Lalu Lintas",
     },
   ],
   navMain: [

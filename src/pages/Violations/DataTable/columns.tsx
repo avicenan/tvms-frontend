@@ -32,11 +32,7 @@ export const columns: ColumnDef<Violation>[] = [
     header: "No. Kendaraan",
     cell: ({ row }) => {
       return (
-        <HoverCard
-          onOpenChange={() => {
-            console.log("fetch to server", row.original);
-          }}
-        >
+        <HoverCard>
           <HoverCardTrigger className=" cursor-default">
             <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
               {row.original.number}

@@ -5,8 +5,8 @@ import { useTicket } from "@/context/CheckTicketContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Cookies from "js-cookie";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   ticket_no: z.string().min(1, "Nomor tilang harus diisi"),
@@ -21,19 +21,17 @@ export default function CheckTicketForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ticket_no: Cookies.get("ticket_no") || "",
-      vehicle_no: Cookies.get("vehicle_no") || "",
+      ticket_no: "",
+      vehicle_no: "",
     },
   });
 
   const onSubmit = async (data: FormValues) => {
-    Cookies.set("ticket_no", data.ticket_no);
-    Cookies.set("vehicle_no", data.vehicle_no);
     getTicket(data.ticket_no, data.vehicle_no);
   };
 
   return (
-    <Card className="bg-white lg:p-8 p-4 rounded-xl w-full lg:w-200">
+    <Card className="bg-white lg:p-8 p-4 rounded-xl w-full lg:w-200 mx-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -43,9 +41,9 @@ export default function CheckTicketForm() {
               <FormItem>
                 <FormLabel className="text-sm font-semibold">Nomor Tilang</FormLabel>
                 <FormControl>
-                  <Input placeholder="hh5s-323n-43u7" {...field} disabled={form.formState.isSubmitting} />
+                  <Input placeholder="hh5s-323n-43u7" {...field} onChange={(e) => field.onChange(e.target.value.toLowerCase())} disabled={form.formState.isSubmitting} />
                 </FormControl>
-                <div className="text-xl text-start font-bold uppercase">{field.value}</div>
+                {/* <div className="text-xl text-start font-bold uppercase">{field.value}</div> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -57,15 +55,22 @@ export default function CheckTicketForm() {
               <FormItem>
                 <FormLabel className="text-sm font-semibold">Nomor Kendaraan</FormLabel>
                 <FormControl>
-                  <Input placeholder="B5623KKK" {...field} disabled={form.formState.isSubmitting} />
+                  <Input placeholder="B5623KKK" {...field} onChange={(e) => field.onChange(e.target.value.toUpperCase())} disabled={form.formState.isSubmitting} />
                 </FormControl>
-                <div className="text-xl text-start font-bold uppercase">{field.value}</div>
+                {/* <div className="text-xl text-start font-bold uppercase">{field.value}</div> */}
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" disabled={form.formState.isSubmitting} className="w-full mt-8 cursor-pointer">
-            {form.formState.isSubmitting ? "..." : "Cek Tilang"}
+            {form.formState.isSubmitting ? (
+              <div className="flex items-center justify-center">
+                <Loader2 className="animate-spin" />
+                <span className="ml-2">Memuat...</span>
+              </div>
+            ) : (
+              "Cek Status Tilang"
+            )}
           </Button>
         </form>
       </Form>

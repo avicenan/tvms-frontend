@@ -15,7 +15,7 @@ export default function paymentDialog({ ticket, disabled }: { ticket: TicketType
       const response = await createTransaction({ ticket_id: ticket.id, type: "denda" });
       setSnapToken(response.snap_token.token);
     } catch (error: any) {
-      toast.error("Gagal membuat transaksi", {
+      toast.error("Failed to create transaction", {
         description: error.response.data.message || error.response.data.error,
       });
       setOpen(false);
@@ -62,7 +62,7 @@ export default function paymentDialog({ ticket, disabled }: { ticket: TicketType
             </div>
           </div>
         </div>
-        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} />
+        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} paymentType="denda" />
       </DialogContent>
     </Dialog>
   );

@@ -1,48 +1,49 @@
 import { Button } from "@/components/ui/button";
-// import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-// import { useTicket } from "@/context/CheckTicketContext";
-// import { useNavigate } from "react-router-dom";
-
-const MidtransPayment = ({ paymentDialogChange, snapToken }: { paymentDialogChange: (open: boolean) => void; snapToken: string }) => {
-  // const { ticket } = useTicket();
+import { useTicket } from "@/context/CheckTicketContext";
+import { useNavigate } from "react-router-dom";
+const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType }: { paymentDialogChange: (open: boolean) => void; snapToken: string; paymentType: "denda" | "sidang" }) => {
   const navigate = useNavigate();
-  const snap_token = snapToken;
-  // useEffect(() => {
-  //   // Load the Midtrans Snap script dynamically
-  //   const script = document.createElement("script");
-  //   script.src = "https://app.midtrans.com/snap/snap.js"; // For production, remove `.sandbox`
-  //   script.setAttribute("data-client-key", import.meta.env.VITE_MIDTRANS_CLIENT_KEY); // Replace with your client key
-  //   script.async = true;
-  //   document.body.appendChild(script);
-
-  //   return () => {
-  //     document.body.removeChild(script); // Clean up on unmount
-  //   };
-  // }, []);
+  const { reFetchTicket, ticket, attendCourtHearing } = useTicket();
 
   const handlePayment = () => {
     try {
-      if ((window as any).snap) {
-        (window as any).snap.pay(snap_token, {
-          onSuccess: function (result: any) {
-            navigate(0);
-            toast.success("Pembayaran berhasil!", {
-              description: result,
+      if ((window as any).snap && snapToken) {
+        (window as any).snap.pay(snapToken, {
+          onSuccess: async function (result: any) {
+            navigate(`/tickets?vno=${ticket?.violation?.vehicle_data?.number}&tno=${ticket?.id}&t=response`);
+            await reFetchTicket();
+            toast.success("Pembayaran Berhasil", {
+              description: `Pembayaran ${result.gross_amount} untuk ${ticket?.violation?.vehicle_data?.number} berhasil dilakukan, silahkan cek email untuk melihat detail pembayaran`,
+            });
+            if (paymentType === "sidang") {
+              await attendCourtHearing(ticket?.id);
+            }
+          },
+          onError: async function () {
+            navigate(`/tickets?vno=${ticket?.violation?.vehicle_data?.number}&tno=${ticket?.id}&t=response`);
+            await reFetchTicket();
+            toast.error("Pembayaran Gagal", {
+              description: `Pembayaran untuk ${ticket?.violation?.vehicle_data?.number} gagal dilakukan, silahkan coba lagi`,
             });
           },
-          onPending: function (result: any) {
-            console.log(result);
+          onPending: async function () {
+            navigate(`/tickets?vno=${ticket?.violation?.vehicle_data?.number}&tno=${ticket?.id}&t=response`);
+            await reFetchTicket();
+            toast.info("Pembayaran Gagal, Silahkan coba lagi", {
+              description: `Pembayaran untuk ${ticket?.violation?.vehicle_data?.number} gagal dilakukan, silahkan coba lagi`,
+            });
           },
-          onError: function (error: any) {
-            toast.error("Pembayaran gagal", {
-              description: error.message,
+          onClose: async function () {
+            navigate(`/tickets?vno=${ticket?.violation?.vehicle_data?.number}&tno=${ticket?.id}&t=response`);
+            await reFetchTicket();
+            toast.info("Pembayaran Dibatalkan", {
+              description: `Pembayaran untuk ${ticket?.violation?.vehicle_data?.number} dibatalkan`,
             });
           },
         });
       } else {
-        throw new Error("Snap.js is not loaded yet.");
+        throw new Error("Percobaan Pembayaran Gagal, Silahkan coba lagi");
       }
     } catch (error) {
       console.error(error);
@@ -55,8 +56,8 @@ const MidtransPayment = ({ paymentDialogChange, snapToken }: { paymentDialogChan
 
   return (
     <div>
-      <Button onClick={handlePayment} className="cursor-pointer w-full">
-        Bayar
+      <Button onClick={handlePayment} className="cursor-pointer w-full" disabled={snapToken === ""}>
+        Pilih Metode Pembayaran
       </Button>
     </div>
   );

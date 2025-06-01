@@ -68,7 +68,7 @@ export default function courtDialog({ ticket, disabled }: { ticket: TicketType; 
             <span className="text-sm ">Denda Harus dibayarkan sebelum gugatan dapat diajukan, jumlah denda akan disesuaikan dengan putusan pengadilan.</span>
           </div>
         </div>
-        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} />
+        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} paymentType="sidang" />
       </DialogContent>
     </Dialog>
   );

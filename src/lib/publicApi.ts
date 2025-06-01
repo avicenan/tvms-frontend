@@ -23,4 +23,5 @@ export const publicApi = {
         },
       }
     ),
+  attendCourt: (ticketId: string) => api.post(`/attend-hearing`, { ticket_id: ticketId }),
 };

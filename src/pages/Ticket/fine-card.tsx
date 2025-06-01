@@ -4,7 +4,6 @@ import { TicketType } from "@/lib/types";
 import { capitalize, formatRupiah } from "@/lib/utils";
 
 export default function FineCard({ data }: { data: TicketType }) {
-  console.log(data, "fine");
   return (
     <Card>
       <CardHeader className="border-b border-zinc-200">

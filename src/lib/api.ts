@@ -68,17 +68,17 @@ export const authApi = {
 };
 
 export const violationApi = {
-  getViolations: () => api.get("/violations?page=1"),
+  getViolations: (page: number) => api.get(`/violations?page=${page}`),
   createToken: (id: string) => api.get(`/create-token-verification/${id}`),
 };
 
 export const ticketApi = {
-  getTickets: () => api.get("/tickets"),
+  getTickets: (page: number) => api.get(`/tickets?page=${page}`),
   getTicketById: (id: string) => api.get(`/tickets/${id}`),
 };
 
 export const appealApi = {
-  getAppeals: () => api.get("/appeals"),
+  getAppeals: (page: number) => api.get(`/appeals?page=${page}`),
   updateAppeal: (ticketId: string, data: { status: "Accepted" | "Rejected" | "Pending"; note: string }) => api.put(`/appeals/${ticketId}`, data),
 };
 

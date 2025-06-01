@@ -11,6 +11,7 @@ interface CheckTicketContextType {
   setTicket: (ticket: TicketType) => void;
   getTicket: (ticketId: string, vehicleNo: string) => Promise<void>;
   reFetchTicket: () => Promise<void>;
+  attendCourtHearing: (ticketId: string) => Promise<void>;
 }
 
 export const CheckTicketContext = createContext<CheckTicketContextType | undefined>(undefined);
@@ -25,8 +26,8 @@ export const CheckTicketProvider: FC<{ children: ReactNode }> = ({ children }) =
       const response = await publicApi.getTicket(ticketId, vehicleNo);
       setTicket(response.data.data);
       navigate(`/tickets?vno=${vehicleNo}&tno=${ticketId}`);
-      Cookies.set("ticketId", ticketId);
-      Cookies.set("vehicleNo", vehicleNo);
+      // Cookies.set("ticketId", ticketId);
+      // Cookies.set("vehicleNo", vehicleNo);
       setIsLoading(false);
     } catch (error: any) {
       navigate("/");
@@ -49,7 +50,20 @@ export const CheckTicketProvider: FC<{ children: ReactNode }> = ({ children }) =
     }
   };
 
-  return <CheckTicketContext.Provider value={{ ticket, isLoading, setTicket, getTicket, reFetchTicket }}>{children}</CheckTicketContext.Provider>;
+  const attendCourtHearing = async (ticketId: string) => {
+    try {
+      await publicApi.attendCourt(ticketId);
+      await reFetchTicket();
+      toast.success("Sidang Berhasil Diajukan", {
+        description: `Sidang untuk ${ticket?.violation?.vehicle_data?.number} berhasil diajukan, silahkan cek email untuk melihat detail sidang`,
+      });
+    } catch (error) {
+      toast.error("Gagal mengajukan sidang", {
+        description: (error as Error).message,
+      });
+    }
+  };
+  return <CheckTicketContext.Provider value={{ ticket, isLoading, setTicket, getTicket, reFetchTicket, attendCourtHearing }}>{children}</CheckTicketContext.Provider>;
 };
 
 export const useTicket = () => {

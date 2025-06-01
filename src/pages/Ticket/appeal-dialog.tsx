@@ -5,7 +5,7 @@ import { MessageSquareReply } from "lucide-react";
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { AppealType } from "@/lib/types";
+import { TicketType } from "@/lib/types";
 import { useState } from "react";
 import { appealApi } from "@/lib/api";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ interface DecisionType {
   note: string;
 }
 
-export function AppealDialog({ appeal, ticketId }: { appeal: AppealType; ticketId: string }) {
+export function AppealDialog({ ticket, onUpdate }: { ticket: TicketType; onUpdate: (boolean: boolean) => void }) {
   const [open, setOpen] = useState(false);
   const { updateAppeal } = appealApi;
   const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +27,11 @@ export function AppealDialog({ appeal, ticketId }: { appeal: AppealType; ticketI
   const acceptAppeal = async () => {
     try {
       setIsLoading(true);
-      const response = await updateAppeal(ticketId, { status: "Accepted", note: decision.note });
+      const response = await updateAppeal(ticket.id, { status: "Accepted", note: decision.note });
+      onUpdate(true);
       toast.success("Berhasil memproses banding", { description: response.data.message });
     } catch (error) {
       toast.error("Gagal memproses banding", { description: (error as any).response.data.message });
-      console.error("Error accepting appeal:", error);
     } finally {
       setIsLoading(false);
       setOpen(false);
@@ -41,13 +41,14 @@ export function AppealDialog({ appeal, ticketId }: { appeal: AppealType; ticketI
   const rejectAppeal = async () => {
     try {
       setIsLoading(true);
-      const response = await updateAppeal(ticketId, { status: "Rejected", note: decision.note });
+      const response = await updateAppeal(ticket.id, { status: "Rejected", note: decision.note });
+      onUpdate(true);
       toast.success("Berhasil memproses banding", { description: response.data.message });
     } catch (error) {
       toast.error("Gagal memproses banding", { description: (error as any).response.data.message });
-      console.error("Error rejecting appeal:", error);
     } finally {
       setIsLoading(false);
+      setOpen(false);
     }
   };
 
@@ -65,10 +66,10 @@ export function AppealDialog({ appeal, ticketId }: { appeal: AppealType; ticketI
           <DialogDescription>Tentukan apakah banding diterima atau tidak</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          <img src={`https://api.etilang.web.id/storage/${appeal.evidence}`} alt="" className="max-h-70 mb-2 w-full bg-zinc-100 border border-zinc-200 rounded-lg object-contain" />
+          <img src={`https://api.etilang.web.id/storage/${ticket.appeal?.evidence}`} alt="" className="max-h-70 mb-2 w-full bg-zinc-100 border border-zinc-200 rounded-lg object-contain" />
           <div className="space-y-2">
             <Label htmlFor="terms">Pernyataan pelanggar</Label>
-            <div className="bg-zinc-100 border border-zinc-200 text-zinc-700 p-2 rounded-lg">"{appeal.argument}"</div>
+            <div className="bg-zinc-100 border border-zinc-200 text-zinc-700 p-2 rounded-lg">"{ticket.appeal?.argument}"</div>
           </div>
           <form className="space-y-2">
             <Label htmlFor="note">Catatan</Label>

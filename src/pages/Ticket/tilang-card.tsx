@@ -70,7 +70,7 @@ export default function TilangCard({ data }: { data: TicketType }) {
             <div>
               <p className="text-xs font-medium text-zinc-500">Nomor Surat Tilang</p>
               <div className="flex items-center gap-2">
-                <p className="text-base font-semibold line-clamp-1">{data.id}</p>
+                <p className="text-base line-clamp-1">{data.id}</p>
                 <Copy
                   className="w-4 h-4 cursor-pointer text-zinc-500 hover:text-zinc-700"
                   onClick={() => {
@@ -82,22 +82,22 @@ export default function TilangCard({ data }: { data: TicketType }) {
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500">Penindak</p>
-              <p className="text-base font-semibold">{data.investigator?.name || "-"}</p>
+              <p className="text-base">{data.investigator?.name || "-"}</p>
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500">Lokasi</p>
-              <p className="text-base font-semibold">{data.violation?.camera?.location || "-"}</p>
+              <p className="text-base">{data.violation?.camera?.location || "-"}</p>
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500">Pelanggaran</p>
-              <p className="text-base font-semibold">{data.violation?.violation_type?.name || "-"}</p>
+              <p className="text-base">{data.violation?.violation_type?.name || "-"}</p>
             </div>
           </div>
 
           <div className="border-t pt-4 grid sm:grid-cols-2 gap-x-4 gap-y-2">
             <div>
               <p className="text-xs font-medium text-zinc-500">Waktu Deteksi</p>
-              <p className="text-xs font-semibold">
+              <p className="text-xs">
                 {data.violation?.created_at
                   ? new Date(data.violation?.created_at).toLocaleDateString("id-ID", {
                       weekday: "long",
@@ -112,7 +112,7 @@ export default function TilangCard({ data }: { data: TicketType }) {
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500">Waktu Terbit Surat Tilang</p>
-              <p className="text-xs font-semibold">
+              <p className="text-xs">
                 {new Date(data.created_at).toLocaleDateString("id-ID", {
                   weekday: "long",
                   day: "numeric",

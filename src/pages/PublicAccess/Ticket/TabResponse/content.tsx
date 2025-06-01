@@ -11,18 +11,17 @@ import { DialogTrigger } from "@/components/ui/dialog";
 import CourtDialog from "./court-dialog";
 import { Badge } from "@/components/ui/badge";
 import { formatRupiah } from "@/lib/utils";
+import { capitalize } from "@/lib/utils";
+
 export default function TabResponse({ ticket }: { ticket: TicketType }) {
   const [open, setOpen] = useState(false);
-  console.log(ticket);
   return (
     <div className="space-y-4">
       {ticket.status === "Himbauan" && (
         <div className="bg-amber-50 dark:bg-amber-900/20 outline outline-amber-200 dark:outline-amber-800 rounded-lg p-4">
           <div className="flex items-center">
             <Calendar className="h-5 w-5 text-amber-600 dark:text-amber-400 mr-3" />
-            <div className="font-medium">
-              Respon diperlukan sebelum {ticket.status} {new Date(ticket?.deadline_confirmation!).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "numeric" })}
-            </div>
+            <div className="font-medium">Respons diperlukan sebelum {new Date(ticket?.deadline_confirmation!).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "numeric" })}</div>
           </div>
         </div>
       )}
@@ -140,7 +139,35 @@ export default function TabResponse({ ticket }: { ticket: TicketType }) {
               </div>
               <div className="">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Status</p>
-                <p className="truncate">{ticket?.payment?.status ? ticket?.payment?.status == "settlement" && "Lunas" : "-"}</p>
+                <p className="truncate">{ticket?.payment?.status ? ticket?.payment?.status == "settlement" && "Lunas" : ticket?.payment?.status}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {ticket.status === "Sudah Bayar" && ticket.payment?.status === "pending" && (
+        <Card className="outline-2 outline-green-300 shadow-md shadow-green-200 dark:outline-green-800">
+          <CardHeader>
+            <CardTitle>Denda Belum Dibayarkan</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Metode Pembayaran</p>
+                <p className="truncate">{ticket?.payment?.payment_method ? ticket?.payment?.payment_method.toUpperCase() : "-"}</p>
+              </div>
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Jumlah Pembayaran</p>
+                <p className="truncate">{ticket?.payment?.amount ? formatRupiah(ticket?.payment?.amount) : "-"}</p>
+              </div>
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Tanggal Pembayaran</p>
+                <p className="truncate">{ticket?.payment?.created_at ? new Date(ticket?.payment?.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "-"}</p>
+              </div>
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Status</p>
+                <p className="truncate">{capitalize(ticket?.payment?.status)}</p>
               </div>
             </div>
           </CardContent>
@@ -148,12 +175,37 @@ export default function TabResponse({ ticket }: { ticket: TicketType }) {
       )}
 
       {ticket.status === "Persidangan" && ticket.payment?.status === "settlement" && (
-        <Card className="">
-          <CardContent className="pt-6">
-            <div className="flex items-start">
-              <div className="flex-1">
-                <h3 className="font-semibold text-green-700 dark:text-green-400">Pembayaran Selesai</h3>
-                <p className="text-sm text-green-600 dark:text-green-300 mt-1">Denda telah dibayar. Kasus ini telah selesai.</p>
+        <Card className="outline-2 outline-green-300 shadow-md shadow-green-200 dark:outline-green-800">
+          <CardHeader>
+            <CardTitle>Informasi Persidangan</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Lokasi</p>
+                <p className="truncate">{ticket?.hearing_schedule?.location || "-"}</p>
+              </div>
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Jadwal</p>
+                <p className="truncate">
+                  {ticket?.hearing_schedule?.date
+                    ? new Date(ticket.hearing_schedule.date).toLocaleDateString("id-ID", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : "-"}
+                </p>
+              </div>
+              <div className="">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Pembayaran</p>
+                <p className="flex items-center gap-2">
+                  {ticket.payment.amount ? formatRupiah(ticket.payment.amount) : "-"}
+                  <span className="truncate text-green-600 font-medium">{ticket?.payment?.status ? ticket?.payment?.status == "settlement" && "Lunas" : ticket?.payment?.status}</span>
+                </p>
               </div>
             </div>
           </CardContent>
