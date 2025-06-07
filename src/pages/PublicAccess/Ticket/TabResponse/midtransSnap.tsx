@@ -2,11 +2,19 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useTicket } from "@/context/CheckTicketContext";
 import { useNavigate } from "react-router-dom";
-const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType }: { paymentDialogChange: (open: boolean) => void; snapToken: string; paymentType: "denda" | "sidang" }) => {
+const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType, courtAgreement = false }: { paymentDialogChange: (open: boolean) => void; snapToken: string; paymentType: "denda" | "sidang"; courtAgreement?: boolean }) => {
   const navigate = useNavigate();
   const { reFetchTicket, ticket, attendCourtHearing } = useTicket();
 
   const handlePayment = () => {
+    if (paymentType === "sidang" && !courtAgreement) {
+      paymentDialogChange(false);
+      toast.error("Pembayaran Gagal", {
+        description: "Anda harus menyetujui perjanjian sidang sebelum melakukan pembayaran",
+      });
+      return;
+    }
+
     try {
       if ((window as any).snap && snapToken) {
         (window as any).snap.pay(snapToken, {
@@ -56,7 +64,7 @@ const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType }: { paym
 
   return (
     <div>
-      <Button onClick={handlePayment} className="cursor-pointer w-full" disabled={snapToken === ""}>
+      <Button onClick={handlePayment} className="cursor-pointer w-full" disabled={snapToken === "" || (paymentType === "sidang" && !courtAgreement)}>
         Pilih Metode Pembayaran
       </Button>
     </div>

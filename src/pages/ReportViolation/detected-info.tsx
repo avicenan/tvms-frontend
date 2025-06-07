@@ -26,7 +26,7 @@ export function DetectedInfo({ detectedInfo, onInfoChange }: DetectedInfoProps) 
         <p className="text-xs text-muted-foreground">Kepercayaan: {Math.round(detectedInfo.confidence * 100)}%</p>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 overflow-hidden">
         <Label htmlFor="violation-type">Jenis Pelanggaran</Label>
         <Select value={detectedInfo.violationType} onValueChange={(value) => handleChange("violationType", value)}>
           <SelectTrigger id="violation-type">

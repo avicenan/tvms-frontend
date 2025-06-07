@@ -64,7 +64,7 @@ export const authApi = {
         "Content-Type": "image/png",
       },
     }),
-  // getProfile: () => api.get("/auth/profile"),
+  getProfile: () => api.get("/user-data"),
 };
 
 export const violationApi = {
@@ -84,6 +84,22 @@ export const appealApi = {
 
 export const notificationApi = {
   sendAllNotification: (ticketId: string) => api.get(`/notifications/send-all/${ticketId}`),
+};
+
+export const userApi = {
+  getUsers: (page: number) => api.get(`/users?page=${page}`),
+  getUserById: (id: number) => api.get(`/users/${id}`),
+  createUser: (data: { name: string; email: string; password: string }) => api.post("/users", data),
+  updateUser: (id: number, data: { name: string; password: string; email: string; nip: string }) => api.put(`/users/${id}`, data),
+  deleteUser: (id: number) => api.delete(`/users/${id}`),
+  reset2FA: (id: number) => api.get(`/auth/2fa-disable/${id}`),
+};
+
+export const cameraApi = {
+  getCameras: (page: number) => api.get(`/cameras?page=${page}`),
+  createCamera: (data: { location: string; stream_url: string; stream_key: string; status: string }) => api.post("/cameras", data),
+  updateCamera: (id: string, data: { location: string; stream_url: string; stream_key: string; status: string }) => api.put(`/cameras/${id}`, data),
+  deleteCamera: (id: string) => api.delete(`/cameras/${id}`),
 };
 
 export default api;

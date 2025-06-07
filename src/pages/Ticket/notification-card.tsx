@@ -33,9 +33,9 @@ export default function NotificationCard({ ticket, onUpdate }: { ticket: TicketT
 
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <div className="flex items-center gap-2 font-semibold text-lg">
-          <MailPlus /> Pemberitahuan
+          <MailPlus className="text-primary" /> Pemberitahuan
         </div>
       </CardHeader>
       <CardContent>

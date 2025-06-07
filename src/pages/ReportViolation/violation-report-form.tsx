@@ -87,7 +87,9 @@ export function ViolationReportForm() {
           </p>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleReset}>Kirim Laporan Lain</Button>
+          <Button onClick={handleReset} className="cursor-pointer">
+            Kirim Laporan Lain
+          </Button>
         </CardFooter>
       </Card>
     );
@@ -104,7 +106,7 @@ export function ViolationReportForm() {
 
           {image && !detectedInfo && (
             <div className="mt-4">
-              <Button type="button" onClick={handleProcessImage} disabled={isProcessing}>
+              <Button type="button" onClick={handleProcessImage} disabled={isProcessing} className="cursor-pointer">
                 {isProcessing ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -145,7 +147,7 @@ export function ViolationReportForm() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

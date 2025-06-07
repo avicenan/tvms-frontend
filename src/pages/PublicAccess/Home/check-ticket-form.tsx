@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
+import Cookies from "js-cookie";
 
 const formSchema = z.object({
   ticket_no: z.string().min(1, "Nomor tilang harus diisi"),
@@ -21,8 +22,8 @@ export default function CheckTicketForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ticket_no: "",
-      vehicle_no: "",
+      ticket_no: Cookies.get("ticketId") || "",
+      vehicle_no: Cookies.get("vehicleNo") || "",
     },
   });
 

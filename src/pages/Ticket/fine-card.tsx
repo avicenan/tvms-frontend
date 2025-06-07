@@ -6,7 +6,7 @@ import { capitalize, formatRupiah } from "@/lib/utils";
 export default function FineCard({ data }: { data: TicketType }) {
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <span className="flex items-center gap-2 font-semibold text-lg">
           <Receipt className="h-5 w-5 text-primary" /> Info Pembayaran
         </span>

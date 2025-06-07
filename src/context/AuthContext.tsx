@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode, FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState, ReactNode, FC, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { authApi } from "../lib/api";
 import { toast } from "sonner";
@@ -25,11 +25,6 @@ interface Verify2FAResponse {
   is_2fa_verified: boolean;
 }
 
-// interface Register2FAResponse {
-//   qr_code?: ArrayBuffer | Array<number>;
-//   message?: string;
-// }
-
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -45,27 +40,32 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   checkAuth();
-  // }, []);
-
-  // const checkAuth = async () => {
-  //   try {
-  //     const token = Cookies.get("auth_token");
-  //     // if (token) {
-  //     //   const response = await authApi.getProfile();
-  //     //   setUser(response.data);
-  //     // }
-  //   } catch (error) {
-  //     console.error("Auth check failed:", error);
-  //     Cookies.remove("auth_token");
-  //     Cookies.remove("refresh_token");
-  //     setUser(null);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  useEffect(() => {
+    if (!Cookies.get("auth_token") && location.pathname === "/d") {
+      navigate("/login");
+    }
+    const checkAuth = async () => {
+      try {
+        const token = Cookies.get("auth_token");
+        if (token) {
+          const response = await authApi.getProfile();
+          setUser(response.data.user);
+          return response.data.user;
+        }
+      } catch (error) {
+        Cookies.remove("auth_token");
+        setUser(null);
+        navigate("/login");
+        toast.error("Sesi habis, silahkan login kembali");
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
   const login = async (email: string, password: string) => {
     try {
@@ -93,18 +93,17 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const response = await authApi.verify2FA(otp);
       const { token, user } = response.data;
       Cookies.set("auth_token", token);
-      Cookies.set("user", JSON.stringify(user));
-      setUser(user);
       toast.success("Verifikasi 2FA Berhasil", {
         description: `Selamat datang, ${user.name}.`,
       });
+      setUser(user);
+      navigate("/d/dashboard");
       return response.data;
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Verifikasi 2FA Gagal");
       throw error;
     } finally {
       setLoading(false);
-      navigate("/d/dashboard");
     }
   };
 
@@ -112,8 +111,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     try {
       setLoading(true);
       const response = await authApi.register2FA();
-      const { message } = response.data;
-      toast.success(message);
       return response.data;
     } catch (error: any) {
       toast.error(error.response?.data?.message || "2FA registration failed");
@@ -126,7 +123,11 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const logout = async () => {
     try {
       setLoading(true);
+      navigate("/login");
       const response = await authApi.logout();
+      setUser(null);
+      Cookies.remove("auth_token");
+      Cookies.remove("validation_token");
       toast.success("Berhasil keluar dari akun", {
         description: response.data.message,
       });
@@ -139,10 +140,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       throw error;
     } finally {
       setLoading(false);
-      Cookies.remove("auth_token");
-      Cookies.remove("user");
-      Cookies.remove("validation_token");
-      setUser(null);
     }
   };
 

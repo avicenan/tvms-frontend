@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CameraType } from "@/lib/types";
 import { Cctv, Loader } from "lucide-react";
+import SkeletonPage from "./skeleton-page";
+import AddCameraDialog from "./add-camera-dialog";
+import { capitalize } from "@/lib/utils";
 
 // Dummy data for testing with YouTube video IDs
 const dummyCameras: CameraType[] = [
   {
     id: 1,
     location: "Jalan Sudirman - Simpang 1",
-    server_url: "https://www.youtube.com/embed/z7SiAaN4ogw",
-    status: "Active",
+    stream_url: "https://www.youtube.com/embed/z7SiAaN4ogw",
+    status: "aktif",
     stream_key: "camera1",
     created_at: "2024-03-20T00:00:00Z",
     updated_at: "2024-03-20T00:00:00Z",
@@ -17,8 +20,8 @@ const dummyCameras: CameraType[] = [
   {
     id: 2,
     location: "Jalan Thamrin - Simpang 2",
-    server_url: "https://www.youtube.com/embed/VR-x3HdhKLQ",
-    status: "Active",
+    stream_url: "https://www.youtube.com/embed/VR-x3HdhKLQ",
+    status: "aktif",
     stream_key: "camera2",
     created_at: "2024-03-20T00:00:00Z",
     updated_at: "2024-03-20T00:00:00Z",
@@ -26,8 +29,8 @@ const dummyCameras: CameraType[] = [
   {
     id: 3,
     location: "Jalan Gatot Subroto - Simpang 3",
-    server_url: "https://www.youtube.com/embed/xRPjKQtRXR8",
-    status: "Maintenance",
+    stream_url: "https://www.youtube.com/embed/xRPjKQtRXR8",
+    status: "aktif",
     stream_key: "camera3",
     created_at: "2024-03-20T00:00:00Z",
     updated_at: "2024-03-20T00:00:00Z",
@@ -35,8 +38,8 @@ const dummyCameras: CameraType[] = [
   {
     id: 4,
     location: "Jalan Rasuna Said - Simpang 4",
-    server_url: "https://www.youtube.com/embed/B7LBgMD_QE0",
-    status: "Active",
+    stream_url: "https://www.youtube.com/embed/B7LBgMD_QE0",
+    status: "aktif",
     stream_key: "camera4",
     created_at: "2024-03-20T00:00:00Z",
     updated_at: "2024-03-20T00:00:00Z",
@@ -73,18 +76,17 @@ export default function CCTVPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)] gap-2">
-        <Loader className="h-8 w-8 animate-spin" /> <p className="text-sm">Memuat Data...</p>
-      </div>
-    );
+    return <SkeletonPage />;
   }
 
   return (
     <div className="container pb-4">
-      <h1 className="text-lg font-bold mb-4 flex gap-2 items-center">
-        <Cctv /> CCTV Live Streams
-      </h1>
+      <div className="flex justify-between items-start">
+        <h1 className="text-lg font-bold mb-4 flex gap-2 items-center">
+          <Cctv /> Siaran Langsung Kamera
+        </h1>
+        <AddCameraDialog />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cameras.map((camera) => (
           <Card key={camera.id} className="overflow-hidden">
@@ -103,14 +105,14 @@ export default function CCTVPage() {
                 )}
                 <iframe
                   className="w-full h-full"
-                  src={camera.server_url}
+                  src={camera.stream_url}
                   title={`Live Stream - ${camera.location}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                   onLoad={() => handleIframeLoad(camera.id)}
                 />
-                <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">{camera.status}</div>
+                <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">{capitalize(camera.status)}</div>
               </div>
             </CardContent>
           </Card>

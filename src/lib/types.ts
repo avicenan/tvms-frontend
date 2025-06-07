@@ -49,7 +49,7 @@ export type PaymentType = {
 export type CameraType = {
   id: number;
   location: string;
-  server_url: string;
+  stream_url: string;
   status: string;
   stream_key: string;
   created_at?: string;

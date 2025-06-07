@@ -10,6 +10,8 @@ import { ViolationTrendsChart } from "./violation-trends";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useEffect, useState } from "react";
+import SkeletonPage from "./skeleton-page";
 
 const MONTHS = [
   { value: "3", label: "3 Bulan Terakhir" },
@@ -195,6 +197,7 @@ const CONTEXTUAL_DATA = {
 
 export default function DashboardPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
   const currentRange = searchParams.get("range") || "6";
 
   const handleRangeChange = (value: string) => {
@@ -203,6 +206,17 @@ export default function DashboardPage() {
 
   const statsData = STATS_DATA[currentRange as keyof typeof STATS_DATA];
   const contextualData = CONTEXTUAL_DATA[currentRange as keyof typeof CONTEXTUAL_DATA];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <SkeletonPage />;
+  }
 
   return (
     <div className="container pb-4">

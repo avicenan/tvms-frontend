@@ -16,18 +16,17 @@ export const appealColumns: ColumnDef<AppealType>[] = [
     accessorKey: "created_at",
     cell: ({ row }) => <span>{new Date(row.original.created_at).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}</span>,
   },
-  {
-    header: "No. Kendaraan",
-    accessorKey: "vehicle_number",
-    cell: ({}) => {
-      return (
-        <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
-          {/* {row.original.number} */}
-          B7821KKK
-        </Badge>
-      );
-    },
-  },
+  // {
+  //   header: "No. Kendaraan",
+  //   accessorKey: "vehicle_number",
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Badge variant={"outline"} className="rounded-none border-0 outline-1 outline-dark font-mono font-bold text-md">
+  //         {row.original}
+  //       </Badge>
+  //     );
+  //   },
+  // },
   {
     header: "Argumentasi",
     accessorKey: "argument",
@@ -43,16 +42,16 @@ export const appealColumns: ColumnDef<AppealType>[] = [
           variant={"outline"}
           className={` ${
             status.toLowerCase() === "pending"
-              ? "bg-yellow-100 text-yellow-800"
+              ? "bg-yellow-100 text-yellow-800 border-yellow-300"
               : status.toLowerCase() === "accepted"
-              ? "bg-green-100 text-green-800"
+              ? "bg-green-100 text-green-800 border-green-300"
               : status.toLowerCase() === "rejected"
-              ? "bg-red-100 text-red-800"
-              : "bg-gray-100 text-gray-800"
+              ? "bg-red-100 text-red-800 border-red-300"
+              : "bg-gray-100 text-gray-800 border-gray-300"
           }`}
         >
           <span className={`w-2 h-2 me-1 text-xs font-semibold rounded-full bg-zinc-400`} />
-          {status}
+          {status.toLowerCase() === "pending" ? "Menunggu" : status.toLowerCase() === "accepted" ? "Diterima" : "Ditolak"}
         </Badge>
       );
     },

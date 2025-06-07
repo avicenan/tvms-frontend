@@ -10,17 +10,17 @@ export default function AppealCard({ ticket, onUpdate }: { ticket: TicketType; o
     <Card className="">
       <CardHeader className="flex flex-wrap justify-between items-center border-b border-zinc-200">
         <span className="flex items-center gap-2 font-semibold text-lg">
-          <MessageSquare /> Banding
+          <MessageSquare className="text-primary" /> Banding
         </span>
         <Badge
           variant={"outline"}
           className={` ${
             ticket.appeal?.status.toLowerCase() === "pending"
-              ? "bg-yellow-100 text-yellow-800"
+              ? "bg-yellow-100 text-yellow-800 border-yellow-200"
               : ticket.appeal?.status.toLowerCase() === "accepted"
-              ? "bg-green-100 text-green-800"
+              ? "bg-green-100 text-green-800 border-green-200"
               : ticket.appeal?.status.toLowerCase() === "rejected"
-              ? "bg-red-100 text-red-800"
+              ? "bg-red-100 text-red-800 border-red-200"
               : "bg-gray-100 text-gray-800"
           }`}
         >

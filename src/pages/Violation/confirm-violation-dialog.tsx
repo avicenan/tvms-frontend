@@ -5,14 +5,14 @@ import { ViolationType } from "./Page";
 import { validationApi } from "@/lib/validationApi";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useAuth } from "@/context/AuthContext";
 interface ConfirmViolationDialogProps {
   violation: ViolationType;
 }
 
 export default function ConfirmViolationDialog({ violation }: ConfirmViolationDialogProps) {
   const navigate = useNavigate();
-  const user = JSON.parse(Cookies.get("user") || "{}");
+  const { user } = useAuth();
   const handleSubmit = async () => {
     try {
       const response = await validationApi.validateViolation(violation.id);

@@ -6,9 +6,9 @@ import { ActivityType } from "@/lib/types";
 export default function ActivityCard({ data }: { data: ActivityType[] }) {
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <span className="flex items-center gap-2 font-semibold text-lg">
-          <History /> Aktivitas
+          <History className="text-primary" /> Aktivitas
         </span>
 
         {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}

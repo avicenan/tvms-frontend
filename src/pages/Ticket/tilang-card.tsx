@@ -51,10 +51,10 @@ export default function TilangCard({ data }: { data: TicketType }) {
 
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Ticket className="h-5 w-5 text-primary" />
+            <Ticket className="text-primary" />
             <span className="font-semibold text-lg">Info Tilang</span>
           </div>
           <Badge variant={"outline"} className={badgeClass}>

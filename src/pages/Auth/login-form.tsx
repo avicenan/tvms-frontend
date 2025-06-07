@@ -1,4 +1,4 @@
-import { Loader2, TrafficCone } from "lucide-react";
+import { TrafficCone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,10 +83,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                 <div className="flex size-8 items-center justify-center rounded-md">
                   <TrafficCone className="size-6" />
                 </div>
-                <span className="sr-only">Acme Inc.</span>
+                <span className="sr-only">SIMPELANTAS.</span>
               </a>
               <h1 className="text-xl font-bold">
-                Sistem Informasi <br /> Pelanggaran Lalu Lintas
+                Sistem Informasi Manajemen <br /> Pelanggaran Lalu Lintas
               </h1>
             </div>
             <div className="flex flex-col gap-6">
@@ -117,14 +117,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                 )}
               />
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <span>Memeriksa...</span>
-                    <Loader2 className="size-4 animate-spin" />
-                  </span>
-                ) : (
-                  <span>Masuk</span>
-                )}
+                Masuk
               </Button>
             </div>
           </div>

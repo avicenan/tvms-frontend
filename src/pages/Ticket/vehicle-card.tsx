@@ -5,9 +5,9 @@ import { TicketType } from "@/lib/types";
 export default function VehicleCard({ data }: { data: TicketType }) {
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <div className="flex items-center gap-2">
-          <Car className="h-5 w-5 text-primary" />
+          <Car className="text-primary" />
           <span className="font-semibold text-lg">Info Kendaraan</span>
         </div>
       </CardHeader>

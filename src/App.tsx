@@ -41,8 +41,22 @@ function App() {
           <CheckTicketProvider>
             <Routes>
               <Route path="/" element={<PublicLayout />}>
-                <Route index element={<LandingPage />} />
-                <Route path="tickets" element={<MyTicket />} />
+                <Route
+                  index
+                  element={
+                    <GuestRoute>
+                      <LandingPage />
+                    </GuestRoute>
+                  }
+                />
+                <Route
+                  path="tickets"
+                  element={
+                    <GuestRoute>
+                      <MyTicket />
+                    </GuestRoute>
+                  }
+                />
                 <Route path="*" element={<PublicNotFoundPage />} />
               </Route>
               <Route path="/d" element={<MainLayout />}>

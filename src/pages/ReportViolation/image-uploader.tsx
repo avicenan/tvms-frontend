@@ -78,7 +78,7 @@ export function ImageUploader({ onImageUpload, currentImage }: ImageUploaderProp
       ) : (
         <div className="relative">
           <img src={currentImage || "/placeholder.svg"} alt="Uploaded violation" className="w-full rounded-lg object-contain max-h-[400px]" />
-          <Button type="button" variant="destructive" size={"icon"} className="absolute top-2 right-2" onClick={handleRemoveImage}>
+          <Button variant="destructive" size={"icon"} className="absolute top-2 right-2 cursor-pointer" onClick={handleRemoveImage}>
             <X className="h-4 w-4" />
           </Button>
         </div>

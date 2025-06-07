@@ -43,8 +43,10 @@ export default function TabDetail({ ticket }: { ticket: any }) {
             </div>
           </div>
 
-          <div className="flex">
-            <DollarSign className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
+          <div className="flex gap-2">
+            {/* <DollarSign className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" /> */}
+            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full border-2 border-gray-500 text-gray-500 text-[8px] font-bold p-2">Rp</span>
+
             <div>
               <div className="text-gray-500 text-xs">Jumlah Denda</div>
               <div className="font-medium dark:text-gray-400">Rp {ticket?.violation?.violation_type?.max_fine?.toLocaleString("id-ID")}</div>
@@ -55,9 +57,9 @@ export default function TabDetail({ ticket }: { ticket: any }) {
             <FileText className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
             <div>
               <div className="text-gray-500 text-xs">Deskripsi Pelanggaran</div>
-              <div className="font-medium dark:text-gray-400">
-                <div className="mb-2">{ticket?.violation?.violation_type?.regulation}</div>
-                <div>{ticket?.violation?.violation_type?.description}</div>
+              <div className=" dark:text-gray-400">
+                <div className="mb-2 font-medium">{ticket?.violation?.violation_type?.regulation}</div>
+                <div className="text-sm text-muted-foreground ">{ticket?.violation?.violation_type?.description}</div>
               </div>
             </div>
           </div>

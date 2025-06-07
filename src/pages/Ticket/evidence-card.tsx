@@ -7,7 +7,7 @@ export default function EvidenceCard({ data }: { data: ViolationType }) {
     <Card>
       <CardHeader className="border-b border-zinc-200">
         <span className="flex items-center gap-2 font-semibold text-lg">
-          <Camera /> Bukti Pelanggaran
+          <Camera className="text-primary" /> Bukti Pelanggaran
         </span>
       </CardHeader>
       <CardContent>

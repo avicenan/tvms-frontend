@@ -7,10 +7,13 @@ import MidtransPayment from "./midtransSnap";
 import { TicketType } from "@/lib/types";
 import { toast } from "sonner";
 import { Info } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function courtDialog({ ticket, disabled }: { ticket: TicketType; disabled: boolean }) {
   const [snapToken, setSnapToken] = useState("");
   const [open, setOpen] = useState(false);
+  const [courtAgreement, setCourtAgreement] = useState(false);
 
   const handleCreateTransaction = async () => {
     try {
@@ -28,12 +31,12 @@ export default function courtDialog({ ticket, disabled }: { ticket: TicketType; 
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full cursor-pointer" onClick={() => handleCreateTransaction()} disabled={disabled}>
-          Gugat Pelanggaran
+          Hadiri Sidang
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
-          <DialogTitle>Gugat Pelanggaran</DialogTitle>
+          <DialogTitle>Hadiri Sidang</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -64,11 +67,19 @@ export default function courtDialog({ ticket, disabled }: { ticket: TicketType; 
           </div>
 
           <div className="p-4 border border-yellow-200 dark:border-gray-700 bg-yellow-50 rounded-lg flex items-center gap-4">
-            <Info className="" />
+            <Info className="w-12 h-12" />
             <span className="text-sm ">Denda Harus dibayarkan sebelum gugatan dapat diajukan, jumlah denda akan disesuaikan dengan putusan pengadilan.</span>
           </div>
+
+          <div className="flex items-start gap-3 my-6">
+            <Checkbox id="terms-2" defaultChecked={courtAgreement} onCheckedChange={() => setCourtAgreement(!courtAgreement)} />
+            <div className="grid gap-2">
+              <Label htmlFor="terms-2">Saya akan menghadiri sidang</Label>
+              <p className="text-muted-foreground text-sm">Dengan menyetujui ini, Anda akan menghadiri sidang dan membayar denda titipan maksimal</p>
+            </div>
+          </div>
         </div>
-        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} paymentType="sidang" />
+        <MidtransPayment paymentDialogChange={setOpen} snapToken={snapToken} paymentType="sidang" courtAgreement={courtAgreement} />
       </DialogContent>
     </Dialog>
   );

@@ -19,7 +19,7 @@ export function NavUser({
 }) {
   const { logout } = useAuth();
   return (
-    <SidebarMenu>
+    <SidebarMenu className="group-data-[collapsible=icon]:hidden">
       <SidebarMenuItem>
         <div className="flex items-center gap-2 bg-zinc-100 rounded-md p-2">
           <Avatar className="h-8 w-8 rounded-lg">
@@ -28,12 +28,17 @@ export function NavUser({
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <div className="text-sm font-medium">
-              {user.name} {user.role === "admin" && <Badge variant="outline">Admin</Badge>}
+              {user.name}{" "}
+              {user.role === "admin" && (
+                <Badge variant="outline" className="text-xs">
+                  Admin
+                </Badge>
+              )}
             </div>
             <div className="text-xs text-zinc-500">{user.email}</div>
           </div>
-          <Button variant="ghost" size="icon" className="group" onClick={logout}>
-            <LogOut className="w-4 h-4 text-red-500 group-hover:text-red-700" />
+          <Button variant="ghost" size="icon" className="group/button cursor-pointer" onClick={logout}>
+            <LogOut className="w-4 h-4 text-red-400 group-hover/button:text-red-700" />
           </Button>
         </div>
       </SidebarMenuItem>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, ReactNode, FC, useState } from "react";
+import { createContext, useContext, useEffect, ReactNode, FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { validationApi } from "@/lib/validationApi";
@@ -17,9 +17,8 @@ export const ValidationProvider: FC<{ children: ReactNode }> = ({ children }) =>
 
   const checkValidationToken = async () => {
     console.log("CHECKING VALIDATION TOKEN....");
-    const token = Cookies.get("validation_token");
 
-    if (token && !violationId) {
+    if (!violationId) {
       handleRevokeSession();
     }
   };
@@ -27,8 +26,7 @@ export const ValidationProvider: FC<{ children: ReactNode }> = ({ children }) =>
   const handleRevokeSession = async () => {
     try {
       const activeViolationId = Cookies.get("active_violation_id");
-      const response = await validationApi.revokeSession(activeViolationId as string);
-      console.log(response.data.message, "RESPONSENYA");
+      await validationApi.revokeSession(activeViolationId as string);
       Cookies.remove("validation_token");
       Cookies.remove("active_violation_id");
       toast.warning("Waktu habis", {
@@ -36,11 +34,16 @@ export const ValidationProvider: FC<{ children: ReactNode }> = ({ children }) =>
       });
     } catch (error) {
       console.error("Error revoking validation session:", error);
+    } finally {
+      Cookies.remove("validation_token");
+      Cookies.remove("active_violation_id");
     }
   };
 
   useEffect(() => {
-    checkValidationToken();
+    if (Cookies.get("validation_token") || Cookies.get("active_violation_id")) {
+      checkValidationToken();
+    }
   }, [navigate]);
 
   //   const handleRevokeSession = async () => {
