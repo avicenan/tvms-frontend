@@ -7,7 +7,7 @@ import AppealEvidenceModal from "./appeal-evidence-modal";
 
 export default function AppealCard({ ticket, onUpdate }: { ticket: TicketType; onUpdate: (boolean: boolean) => void }) {
   return (
-    <Card className="">
+    <Card id="appeal">
       <CardHeader className="flex flex-wrap justify-between items-center border-b border-zinc-200">
         <span className="flex items-center gap-2 font-semibold text-lg">
           <MessageSquare className="text-primary" /> Banding
@@ -29,24 +29,28 @@ export default function AppealCard({ ticket, onUpdate }: { ticket: TicketType; o
         </Badge>
         {/* <span className="text-sm font-normal text-zinc-500">Tekan dua kali untuk melakukan perubahan</span> */}
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="">
         <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex text-zinc-500">Alasan</span>
-          <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">"{ticket.appeal?.argument}"</span>
+          <span className="font-normal text-sm flex text-zinc-500">Alasan</span>
+          <span className="font-medium text-sm flex-1 sm:text-right text-start text-zinc-950 dark:text-white">"{ticket.appeal?.argument}"</span>
         </div>
         <div className="flex flex-wrap justify-between items-baseline">
-          <span className="font-normal flex-1 text-zinc-500">Lampiran</span>
+          <span className="font-normal text-sm flex-1 text-zinc-500">Lampiran</span>
           {/* <div className="font-medium flex-1 sm:text-right text-start text-blue-600 hover:text-blue-500 cursor-pointer truncate dark:text-white flex justify-end gap-1 items-center">{data.appeal?.evidence.split("/").pop()}</div> */}
           {ticket.appeal?.evidence && <AppealEvidenceModal evidence={ticket.appeal.evidence} />}
         </div>
         {ticket.appeal?.note && (
           <div className="flex flex-wrap justify-between items-baseline">
-            <span className="font-normal flex-1 text-zinc-500">Catatan</span>
-            <span className="font-medium flex-1 sm:text-right text-start text-zinc-950 dark:text-white">“{ticket.appeal?.note}”</span>
+            <span className="font-normal text-sm flex-1 text-zinc-500">Catatan</span>
+            <span className="font-medium text-sm flex-1 sm:text-right text-start text-zinc-950 dark:text-white">“{ticket.appeal?.note}”</span>
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-end">{ticket.appeal?.status.toLowerCase() === "pending" && <AppealDialog ticket={ticket} onUpdate={onUpdate} />}</CardFooter>
+      {ticket.appeal?.status.toLowerCase() === "pending" && (
+        <CardFooter className="flex justify-end">
+          <AppealDialog ticket={ticket} onUpdate={onUpdate} />
+        </CardFooter>
+      )}
     </Card>
   );
 }

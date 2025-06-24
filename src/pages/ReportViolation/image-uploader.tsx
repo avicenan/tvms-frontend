@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
 
 interface ImageUploaderProps {
-  onImageUpload: (imageDataUrl: string) => void;
+  onImageUpload: (imageDataUrl: string, file: File) => void;
   currentImage: string | null;
 }
 
@@ -48,23 +48,23 @@ export function ImageUploader({ onImageUpload, currentImage }: ImageUploaderProp
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target && typeof e.target.result === "string") {
-        onImageUpload(e.target.result);
+        onImageUpload(e.target.result, file);
       }
     };
     reader.readAsDataURL(file);
   };
 
   const handleRemoveImage = () => {
-    onImageUpload("");
+    onImageUpload("", null as any);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {!currentImage ? (
-        <div className={`border-2 border-dashed rounded-lg p-6 text-center ${isDragging ? "border-primary bg-primary/5" : "border-gray-300"}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+        <div className={`border-2 border-dashed rounded-lg p-6 py-24 text-center ${isDragging ? "border-primary bg-primary/5" : "border-gray-300"}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
           <Upload className="mx-auto h-12 w-12 text-gray-400" />
           <p className="mt-2 text-sm text-gray-600">
             Tarik dan lepas gambar, atau{" "}
@@ -77,7 +77,7 @@ export function ImageUploader({ onImageUpload, currentImage }: ImageUploaderProp
         </div>
       ) : (
         <div className="relative">
-          <img src={currentImage || "/placeholder.svg"} alt="Uploaded violation" className="w-full rounded-lg object-contain max-h-[400px]" />
+          <img src={currentImage || "/placeholder.svg"} alt="Uploaded violation" className="w-full rounded-lg object-contain max-h-[400px] bg-gray-100 border border-gray-200" />
           <Button variant="destructive" size={"icon"} className="absolute top-2 right-2 cursor-pointer" onClick={handleRemoveImage}>
             <X className="h-4 w-4" />
           </Button>

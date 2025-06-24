@@ -1,5 +1,5 @@
 import { Loader2, MailPlus, Send } from "lucide-react";
-import { CardContent, CardHeader } from "@/components/ui/card";
+import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Card } from "@/components/ui/card";
 import { TicketType } from "@/lib/types";
 import NotificationIcon from "./notification-icon";
@@ -16,7 +16,6 @@ export default function NotificationCard({ ticket, onUpdate }: { ticket: TicketT
     try {
       setIsSending(true);
       const response = await sendAllNotification(ticket.id);
-      console.log(response, "response");
       toast.success("Pemberitahuan berhasil dikirim", {
         description: `
         Email: ${response.data.email ? "Dikirim" : "Gagal Mengirim"} (${response.data.email?.message}) |
@@ -32,7 +31,7 @@ export default function NotificationCard({ ticket, onUpdate }: { ticket: TicketT
   };
 
   return (
-    <Card>
+    <Card id="notification">
       <CardHeader>
         <div className="flex items-center gap-2 font-semibold text-lg">
           <MailPlus className="text-primary" /> Pemberitahuan
@@ -75,7 +74,7 @@ export default function NotificationCard({ ticket, onUpdate }: { ticket: TicketT
           </div>
         </div>
       </CardContent>
-      <CardContent className="flex flex-wrap justify-between items-end gap-2">
+      <CardFooter className="flex flex-wrap justify-between items-end gap-2">
         <span className="flex-1 text-xs font-normal text-zinc-500">Kirim sebelum {new Date(ticket.deadline_confirmation).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "numeric", year: "numeric" })}</span>
         {ticket.status !== "Sudah Bayar" && ticket.status !== "Persidangan" && ticket.status !== "Banding Diterima" && (
           <Button className="cursor-pointer" onClick={handleSendNotification} disabled={isSending}>
@@ -91,7 +90,7 @@ export default function NotificationCard({ ticket, onUpdate }: { ticket: TicketT
           </Button>
         )}
         {/* <SendNotificationDialog ticketId={data.id} /> */}
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }

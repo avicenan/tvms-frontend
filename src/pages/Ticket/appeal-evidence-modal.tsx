@@ -8,7 +8,7 @@ export default function AppealEvidenceModal({ evidence }: { evidence: string }) 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <div className="font-medium flex-1 sm:text-right text-start text-blue-600 hover:text-blue-500 cursor-pointer truncate dark:text-white flex justify-end gap-1 items-center">{data.split("/").pop()}</div>
+        <div className="font-medium text-sm flex-1 sm:text-right text-start text-blue-600 hover:text-blue-500 cursor-pointer truncate dark:text-white flex justify-end gap-1 items-center">{data.split("/").pop()}</div>
       </DialogTrigger>
       <DialogContent>
         <DialogDescription>

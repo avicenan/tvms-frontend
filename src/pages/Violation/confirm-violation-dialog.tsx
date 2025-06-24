@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 interface ConfirmViolationDialogProps {
   violation: ViolationType;
+  disabled: boolean;
 }
 
-export default function ConfirmViolationDialog({ violation }: ConfirmViolationDialogProps) {
+export default function ConfirmViolationDialog({ violation, disabled }: ConfirmViolationDialogProps) {
   const navigate = useNavigate();
   const { user } = useAuth();
   const handleSubmit = async () => {
@@ -30,7 +31,7 @@ export default function ConfirmViolationDialog({ violation }: ConfirmViolationDi
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex-1 text-2xl cursor-pointer">
+        <Button className="flex-1 text-2xl cursor-pointer" disabled={disabled}>
           <Ticket />
           Tilang
         </Button>
@@ -92,7 +93,7 @@ export default function ConfirmViolationDialog({ violation }: ConfirmViolationDi
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleSubmit} className="cursosr-pointer">
+          <Button type="submit" onClick={handleSubmit} className="cursosr-pointer" disabled={disabled}>
             Konfirmasi
           </Button>
         </DialogFooter>

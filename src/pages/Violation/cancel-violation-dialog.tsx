@@ -3,17 +3,18 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { CircleX } from "lucide-react";
 import { CancelViolationForm } from "./cancel-violation-form";
 import { ViolationType } from "./Page";
-import Cookies from "js-cookie";
+import { useAuth } from "@/context/AuthContext";
 interface CancelViolationDialogProps {
   violation: ViolationType;
+  disabled: boolean;
 }
 
-export default function CancelViolationDialog({ violation }: CancelViolationDialogProps) {
-  const user = JSON.parse(Cookies.get("user") || "{}");
+export default function CancelViolationDialog({ violation, disabled }: CancelViolationDialogProps) {
+  const { user } = useAuth();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"secondary"} className="flex-1 text-2xl cursor-pointer bg-foreground text-background hover:bg-foreground/80  ">
+        <Button variant={"secondary"} className="flex-1 text-2xl cursor-pointer bg-foreground text-background hover:bg-foreground/80 " disabled={disabled}>
           <CircleX />
           Batalkan
         </Button>

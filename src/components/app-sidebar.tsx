@@ -13,8 +13,8 @@ const data = {
   teams: [
     {
       name: "SIMPELANTAS",
+      plan: "Sistem Informasi Pelanggaran Lalu Lintas",
       logo: TrafficCone,
-      plan: "Sistem Informasi Manajemen Pelanggaran Lalu Lintas",
     },
   ],
   navMain: [

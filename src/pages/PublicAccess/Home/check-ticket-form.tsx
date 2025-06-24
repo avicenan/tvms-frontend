@@ -70,7 +70,7 @@ export default function CheckTicketForm() {
                 <span className="ml-2">Memuat...</span>
               </div>
             ) : (
-              "Cek Status Tilang"
+              "Cek Surat Tilang"
             )}
           </Button>
         </form>

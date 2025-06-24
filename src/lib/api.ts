@@ -8,6 +8,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
   withCredentials: false,
 });
@@ -98,8 +99,12 @@ export const userApi = {
 export const cameraApi = {
   getCameras: (page: number) => api.get(`/cameras?page=${page}`),
   createCamera: (data: { location: string; stream_url: string; stream_key: string; status: string }) => api.post("/cameras", data),
-  updateCamera: (id: string, data: { location: string; stream_url: string; stream_key: string; status: string }) => api.put(`/cameras/${id}`, data),
-  deleteCamera: (id: string) => api.delete(`/cameras/${id}`),
+  updateCamera: (id: number, data: { location: string; stream_url: string; stream_key: string; status: string }) => api.put(`/cameras/${id}`, data),
+  deleteCamera: (id: number) => api.delete(`/cameras/${id}`),
+};
+
+export const dashboardApi = {
+  getDashboard: () => api.get("/dashboard"),
 };
 
 export default api;

@@ -133,7 +133,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       });
       return response.data;
     } catch (error: any) {
-      console.error("Logout failed:", error);
       toast.error("Gagal keluar dari akun", {
         description: error.response?.data?.message,
       });

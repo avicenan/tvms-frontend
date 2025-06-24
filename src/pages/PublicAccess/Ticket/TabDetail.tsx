@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, Calendar, MapPin, DollarSign, Car, FileText, User, Bandage, Phone, Mail } from "lucide-react";
+import { AlertTriangle, Calendar, MapPin, Car, FileText, User, Bandage, Phone, Mail } from "lucide-react";
 
 export default function TabDetail({ ticket }: { ticket: any }) {
   console.log(ticket);

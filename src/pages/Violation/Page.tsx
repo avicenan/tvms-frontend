@@ -90,8 +90,8 @@ export default function Violation() {
     const fetchViolation = async () => {
       await startSession();
       const response = await validationApi.getViolationById(violationId as string);
-      console.log(response.data.data, "DATANYE");
       setViolation(response.data.data);
+      setVehicleNumber(response.data.data.number);
       setIsLoading(false);
       setIsEnterDialogOpen(true);
     };
@@ -127,7 +127,7 @@ export default function Violation() {
 
   const handleDoubleClick = () => {
     if (violation) {
-      setVehicleNumber(violation.vehicle_data.number);
+      // setVehicleNumber(violation.vehicle_data.number);
       setIsEditingNumber(true);
       // Focus input after state update
       setTimeout(() => {
@@ -234,7 +234,7 @@ export default function Violation() {
       <div className="flex flex-col lg:flex-row gap-4">
         <Card className="flex-1 gap-2 rounded-xl">
           <CardHeader>
-            <CardTitle>Informasi Deteksi</CardTitle>
+            <CardTitle>Informasi Deteksi {violation?.vehicle_data.number ? "" : <span className="text-sm font-medium text-red-500">(Data kendaraan tidak ditemukan)</span>}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -262,7 +262,7 @@ export default function Violation() {
                         <span>Memperbarui...</span>
                       </div>
                     ) : (
-                      violation?.vehicle_data.number
+                      vehicleNumber
                     )}
                     <Tooltip>
                       <TooltipTrigger>
@@ -277,19 +277,19 @@ export default function Violation() {
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-zinc-500">Jenis Kendaraan</div>
-                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.category}</div>
+                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.category || "-"}</div>
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-zinc-500">Merek Kendaraan</div>
-                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.brand}</div>
+                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.brand || "-"}</div>
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-zinc-500">Tipe Kendaraan</div>
-                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.type}</div>
+                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.type || "-"}</div>
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-zinc-500">Warna Kendaraan</div>
-                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.color}</div>
+                <div className="text-base font-semibold text-zinc-950">{violation?.vehicle_data.color || "-"}</div>
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-zinc-500">Jenis Pelanggaran</div>
@@ -300,8 +300,8 @@ export default function Violation() {
           </CardContent>
         </Card>
         <div className="flex flex-col gap-2 w-full lg:w-80">
-          <ConfirmViolationDialog violation={violation!} />
-          <CancelViolationDialog violation={violation!} />
+          <ConfirmViolationDialog violation={violation!} disabled={isSubmitting || !violation?.vehicle_data.number} />
+          <CancelViolationDialog violation={violation!} disabled={isSubmitting || !violation?.vehicle_data.number} />
         </div>
       </div>
       <EnterDialog open={isEnterDialogOpen} onOpenChange={() => setIsEnterDialogOpen(false)} />

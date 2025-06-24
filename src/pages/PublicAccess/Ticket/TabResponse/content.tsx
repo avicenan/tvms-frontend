@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle, CardHeader, CardDescription, CardFooter, CardContent } from "@/components/ui/card";
-import { Calendar, Scale, Upload, FileImage, Check, FileClock, FileX2, HelpCircle, InfoIcon } from "lucide-react";
+import { Calendar, Scale, Upload, FileImage, Check, FileClock, FileX2, InfoIcon } from "lucide-react";
 import UploadAppealDialog from "./appeal-dialog";
 import { useState } from "react";
 import { TicketType } from "@/lib/types";
@@ -142,7 +142,7 @@ export default function TabResponse({ ticket }: { ticket: TicketType }) {
               </div>
               <div className="">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Argumentasi</p>
-                <p className="truncate">"{ticket?.appeal?.argument ? ticket?.appeal?.argument : "-"}"</p>
+                <p className="italic">"{ticket?.appeal?.argument ? ticket?.appeal?.argument : "-"}"</p>
               </div>
               <div className="">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Bukti</p>
@@ -316,7 +316,7 @@ export default function TabResponse({ ticket }: { ticket: TicketType }) {
                   <Scale className="h-5 w-5 mr-2 text-purple-600" />
                   Hadiri Sidang
                 </CardTitle>
-                <CardDescription>Hadiri sidang untuk menentang pelanggaran ini.</CardDescription>
+                <CardDescription>Bayar uang titipan sejumlah denda maksimal dan hadiri sidang untuk menentang pelanggaran ini.</CardDescription>
               </CardHeader>
               <CardFooter>
                 <CourtDialog ticket={ticket} disabled={ticket.status !== "Himbauan"} />

@@ -1,14 +1,17 @@
 import { FlipWords } from "@/components/ui/flip-words";
 import CheckTicketForm from "./check-ticket-form";
-import { AlertCircle, Clock, FileCheck, Shield, Ticket } from "lucide-react";
+import { AlertCircle, CreditCard, FileCheck, Ticket, Scale, Upload } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="md:px-40 px-4 pt-20 pb-16 bg-gradient-to-b from-background to-zinc-50/50">
-        <div className="mx-auto max-w-7xl">
-          <div className="items-center text-center space-y-6 mb-14">
+      <div id="check-ticket" className="relative md:px-40 px-4 pt-20 pb-16 min-h-screen">
+        <img src="/hero-bg.jpeg" alt="Hero Background" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-sm"></div>
+        <div className="relative mx-auto max-w-7xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="items-center text-center space-y-6 mb-14">
             <h1 className="text-6xl font-bold text-primary flex justify-center items-center">
               <div className="hidden md:block">
                 <FlipWords words={["Cek", "Konfirmasi", "Bayar"]} duration={1000} className="text-primary" />
@@ -16,44 +19,98 @@ export default function LandingPage() {
               <div className="md:hidden mr-4">Cek</div>
               <span className="-ms-2">Tilang</span>
             </h1>
-            <p className="text-zinc-600 max-w-2xl mx-auto text-lg">Cek status tilang Anda dengan mudah dan cepat! Masukkan nomor tilang dan nomor kendaraan untuk melihat detail pelanggaran, melakukan pembayaran denda secara online.</p>
-          </div>
-          <CheckTicketForm />
+            <p className="text-zinc-800 max-w-2xl mx-auto text-lg">Cek surat tilang Anda dengan mudah dan cepat! Masukkan nomor tilang dan nomor kendaraan untuk melihat detail pelanggaran, melakukan pembayaran denda secara online.</p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            <CheckTicketForm />
+          </motion.div>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="py-20 bg-white">
+      {/* Services Section */}
+      <div id="services" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-40">
-          <h2 className="text-3xl font-bold text-center text-zinc-800 mb-12">Layanan Kami</h2>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-3xl font-bold text-center text-zinc-800 mb-12">
+            Layanan Kami
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <Ticket className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Cek Tilang Online</h3>
-              <p className="text-zinc-600">Cek status tilang Anda secara online dengan mudah dan cepat menggunakan nomor tilang atau nomor kendaraan.</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <FileCheck className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Bayar Tilang Online</h3>
-              <p className="text-zinc-600">Lakukan pembayaran denda tilang secara online dengan berbagai metode pembayaran yang tersedia.</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <AlertCircle className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Pengaduan</h3>
-              <p className="text-zinc-600">Laporkan keluhan atau saran Anda terkait layanan lalu lintas untuk perbaikan pelayanan.</p>
-            </div>
+            {[
+              {
+                icon: <Ticket className="w-6 h-6 text-primary" />,
+                title: "Cek Tilang Online",
+                description: "Cek status tilang Anda secara online dengan mudah dan cepat menggunakan nomor tilang atau nomor kendaraan.",
+              },
+              {
+                icon: <FileCheck className="w-6 h-6 text-primary" />,
+                title: "Bayar Tilang Online",
+                description: "Lakukan pembayaran denda tilang secara online dengan berbagai metode pembayaran yang tersedia.",
+              },
+              {
+                icon: <AlertCircle className="w-6 h-6 text-primary" />,
+                title: "Pengaduan",
+                description: "Laporkan keluhan atau saran Anda terkait layanan lalu lintas untuk perbaikan pelayanan.",
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors"
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-zinc-600">{service.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* About Section */}
+      <div id="about" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 lg:px-40">
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-3xl font-bold text-center text-zinc-800 mb-12">
+            3 Pilihan Penyelesaian
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <CreditCard className="w-6 h-6 text-primary" />,
+                title: "Bayar Denda Maksimal",
+                description: "Selesaikan tilang dengan cepat melalui pembayaran denda maksimal secara online. Tidak perlu menghadiri sidang.",
+              },
+              {
+                icon: <Upload className="w-6 h-6 text-primary" />,
+                title: "Unggah Bukti Banding",
+                description: "Ajukan banding dengan mengunggah bukti-bukti pendukung. Petugas akan meninjau membuat keputusan yang sesuai.",
+              },
+              {
+                icon: <Scale className="w-6 h-6 text-primary" />,
+                title: "Hadir Persidangan",
+                description: "Hadiri sidang untuk memberikan pembelaan langsung di pengadilan. Jadwal dan lokasi sidang akan diinformasikan.",
+              },
+            ].map((option, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors"
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">{option.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{option.title}</h3>
+                <p className="text-zinc-600">{option.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Info Section */}
-      <div className="py-20 bg-zinc-50">
+      {/* <div className="py-20 bg-zinc-50">
         <div className="max-w-7xl mx-auto px-4 lg:px-40">
           <h2 className="text-3xl font-bold text-center text-zinc-800 mb-12">Informasi Penting</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -81,24 +138,22 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Stats Section */}
       <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-40">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">100K+</div>
-              <div className="text-zinc-600">Tilang Diproses</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">50K+</div>
-              <div className="text-zinc-600">Pengguna Aktif</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-              <div className="text-zinc-600">Layanan Online</div>
-            </div>
+            {[
+              { number: "100K+", text: "Tilang Diproses" },
+              { number: "50K+", text: "Pengguna Aktif" },
+              { number: "24/7", text: "Layanan Online" },
+            ].map((stat, index) => (
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: index * 0.2 }}>
+                <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                <div className="text-zinc-600">{stat.text}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

@@ -63,7 +63,7 @@ const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType, courtAgr
   };
 
   return (
-    <div>
+    <div id="snap-container">
       <Button onClick={handlePayment} className="cursor-pointer w-full" disabled={snapToken === "" || (paymentType === "sidang" && !courtAgreement)}>
         Pilih Metode Pembayaran
       </Button>

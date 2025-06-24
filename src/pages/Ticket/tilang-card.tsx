@@ -85,12 +85,15 @@ export default function TilangCard({ data }: { data: TicketType }) {
               <p className="text-base">{data.investigator?.name || "-"}</p>
             </div>
             <div>
-              <p className="text-xs font-medium text-zinc-500">Lokasi</p>
-              <p className="text-base">{data.violation?.camera?.location || "-"}</p>
-            </div>
-            <div>
               <p className="text-xs font-medium text-zinc-500">Pelanggaran</p>
               <p className="text-base">{data.violation?.violation_type?.name || "-"}</p>
+              <p className="text-xs text-zinc-500">
+                ({data.violation?.violation_type?.regulation}) <br /> {data.violation?.violation_type?.description || "-"}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Lokasi</p>
+              <p className="text-base">{data.violation?.camera?.location || "-"}</p>
             </div>
           </div>
 

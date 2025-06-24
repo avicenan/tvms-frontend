@@ -89,13 +89,13 @@ export default function NewUserDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="h-8 cursor-pointer">
+        <Button variant="outline" className="h-8 cursor-pointer">
           <UserPlus className="h-4 w-4" /> Tambah
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tambah Pengguna</DialogTitle>
+          <DialogTitle>Tambah Akun</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

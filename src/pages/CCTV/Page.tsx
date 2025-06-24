@@ -3,15 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CameraType } from "@/lib/types";
 import { Cctv, Loader } from "lucide-react";
 import SkeletonPage from "./skeleton-page";
-import AddCameraDialog from "./add-camera-dialog";
+import AddCameraDialog from "./add-dialog";
 import { capitalize } from "@/lib/utils";
-
+import EditCameraDialog from "./edit-dialog";
+import DeleteDialog from "./delete-dialog";
+// import { cameraApi } from "@/lib/api";
 // Dummy data for testing with YouTube video IDs
 const dummyCameras: CameraType[] = [
   {
     id: 1,
     location: "Jalan Sudirman - Simpang 1",
-    stream_url: "https://www.youtube.com/embed/z7SiAaN4ogw",
+    stream_url: "https://www.youtube.com/embed/ByED80IKdIU",
     status: "aktif",
     stream_key: "camera1",
     created_at: "2024-03-20T00:00:00Z",
@@ -20,7 +22,7 @@ const dummyCameras: CameraType[] = [
   {
     id: 2,
     location: "Jalan Thamrin - Simpang 2",
-    stream_url: "https://www.youtube.com/embed/VR-x3HdhKLQ",
+    stream_url: "https://www.youtube.com/embed/up3rJmxI1Fo",
     status: "aktif",
     stream_key: "camera2",
     created_at: "2024-03-20T00:00:00Z",
@@ -29,7 +31,7 @@ const dummyCameras: CameraType[] = [
   {
     id: 3,
     location: "Jalan Gatot Subroto - Simpang 3",
-    stream_url: "https://www.youtube.com/embed/xRPjKQtRXR8",
+    stream_url: "https://www.youtube.com/embed/gicEyI_T8Hk",
     status: "aktif",
     stream_key: "camera3",
     created_at: "2024-03-20T00:00:00Z",
@@ -38,7 +40,7 @@ const dummyCameras: CameraType[] = [
   {
     id: 4,
     location: "Jalan Rasuna Said - Simpang 4",
-    stream_url: "https://www.youtube.com/embed/B7LBgMD_QE0",
+    stream_url: "https://www.youtube.com/embed/qMYlpMsWsBE",
     status: "aktif",
     stream_key: "camera4",
     created_at: "2024-03-20T00:00:00Z",
@@ -48,25 +50,34 @@ const dummyCameras: CameraType[] = [
 
 export default function CCTVPage() {
   const [cameras, setCameras] = useState<CameraType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadedIframes, setLoadedIframes] = useState<{ [key: number]: boolean }>({});
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  const fetchCameras = async () => {
+    try {
+      // Simulate network delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setCameras(dummyCameras);
+    } catch (error) {
+      console.error("Error fetching cameras:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Simulate API call with timeout
-    const fetchCameras = async () => {
-      try {
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setCameras(dummyCameras);
-      } catch (error) {
-        console.error("Error fetching cameras:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    setLoading(true);
     fetchCameras();
   }, []);
+
+  useEffect(() => {
+    if (isUpdated) {
+      fetchCameras();
+      setIsUpdated(false);
+    }
+  }, [isUpdated]);
 
   const handleIframeLoad = (cameraId: number) => {
     setLoadedIframes((prev) => ({
@@ -82,16 +93,20 @@ export default function CCTVPage() {
   return (
     <div className="container pb-4">
       <div className="flex justify-between items-start">
-        <h1 className="text-lg font-bold mb-4 flex gap-2 items-center">
+        <h1 className="text-sm md:text-lg font-bold mb-4 flex gap-2 items-center">
           <Cctv /> Siaran Langsung Kamera
         </h1>
-        <AddCameraDialog />
+        <AddCameraDialog onUpdate={() => setIsUpdated(true)} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cameras.map((camera) => (
           <Card key={camera.id} className="overflow-hidden">
-            <CardHeader>
+            <CardHeader className="flex justify-between items-center">
               <CardTitle>{camera.location}</CardTitle>
+              <div className="flex gap-2">
+                <EditCameraDialog camera={camera} onUpdate={() => setIsUpdated(true)} />
+                <DeleteDialog camera={camera} onUpdate={() => setIsUpdated(true)} />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="relative aspect-video bg-black rounded-lg overflow-hidden">

@@ -11,8 +11,10 @@ import { ticketApi } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { TicketType } from "@/lib/types";
 import { toast } from "sonner";
-import { ArrowLeft, Loader } from "lucide-react";
+import { ArrowLeft, Loader, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ProgressBar from "./progress-bar";
+import Ticket from "@/components/ticket/ticket";
 
 export default function TicketPage() {
   const { ticketId } = useParams();
@@ -20,6 +22,7 @@ export default function TicketPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [updateTicket, setUpdateTicket] = useState(false);
   const navigate = useNavigate();
+  const [showPdf, setShowPdf] = useState(false);
 
   const fetchTicket = async () => {
     try {
@@ -27,7 +30,6 @@ export default function TicketPage() {
       setTicket(response.data.data);
     } catch (error) {
       setIsLoading(false);
-      console.error("Error fetching ticket:", error);
       navigate("/d/tickets");
       toast.error("Surat Tilang tidak ditemukan");
     } finally {
@@ -57,6 +59,10 @@ export default function TicketPage() {
     }
   }, [updateTicket]);
 
+  const handlePrint = () => {
+    setShowPdf(true);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center gap-2 text-zinc-600 py-10">
@@ -64,7 +70,21 @@ export default function TicketPage() {
       </div>
     );
   }
-
+  if (showPdf) {
+    return (
+      <div className="h-screen flex flex-col">
+        <div className="p-4 bg-white dark:bg-gray-800 shadow">
+          <Button variant="outline" onClick={() => setShowPdf(false)} className="flex items-center">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Kembali
+          </Button>
+        </div>
+        <div className="flex-1 overflow-hidden">
+          <Ticket ticket={ticket} />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col pb-4">
       <div className="flex scroll-m-20 text-lg font-bold tracking-tight lg:text-xl mb-4 gap-4 items-center">
@@ -72,6 +92,16 @@ export default function TicketPage() {
           <ArrowLeft />
         </Button>
         Surat Tilang #{ticketId}
+      </div>
+      <div className="flex items-start gap-2 mb-4 ">
+        <div className="flex-1">
+          <ProgressBar ticket={ticket} />
+        </div>
+        <div className="flex items-center gap-2 p-3">
+          <Button variant={"ghost"} className="cursor-pointer" size={"lg"} onClick={handlePrint}>
+            <Printer />
+          </Button>
+        </div>
       </div>
       <div className="grid md:grid-cols-2 gap-4">
         <div className="grid grid-flow-row auto-rows-max gap-4 ">

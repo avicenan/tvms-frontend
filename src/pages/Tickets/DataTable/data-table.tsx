@@ -11,6 +11,7 @@ import { CardContent } from "@/components/ui/card";
 import { ticketApi } from "@/lib/api";
 import { useSearchParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 interface PaginationMeta {
   current_page: number;
@@ -44,6 +45,7 @@ export function DataTable<TData, TValue>({ columns }: DataTableProps<TData, TVal
       }));
     } catch (error) {
       console.error("Error fetching tickets:", error);
+      toast.error("Gagal mengambil data");
     } finally {
       setIsLoading(false);
     }

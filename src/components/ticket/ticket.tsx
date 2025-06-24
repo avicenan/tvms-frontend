@@ -36,11 +36,11 @@ export default function Ticket({ ticket }: TicketProps) {
             <Text style={styles.sectionTitle}>BUKTI PELANGGARAN</Text>
             <View style={styles.evidenceContainer}>
               <View style={styles.evidenceImage}>
-                <Image src={`https://placehold.co/600x400.jpg`} style={styles.image} cache={false} />
+                <Image src="/vehicle-placeholder.jpeg" style={styles.image} cache={false} />
                 <Text style={styles.imageCaption}>Foto Pelanggaran</Text>
               </View>
               <View style={styles.evidenceImage}>
-                <Image src={`https://api.etilang.web.id/storage/${ticket?.violation?.number_evidence}`} style={styles.image} cache={false} />
+                <Image src="/plate-placeholder.jpeg" style={styles.image} cache={false} />
                 <Text style={styles.imageCaption}>Foto Plat Nomor</Text>
               </View>
             </View>

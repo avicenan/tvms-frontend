@@ -43,6 +43,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       }
     } catch (error) {
       // Error is handled by the AuthContext
+      form.reset({
+        email: values.email,
+        password: "",
+      });
     }
   };
 

@@ -5,11 +5,12 @@ import { Camera } from "lucide-react";
 export default function EvidenceCard({ data }: { data: ViolationType }) {
   return (
     <Card>
-      <CardHeader className="border-b border-zinc-200">
+      <CardHeader>
         <span className="flex items-center gap-2 font-semibold text-lg">
           <Camera className="text-primary" /> Bukti Pelanggaran
         </span>
       </CardHeader>
+
       <CardContent>
         <div className="flex md:flex-wrap flex-nowrap gap-2">
           <div className="w-full flex items-center justify-center">

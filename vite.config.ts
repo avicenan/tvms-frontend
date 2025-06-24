@@ -11,4 +11,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/ocr": {
+        target: "https://ocr.cenawithc.site",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ocr/, ""),
+        secure: true,
+      },
+    },
+  },
 });
