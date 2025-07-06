@@ -33,7 +33,6 @@ export function ViolationReportForm() {
   const [detectedInfo, setDetectedInfo] = useState<DetectedViolationInfo | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [additionalNotes, setAdditionalNotes] = useState("");
 
   const handleImageUpload = (imageDataUrl: string, file: File) => {
     setImageUrl(imageDataUrl);
@@ -65,7 +64,7 @@ export function ViolationReportForm() {
         violationType: "",
         confidence: 0.3,
         timestamp: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString().slice(0, 16),
-        location: "Jl. Raya",
+        location: "Jl. Telekomunikasi",
       });
     } catch (error: any) {
       console.error("Full error:", error);
@@ -81,7 +80,7 @@ export function ViolationReportForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!detectedInfo || !numberImageFile) {
+    if (!detectedInfo) {
       toast.error("Please process the image first");
       return;
     }
@@ -93,17 +92,15 @@ export function ViolationReportForm() {
 
     try {
       setIsSubmitting(true);
-      const formData = new FormData();
-      formData.append("number", detectedInfo.plateNumber);
-      formData.append("stream_key", "1234567890");
-      formData.append("violation_evidence", imageFile);
-      formData.append("number_evidence", imageFile);
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      const response = await reportViolation(formData);
-      console.log(response);
+      // Dummy success response
+      console.log("Dummy submission successful");
       setIsSubmitted(true);
     } catch (error) {
       console.error(error);
+      toast.error("Failed to submit report");
     } finally {
       setIsSubmitting(false);
     }
@@ -114,7 +111,6 @@ export function ViolationReportForm() {
     setImageFile(null);
     setNumberImageFile(null);
     setDetectedInfo(null);
-    setAdditionalNotes("");
     setIsSubmitted(false);
   };
 
@@ -126,9 +122,6 @@ export function ViolationReportForm() {
         </CardHeader>
         <CardContent>
           <p className="mb-4">Terima kasih telah mengirimkan laporan pelanggaran lalu lintas Anda. Laporan Anda telah diterima dan akan diproses.</p>
-          <p className="mb-4">
-            Nomor referensi: <strong>{Math.random().toString(36).substring(2, 10).toUpperCase()}</strong>
-          </p>
         </CardContent>
         <CardFooter>
           <Button onClick={handleReset} className="cursor-pointer">
@@ -172,7 +165,7 @@ export function ViolationReportForm() {
               <CardTitle>Hasil Identifikasi</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <img src={imageUrl} alt="Violation Evidence" className="w-full max-h-[200px] object-contain bg-gray-100 border border-gray-200 rounded-lg" />
+              <img src={"/fwP4EyO3vxFH5DF85f0OYR3b11jkyDKIRkxyGLqv.webp"} alt="Violation Evidence" className="w-full max-h-[200px] object-contain bg-gray-100 border border-gray-200 rounded-lg" />
               <DetectedInfo detectedInfo={detectedInfo} onInfoChange={setDetectedInfo} />
             </CardContent>
             <CardFooter>

@@ -301,7 +301,7 @@ export default function Violation() {
         </Card>
         <div className="flex flex-col gap-2 w-full lg:w-80">
           <ConfirmViolationDialog violation={violation!} disabled={isSubmitting || !violation?.vehicle_data.number} />
-          <CancelViolationDialog violation={violation!} disabled={isSubmitting || !violation?.vehicle_data.number} />
+          <CancelViolationDialog violation={violation!} />
         </div>
       </div>
       <EnterDialog open={isEnterDialogOpen} onOpenChange={() => setIsEnterDialogOpen(false)} />

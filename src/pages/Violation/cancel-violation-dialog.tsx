@@ -6,7 +6,7 @@ import { ViolationType } from "./Page";
 import { useAuth } from "@/context/AuthContext";
 interface CancelViolationDialogProps {
   violation: ViolationType;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function CancelViolationDialog({ violation, disabled }: CancelViolationDialogProps) {
