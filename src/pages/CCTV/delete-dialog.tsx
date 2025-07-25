@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CameraType } from "@/lib/types";
-// import { cameraApi } from "@/lib/api";
+import { cameraApi } from "@/lib/api";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -12,7 +12,7 @@ export default function DeleteDialog({ camera, onUpdate }: { camera: CameraType;
 
   const handleDelete = async () => {
     try {
-      //   await cameraApi.deleteCamera(camera.id);
+      await cameraApi.deleteCamera(camera.id);
       setOpen(false);
       toast.success("Kamera berhasil dihapus", { description: camera.location });
       onUpdate();

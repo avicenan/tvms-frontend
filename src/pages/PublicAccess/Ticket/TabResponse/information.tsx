@@ -25,9 +25,7 @@ export default function InformationCard() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Sebelum membayar atau menghadiri sidang, Anda dapat mengunggah bukti untuk mengonfirmasi/membantah tilang yang diterima. Format bukti yang diterima termasuk JPG, PNG, PDF, dan MP4 file dengan ukuran hingga 10MB.
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Bukti yang diunggah akan dikirim ke pihak berwenang untuk diproses dalam waktu 1-2 hari kerja. Setelah diproses, Anda akan menerima notifikasi melalui email/SMS/WhatsApp.
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Bukti yang diunggah akan dikirim ke pihak berwenang untuk diproses dalam waktu 1-2 hari kerja.</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Apabila banding/bantahan Anda diterima, proses penilangan akan dihentikan. Anda tidak perlu membayar denda maupun menghadiri sidang. Namun jika bantahan ditolak, Anda tetap harus menyelesaikan proses tilang sesuai
                   ketentuan yang berlaku.
@@ -43,9 +41,7 @@ export default function InformationCard() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Anda dapat membayar denda maksimal sesuai dengan pelanggaran yang dilakukan melalui berbagai metode pembayaran seperti kartu kredit, kartu debit, e-wallet, atau transfer bank.
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Pembayaran denda maksimal harus dilakukan sebelum tanggal jatuh tempo untuk menghindari penalti tambahan. Sebuah bukti pembayaran akan dikirim ke Anda melalui email/SMS/WhatsApp setelah pembayaran diproses.
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Pembayaran denda maksimal harus dilakukan sebelum tanggal jatuh tempo untuk menghindari penalti tambahan.</p>
               </div>
             </AccordionContent>
           </AccordionItem>

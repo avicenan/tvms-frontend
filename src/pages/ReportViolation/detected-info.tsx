@@ -22,7 +22,7 @@ export function DetectedInfo({ detectedInfo, onInfoChange }: DetectedInfoProps) 
     <div className="grid gap-4 md:grid-cols-2">
       <div className="space-y-2">
         <Label htmlFor="plate-number">Plat Nomor Kendaraan</Label>
-        <Input id="plate-number" value={detectedInfo.plateNumber} onChange={(e) => handleChange("plateNumber", e.target.value)} placeholder="Plat nomor kendaraan" />
+        <Input id="plate-number" value={detectedInfo.number} onChange={(e) => handleChange("number", e.target.value)} placeholder="Plat nomor kendaraan" />
         <p className="text-xs text-muted-foreground">Kepercayaan: {Math.round(detectedInfo.confidence * 100)}%</p>
       </div>
 
@@ -33,10 +33,7 @@ export function DetectedInfo({ detectedInfo, onInfoChange }: DetectedInfoProps) 
             <SelectValue placeholder="Pilih jenis pelanggaran" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="speeding">Melampaui batas kecepatan</SelectItem>
             <SelectItem value="helmet">Tidak memakai helm</SelectItem>
-            <SelectItem value="red-light">Melintasi lampu merah</SelectItem>
-            <SelectItem value="other">Lainnya</SelectItem>
           </SelectContent>
         </Select>
       </div>

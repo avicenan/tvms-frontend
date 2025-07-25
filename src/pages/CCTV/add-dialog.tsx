@@ -6,16 +6,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-// import { cameraApi } from "@/lib/api";
+import { cameraApi } from "@/lib/api";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const formSchema = z.object({
   location: z.string().min(1, "Lokasi harus diisi"),
-  stream_url: z.string().url("URL stream tidak valid").min(1, "URL stream harus diisi"),
+  server_url: z.string().url("URL stream tidak valid").min(1, "URL stream harus diisi"),
   stream_key: z.string().min(1, "Stream key harus diisi"),
-  status: z.string().default("Aktif"),
+  status: z.string().min(1, "Status tidak boleh kosong"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -27,18 +27,17 @@ export default function AddCameraDialog({ onUpdate }: { onUpdate: () => void }) 
     resolver: zodResolver(formSchema),
     defaultValues: {
       location: "",
-      stream_url: "",
+      server_url: "",
       stream_key: "",
-      status: "Aktif",
+      status: "",
     },
   });
 
   const onSubmit = async (data: FormValues) => {
     try {
-      // await cameraApi.createCamera({
-      //   ...data,
-      //   status: data.status,
-      // });
+      await cameraApi.createCamera({
+        ...data,
+      });
       form.reset();
       setOpen(false);
       toast.success("Kamera berhasil ditambahkan", { description: data.location });
@@ -76,7 +75,7 @@ export default function AddCameraDialog({ onUpdate }: { onUpdate: () => void }) 
             />
             <FormField
               control={form.control}
-              name="stream_url"
+              name="server_url"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>URL Stream</FormLabel>
@@ -113,9 +112,8 @@ export default function AddCameraDialog({ onUpdate }: { onUpdate: () => void }) 
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Aktif">Aktif</SelectItem>
-                      <SelectItem value="Perbaikan">Perbaikan</SelectItem>
-                      <SelectItem value="Tidak Aktif">Tidak Aktif</SelectItem>
+                      <SelectItem value="active">Aktif</SelectItem>
+                      <SelectItem value="inactive">Tidak Aktif</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

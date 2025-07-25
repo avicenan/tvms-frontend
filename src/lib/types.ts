@@ -49,10 +49,9 @@ export type PaymentType = {
 export type CameraType = {
   id: number;
   location: string;
-  stream_url: string;
-  status: string;
+  server_url: string;
+  status?: string;
   stream_key: string;
-  created_at?: string;
   updated_at?: string;
 };
 
@@ -62,6 +61,7 @@ export type ViolationType = {
   number_evidence: string;
   status: string;
   violation_evidence: string;
+  location: string;
   camera_id?: number;
   camera?: CameraType;
   vehicle_data: VehicleType;

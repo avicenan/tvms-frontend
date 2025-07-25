@@ -4,49 +4,45 @@ import { CameraType } from "@/lib/types";
 import { Cctv, Loader } from "lucide-react";
 import SkeletonPage from "./skeleton-page";
 import AddCameraDialog from "./add-dialog";
-import { capitalize } from "@/lib/utils";
 import EditCameraDialog from "./edit-dialog";
 import DeleteDialog from "./delete-dialog";
+import { cameraApi } from "@/lib/api";
 // import { cameraApi } from "@/lib/api";
 // Dummy data for testing with YouTube video IDs
-const dummyCameras: CameraType[] = [
-  {
-    id: 1,
-    location: "Jalan Sudirman - Simpang 1",
-    stream_url: "https://www.youtube.com/embed/ByED80IKdIU",
-    status: "aktif",
-    stream_key: "camera1",
-    created_at: "2024-03-20T00:00:00Z",
-    updated_at: "2024-03-20T00:00:00Z",
-  },
-  {
-    id: 2,
-    location: "Jalan Thamrin - Simpang 2",
-    stream_url: "https://www.youtube.com/embed/up3rJmxI1Fo",
-    status: "aktif",
-    stream_key: "camera2",
-    created_at: "2024-03-20T00:00:00Z",
-    updated_at: "2024-03-20T00:00:00Z",
-  },
-  {
-    id: 3,
-    location: "Jalan Gatot Subroto - Simpang 3",
-    stream_url: "https://www.youtube.com/embed/gicEyI_T8Hk",
-    status: "aktif",
-    stream_key: "camera3",
-    created_at: "2024-03-20T00:00:00Z",
-    updated_at: "2024-03-20T00:00:00Z",
-  },
-  {
-    id: 4,
-    location: "Jalan Rasuna Said - Simpang 4",
-    stream_url: "https://www.youtube.com/embed/qMYlpMsWsBE",
-    status: "aktif",
-    stream_key: "camera4",
-    created_at: "2024-03-20T00:00:00Z",
-    updated_at: "2024-03-20T00:00:00Z",
-  },
-];
+// const dummyCameras: CameraType[] = [
+//   {
+//     id: 1,
+//     location: "Jalan Sudirman - Simpang 1",
+//     server_url: "https://www.youtube.com/embed/ByED80IKdIU",
+//     stream_key: "camera1",
+//     status: "active",
+//     updated_at: "2024-03-20T00:00:00Z",
+//   },
+//   {
+//     id: 2,
+//     location: "Jalan Thamrin - Simpang 2",
+//     server_url: "https://www.youtube.com/embed/up3rJmxI1Fo",
+//     stream_key: "camera2",
+//     status: "active",
+//     updated_at: "2024-03-20T00:00:00Z",
+//   },
+//   {
+//     id: 3,
+//     location: "Jalan Gatot Subroto - Simpang 3",
+//     server_url: "https://www.youtube.com/embed/gicEyI_T8Hk",
+//     stream_key: "camera3",
+//     status: "active",
+//     updated_at: "2024-03-20T00:00:00Z",
+//   },
+//   {
+//     id: 4,
+//     location: "Jalan Rasuna Said - Simpang 4",
+//     server_url: "https://www.youtube.com/embed/qMYlpMsWsBE",
+//     stream_key: "camera4",
+//     status: "active",
+//     updated_at: "2024-03-20T00:00:00Z",
+//   },
+// ];
 
 export default function CCTVPage() {
   const [cameras, setCameras] = useState<CameraType[]>([]);
@@ -56,9 +52,8 @@ export default function CCTVPage() {
 
   const fetchCameras = async () => {
     try {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setCameras(dummyCameras);
+      const res = await cameraApi.getCameras();
+      setCameras(res.data.data);
     } catch (error) {
       console.error("Error fetching cameras:", error);
     } finally {
@@ -67,7 +62,6 @@ export default function CCTVPage() {
   };
 
   useEffect(() => {
-    // Simulate API call with timeout
     setLoading(true);
     fetchCameras();
   }, []);
@@ -120,14 +114,14 @@ export default function CCTVPage() {
                 )}
                 <iframe
                   className="w-full h-full"
-                  src={camera.stream_url}
+                  src={camera.server_url}
                   title={`Live Stream - ${camera.location}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                   onLoad={() => handleIframeLoad(camera.id)}
                 />
-                <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">{capitalize(camera.status)}</div>
+                {/* <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">{capitalize(camera.status)}</div> */}
               </div>
             </CardContent>
           </Card>

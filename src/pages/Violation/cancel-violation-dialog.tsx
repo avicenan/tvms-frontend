@@ -56,7 +56,7 @@ export default function CancelViolationDialog({ violation, disabled }: CancelVio
           <div className="space-y-1">
             <div className="text-sm font-medium text-zinc-500">Lokasi & Waktu</div>
             <div className="text-base">
-              {violation.camera.location} -{" "}
+              {violation.location} -{" "}
               {new Date(violation.created_at).toLocaleString("id-ID", {
                 weekday: "long",
                 year: "numeric",

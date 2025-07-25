@@ -20,16 +20,17 @@ import { Button } from "@/components/ui/button";
 export type ViolationType = {
   id: string;
   status: string;
-  camera_id: number;
+  camera_id: number | null;
+  location: string;
   camera: {
     id: number;
-    location: string;
+    location: string | null;
     stream_key: string;
     server_url: string;
     status: string;
     created_at: string | null;
     updated_at: string | null;
-  };
+  } | null;
   violation_evidence: string;
   number_evidence: string;
   violation_type_id: number;
@@ -90,6 +91,7 @@ export default function Violation() {
     const fetchViolation = async () => {
       await startSession();
       const response = await validationApi.getViolationById(violationId as string);
+      console.log(response.data.data);
       setViolation(response.data.data);
       setVehicleNumber(response.data.data.number);
       setIsLoading(false);
@@ -219,14 +221,14 @@ export default function Violation() {
             <img src={`https://api.etilang.web.id/storage/${violation?.number_evidence}`} alt={violation?.number_evidence} className=" object-contain min-w-100 max-h-20 bg-zinc-100 rounded-lg" />
             <img src={`https://api.etilang.web.id/storage/${violation?.number_evidence}`} alt={violation?.number_evidence} className="object-contain min-w-100 max-h-20 bg-zinc-100 rounded-lg" />
             <div className="flex flex-col gap-1 p-2 bg-zinc-100 rounded-lg">
-              <div className="font-medium text-zinc-900">{violation?.camera.location}</div>
+              <div className="font-medium text-zinc-900">{violation?.location}</div>
               <div className="text-sm text-zinc-600">
                 {new Date(violation?.created_at || "").toLocaleString("id-ID", {
                   dateStyle: "full",
                   timeStyle: "medium",
                 })}
               </div>
-              <div className="text-sm font-medium text-zinc-700">CCTV {violation?.camera.stream_key}</div>
+              <div className="text-sm font-medium text-zinc-700">{violation?.camera ? `CCTV ${violation.camera.stream_key}` : "Laporan Manual"}</div>
             </div>
           </div>
         </CardContent>

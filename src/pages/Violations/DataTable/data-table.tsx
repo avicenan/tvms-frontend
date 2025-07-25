@@ -41,6 +41,7 @@ export function DataTable<TData, TValue>({ columns }: DataTableProps<TData, TVal
         ...Object.fromEntries(prev),
         page: pageNumber.toString(),
       }));
+      console.log(response.data.data);
     } catch (error) {
       console.error("Error fetching violations:", error);
     } finally {

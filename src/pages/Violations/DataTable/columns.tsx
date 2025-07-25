@@ -70,7 +70,7 @@ export const columns: ColumnDef<Violation>[] = [
     },
   },
   {
-    accessorKey: "camera.location",
+    accessorKey: "location",
     header: "Lokasi",
     cell: ({ row }) => {
       const location = row.original.location;

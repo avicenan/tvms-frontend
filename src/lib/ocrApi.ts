@@ -1,17 +1,14 @@
 import axios from "axios";
 
-// CORS proxy for production fallback
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-
 // Use proxy URL in development to avoid CORS issues
-// For production, we can use a CORS proxy if the server doesn't support CORS
+// For production, use direct API call once CORS is configured on the Flask server
 const getApiUrl = () => {
   if (import.meta.env.DEV) {
     return "/ocr";
   }
 
-  // In production, try direct URL first, fallback to CORS proxy if needed
-  return "https://ocr.cenawithc.site";
+  // In production, use direct API call
+  return "https://ocr2.cenawithc.site";
 };
 
 const API_URL = getApiUrl();
@@ -25,22 +22,12 @@ const api = axios.create({
   timeout: 30000, // 30 second timeout
 });
 
-// Create a fallback API instance with CORS proxy
-const corsProxyApi = axios.create({
-  baseURL: CORS_PROXY + "https://ocr.cenawithc.site",
-  headers: {
-    Accept: "*/*",
-  },
-  withCredentials: false,
-  timeout: 30000,
-});
-
 // Add error interceptor to handle CORS errors
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.code === "ERR_NETWORK" || error.message.includes("CORS")) {
-      console.warn("CORS error detected, this might be a server configuration issue");
+    if (error.code === "ERR_NETWORK" || error.message.includes("CORS") || error.response?.status === 403 || error.response?.status === 0) {
+      console.warn("CORS error detected. Make sure CORS is configured on the Flask server.");
     }
     return Promise.reject(error);
   }
@@ -54,25 +41,44 @@ export const ocrApi = {
       throw new Error("No file found in FormData");
     }
 
-    // console.log("Sending file to OCR API:", {
-    //   fileName: file instanceof File ? file.name : "Unknown",
-    //   fileSize: file instanceof File ? file.size : "Unknown",
-    //   fileType: file instanceof File ? file.type : "Unknown",
-    // });
+    if (!(file instanceof File)) {
+      throw new Error("FormData 'file' is not a File object");
+    }
 
-    // console.log("API URL:", API_URL);
-    // console.log("Full request URL:", `${API_URL}/detect`);
+    console.log("Sending file to OCR API:", {
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+    });
+
+    // Debug: Log all FormData entries
+    console.log("FormData entries:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value instanceof File ? `File: ${value.name} (${value.size} bytes)` : value);
+    }
+
+    console.log("API URL:", API_URL);
+    console.log("Full request URL:", `${API_URL}/detect`);
+    console.log("Environment:", import.meta.env.MODE);
 
     try {
-      // Try direct API call first
-      return await api.post(`/detect`, formData);
+      const response = await api.post(`/detect`, formData);
+      console.log("OCR API Response:", response.status, response.statusText);
+      return response;
     } catch (error: any) {
       console.error("OCR API Error:", error);
-      // If CORS error in production, try with CORS proxy
-      if (!import.meta.env.DEV && (error.code === "ERR_NETWORK" || error.message.includes("CORS"))) {
-        // console.log("Retrying with CORS proxy...");
-        return await corsProxyApi.post(`/detect`, formData);
-      }
+      console.error("Error details:", {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        message: error.message,
+        code: error.code,
+        config: {
+          url: error.config?.url,
+          method: error.config?.method,
+          headers: error.config?.headers,
+        },
+      });
+
       throw error;
     }
   },

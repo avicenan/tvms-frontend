@@ -1,127 +1,190 @@
 "use client";
 
-import type React from "react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { ImageUploader } from "./image-uploader";
-import { DetectedInfo } from "./detected-info";
-// import { processViolationImage } from "./process-image";
-import { toast } from "sonner";
 import { ocrApi } from "@/lib/ocrApi";
 import { reportViolation } from "@/lib/reportViolationApi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export type ViolationType = "speeding" | "parking" | "red-light" | "other";
 
 export interface DetectedViolationInfo {
-  plateNumber: string;
+  number: string;
   violationType: ViolationType | "";
   confidence: number;
   timestamp: string;
-  location?: string;
+  location: string;
 }
 
+const ViolationReportSchema = z.object({
+  number: z.string().min(1, "Nomor plat tidak boleh kosong"),
+  violationType: z.string().min(1, "Jenis pelanggaran harus dipilih"),
+  timestamp: z.string().min(1, "Tanggal & waktu tidak boleh kosong"),
+  location: z.string().min(1, "Lokasi pelanggaran tidak boleh kosong"),
+  imageFile: z.instanceof(File, { message: "Bukti foto wajib diunggah" }),
+});
+
+type ViolationReportFormType = z.infer<typeof ViolationReportSchema>;
+
 export function ViolationReportForm() {
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [numberImageFile, setNumberImageFile] = useState<File | null>(null);
+  const form = useForm<ViolationReportFormType>({
+    resolver: zodResolver(ViolationReportSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      number: "",
+      violationType: "",
+      timestamp: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString().slice(0, 16),
+      location: "",
+      imageFile: undefined as any,
+    },
+  });
   const [isProcessing, setIsProcessing] = useState(false);
-  const [detectedInfo, setDetectedInfo] = useState<DetectedViolationInfo | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(false);
+  const [submittedData, setSubmittedData] = useState<ViolationReportFormType | null>(null);
+  const [decodedNumberEvidence, setDecodedNumberEvidence] = useState<string>("");
+  const [numberEvidenceBase64, setNumberEvidenceBase64] = useState<string>("");
 
-  const handleImageUpload = (imageDataUrl: string, file: File) => {
-    setImageUrl(imageDataUrl);
-    setImageFile(file);
-    setDetectedInfo(null);
-  };
-
+  // OCR logic (optional, can be integrated with form.setValue)
   const handleProcessImage = async () => {
-    if (!imageUrl || !imageFile) {
-      toast.error("Please upload an image first");
+    const imageFile = form.getValues("imageFile");
+    if (!imageFile) {
+      form.setError("imageFile", { message: "Bukti foto wajib diunggah" });
       return;
     }
-
     setIsProcessing(true);
-
     try {
       const formData = new FormData();
       formData.append("file", imageFile);
-
-      // console.log("FormData contents:");
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(key, value);
-      // }
-
       const result = await ocrApi.detect(formData);
-      console.log(result.data.local_result);
-      setDetectedInfo({
-        plateNumber: result.data.local_result.number,
-        violationType: "",
-        confidence: 0.3,
-        timestamp: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString().slice(0, 16),
-        location: "Jl. Telekomunikasi",
-      });
-    } catch (error: any) {
-      console.error("Full error:", error);
-      console.error("Error response:", error.response?.data);
-      toast.error("Gagal memproses foto", {
-        description: error.response?.data?.message || error.message || (error as string),
-      });
+
+      if (!result || !result.data) {
+        form.setValue("number", "Tidak terdeteksi");
+        setDecodedNumberEvidence("");
+      } else {
+        // Handle the OCR response
+        if (result.data.number) {
+          form.setValue("number", result.data.number);
+        } else {
+          form.setValue("number", "Tidak terdeteksi");
+        }
+
+        // Decode and store number_evidence if it exists in the response
+        if (result.data.number_evidence) {
+          try {
+            // Store the base64 string for form submission
+            setNumberEvidenceBase64(result.data.number_evidence);
+
+            // Convert base64 to blob URL for display
+            const byteCharacters = atob(result.data.number_evidence);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: "image/jpeg" });
+            const blobUrl = URL.createObjectURL(blob);
+            setDecodedNumberEvidence(blobUrl);
+          } catch (error) {
+            console.error("Error decoding number_evidence:", error);
+            setDecodedNumberEvidence("");
+            setNumberEvidenceBase64("");
+          }
+        } else {
+          setDecodedNumberEvidence("");
+          setNumberEvidenceBase64("");
+        }
+      }
+      setIsProcessed(true);
+    } catch (error) {
+      console.error("OCR processing error:", error);
+      form.setValue("number", "Tidak terdeteksi");
+      setDecodedNumberEvidence("");
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!detectedInfo) {
-      toast.error("Please process the image first");
-      return;
-    }
-
-    if (!imageFile) {
-      toast.error("Please upload an image first");
-      return;
-    }
-
+  const onSubmit = async (data: ViolationReportFormType) => {
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const formData = new FormData();
+      formData.append("number", data.number);
+      formData.append("violation_evidence", data.imageFile);
 
-      // Dummy success response
-      console.log("Dummy submission successful");
+      // Send the base64 number_evidence if available, otherwise send the original image
+      if (numberEvidenceBase64) {
+        // Convert base64 string to blob for FormData
+        const byteCharacters = atob(numberEvidenceBase64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const numberEvidenceBlob = new Blob([byteArray], { type: "image/jpeg" });
+        formData.append("number_evidence", numberEvidenceBlob, "number_evidence.jpg");
+      } else {
+        formData.append("number_evidence", data.imageFile);
+      }
+
+      formData.append("location", data.location);
+      await reportViolation(formData);
+      setSubmittedData(data);
       setIsSubmitted(true);
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to submit report");
+      // Optionally set a global error
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleReset = () => {
-    setImageUrl("");
-    setImageFile(null);
-    setNumberImageFile(null);
-    setDetectedInfo(null);
+    form.reset();
     setIsSubmitted(false);
+    setIsProcessed(false);
+    setDecodedNumberEvidence("");
+    setNumberEvidenceBase64("");
   };
 
-  if (isSubmitted) {
+  const handleImageUpload = (imageDataUrl: string, file: File | null) => {
+    if (file) {
+      form.setValue("imageFile", file);
+      setDecodedNumberEvidence(imageDataUrl);
+    } else {
+      // Image was removed - hide the hasil identifikasi section
+      form.setValue("imageFile", undefined as any);
+      setIsProcessed(false);
+      setNumberEvidenceBase64("");
+    }
+  };
+
+  if (isSubmitted && submittedData) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Laporan Berhasil Dikirim</CardTitle>
+          <CardTitle>Laporan Anda telah diterima dan akan diproses.</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="mb-4">Terima kasih telah mengirimkan laporan pelanggaran lalu lintas Anda. Laporan Anda telah diterima dan akan diproses.</p>
+          <div className="mb-4 space-y-2">
+            <div>
+              <strong>Plat Nomor:</strong> {submittedData.number}
+            </div>
+            <div>
+              <strong>Tanggal & Waktu:</strong> {submittedData.timestamp}
+            </div>
+            <div>
+              <strong>Lokasi:</strong> {submittedData.location}
+            </div>
+          </div>
         </CardContent>
         <CardFooter>
           <Button onClick={handleReset} className="cursor-pointer">
@@ -133,81 +196,136 @@ export function ViolationReportForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full grid grid-cols-1 md:grid-cols-5 md:gap-4 gap-2">
-      <Card className="md:col-span-3">
-        <CardHeader>
-          <CardTitle>Unggah Foto Pelanggaran</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ImageUploader onImageUpload={handleImageUpload} currentImage={imageUrl} />
-
-          {imageUrl && !detectedInfo && (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full grid grid-cols-1 md:grid-cols-5 md:gap-4 gap-2">
+        <Card className="md:col-span-3">
+          <CardHeader>
+            <CardTitle>Unggah Foto Pelanggaran</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={form.control}
+              name="imageFile"
+              render={({ field: _ }) => (
+                <FormItem>
+                  <FormLabel>Bukti Foto</FormLabel>
+                  <FormControl>
+                    <Controller control={form.control} name="imageFile" render={({ field: { value } }) => <ImageUploader onImageUpload={handleImageUpload} currentImage={value ? URL.createObjectURL(value) : ""} />} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="mt-4">
-              <Button type="button" onClick={handleProcessImage} disabled={isProcessing} className="cursor-pointer">
-                {isProcessing ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Mengidentifikasi foto...
-                  </>
-                ) : (
-                  "Proses Foto"
-                )}
-              </Button>
+              {!isProcessed && (
+                <Button type="button" onClick={handleProcessImage} disabled={isProcessing} className="cursor-pointer">
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Mengidentifikasi foto...
+                    </>
+                  ) : (
+                    "Proses"
+                  )}
+                </Button>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+        {isProcessed && (
+          <div className="md:col-span-2 space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Hasil Identifikasi</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4">
+                <FormField
+                  control={form.control}
+                  name="number"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Plat Nomor Kendaraan</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="Plat nomor kendaraan" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-      {detectedInfo && (
-        <div className="md:col-span-2 space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Hasil Identifikasi</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4">
-              <img src={"/fwP4EyO3vxFH5DF85f0OYR3b11jkyDKIRkxyGLqv.webp"} alt="Violation Evidence" className="w-full max-h-[200px] object-contain bg-gray-100 border border-gray-200 rounded-lg" />
-              <DetectedInfo detectedInfo={detectedInfo} onInfoChange={setDetectedInfo} />
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Mengirim...
-                  </>
-                ) : (
-                  "Kirim Laporan"
+                {/* Display decoded number_evidence if available */}
+                {decodedNumberEvidence && (
+                  <div className="space-y-2">
+                    <FormLabel>Bukti Deteksi Plat</FormLabel>
+                    <div className="border rounded-md p-2 flex justify-center">
+                      <img src={decodedNumberEvidence} alt="Detected license plate" className="max-w-full h-auto max-h-32 object-contain" />
+                    </div>
+                  </div>
                 )}
-              </Button>
-            </CardFooter>
-          </Card>
-          {/* <Card>
-            <CardHeader>
-              <CardTitle>Informasi Lainnya</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="additional-notes">Catatan Tambahan</Label>
-                  <Textarea id="additional-notes" placeholder="Berikan detail tambahan mengenai pelanggaran" rows={4} value={additionalNotes} onChange={(e) => setAdditionalNotes(e.target.value)} />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Mengirim...
-                  </>
-                ) : (
-                  "Kirim Laporan"
-                )}
-              </Button>
-            </CardFooter>
-          </Card> */}
-        </div>
-      )}
-    </form>
+
+                <FormField
+                  control={form.control}
+                  name="violationType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Jenis Pelanggaran</FormLabel>
+                      <FormControl>
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger id="violation-type">
+                            <SelectValue placeholder="Pilih jenis pelanggaran" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="helmet">Tidak memakai helm</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="timestamp"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tanggal & Waktu</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="datetime-local" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Lokasi</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="Masukkan lokasi" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Mengirim...
+                    </>
+                  ) : (
+                    "Kirim Laporan"
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        )}
+      </form>
+    </Form>
   );
 }

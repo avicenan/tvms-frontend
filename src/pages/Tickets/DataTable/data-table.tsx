@@ -43,6 +43,7 @@ export function DataTable<TData, TValue>({ columns }: DataTableProps<TData, TVal
         ...Object.fromEntries(prev),
         page: pageNumber.toString(),
       }));
+      console.log("anu", response.data.data);
     } catch (error) {
       console.error("Error fetching tickets:", error);
       toast.error("Gagal mengambil data");

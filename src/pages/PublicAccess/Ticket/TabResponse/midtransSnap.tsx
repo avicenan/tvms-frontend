@@ -22,7 +22,7 @@ const MidtransPayment = ({ paymentDialogChange, snapToken, paymentType, courtAgr
             navigate(`/tickets?vno=${ticket?.violation?.vehicle_data?.number}&tno=${ticket?.id}&t=response`);
             await reFetchTicket();
             toast.success("Pembayaran Berhasil", {
-              description: `Pembayaran ${result.gross_amount} untuk ${ticket?.violation?.vehicle_data?.number} berhasil dilakukan, silahkan cek email untuk melihat detail pembayaran`,
+              description: `Pembayaran ${result.gross_amount} untuk ${ticket?.violation?.vehicle_data?.number} berhasil dilakukan.`,
             });
             if (paymentType === "sidang") {
               await attendCourtHearing(ticket?.id);

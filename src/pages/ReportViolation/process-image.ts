@@ -29,7 +29,7 @@ export async function processViolationImage(): Promise<DetectedViolationInfo> {
   const timestamp = now.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:MM
 
   return {
-    plateNumber,
+    number: plateNumber,
     violationType,
     confidence: 0.75 + Math.random() * 0.2, // Random confidence between 75% and 95%
     timestamp,

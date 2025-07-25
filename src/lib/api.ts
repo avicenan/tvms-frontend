@@ -97,9 +97,9 @@ export const userApi = {
 };
 
 export const cameraApi = {
-  getCameras: (page: number) => api.get(`/cameras?page=${page}`),
-  createCamera: (data: { location: string; stream_url: string; stream_key: string; status: string }) => api.post("/cameras", data),
-  updateCamera: (id: number, data: { location: string; stream_url: string; stream_key: string; status: string }) => api.put(`/cameras/${id}`, data),
+  getCameras: () => api.get(`/cameras`),
+  createCamera: (data: { location: string; server_url: string; stream_key: string; status: string }) => api.post("/cameras", data),
+  updateCamera: (id: number, data: { location: string; server_url: string; status: string }) => api.put(`/cameras/${id}`, data),
   deleteCamera: (id: number) => api.delete(`/cameras/${id}`),
 };
 

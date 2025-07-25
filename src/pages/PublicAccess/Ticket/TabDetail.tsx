@@ -31,7 +31,7 @@ export default function TabDetail({ ticket }: { ticket: any }) {
             <MapPin className="h-5 w-5 mt-1 text-gray-500 mr-3 flex-shrink-0" />
             <div>
               <div className="text-gray-500 text-xs">Lokasi</div>
-              <div className="font-medium dark:text-gray-400">{ticket?.violation?.camera?.location}</div>
+              <div className="font-medium dark:text-gray-400">{ticket?.location ? ticket?.location : "-"}</div>
             </div>
           </div>
 

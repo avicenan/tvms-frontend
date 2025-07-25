@@ -93,7 +93,7 @@ export default function TilangCard({ data }: { data: TicketType }) {
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500">Lokasi</p>
-              <p className="text-base">{data.violation?.camera?.location || "-"}</p>
+              <p className="text-base">{data.violation?.location || "-"}</p>
             </div>
           </div>
 
